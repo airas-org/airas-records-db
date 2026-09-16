@@ -65,6 +65,7 @@ jobs:
 
           python3 - <<'PY'
           import json
+          import shutil
           from datetime import datetime, timezone
           from pathlib import Path
 
@@ -76,6 +77,10 @@ jobs:
                   continue
               repo, sha = line.split()
               record = json.loads(Path(f"records/{repo}/{sha}/record.json").read_text())
+              if not (record.get("hypotheses") or record.get("literature")):
+                  # The empty record a fresh repository ships: nothing to search or cite.
+                  shutil.rmtree(f"records/{repo}/{sha}", ignore_errors=True)
+                  continue
               realized = any(
                   run.get("results")
                   for h in record.get("hypotheses", [])
