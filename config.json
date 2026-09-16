@@ -1,0 +1,4 @@
+{
+  "orgs": ["airas-org"],
+  "templates": ["mdpi", "iclr2024", "agents4science_2025"]
+}

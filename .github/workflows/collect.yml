@@ -1,0 +1,111 @@
+name: "Collect records"
+run-name: "🗃️ Collect the records whose gate passed"
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    name: Copy each gate-passing record and update the manifest
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Collect
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          orgs=$(jq -r '.orgs[]' config.json)
+          templates=$(jq -r '.templates[]' config.json)
+          collected=collected.txt
+          : > "$collected"
+
+          for org in $orgs; do
+            gh repo list "$org" --visibility public --limit 1000 \
+              --json nameWithOwner,defaultBranchRef \
+              --jq '.[] | select(.defaultBranchRef != null) | "\(.nameWithOwner) \(.defaultBranchRef.name)"'
+          done | while read -r repo branch; do
+            sha=$(gh api "repos/$repo/commits/$branch" --jq .sha 2>/dev/null) || continue
+            gh api "repos/$repo/contents/.research/record.json?ref=$sha" --jq .sha > /dev/null 2>&1 || continue
+            passed=$(gh api "repos/$repo/commits/$sha/check-runs?per_page=100" \
+              --jq '[.check_runs[] | select(.name == "Verify the record" or .name == "Verify the paper") | select(.conclusion == "success") | .name] | unique | length')
+            if [ "$passed" != "2" ]; then
+              echo "skip $repo@${sha::12}: gate not green ($passed/2)"
+              continue
+            fi
+            dir="records/$repo/$sha"
+            if [ ! -f "$dir/record.json" ]; then
+              mkdir -p "$dir"
+              gh api -H "Accept: application/vnd.github.raw" \
+                "repos/$repo/contents/.research/record.json?ref=$sha" > "$dir/record.json"
+              for tpl in $templates; do
+                for name in claims.tex main.tex; do
+                  [ -f "$dir/$name" ] && continue
+                  gh api -H "Accept: application/vnd.github.raw" \
+                    "repos/$repo/contents/.research/latex/$tpl/$name?ref=$sha" > "$dir/$name" 2>/dev/null \
+                    || rm -f "$dir/$name"
+                done
+              done
+              echo "copied $repo@${sha::12}"
+            fi
+            echo "$repo $sha" >> "$collected"
+          done
+
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          old = {e["id"]: e for e in json.loads(Path("manifest.json").read_text())}
+          now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+          entries = []
+          for line in Path("collected.txt").read_text().split("\n"):
+              if not line.strip():
+                  continue
+              repo, sha = line.split()
+              record = json.loads(Path(f"records/{repo}/{sha}/record.json").read_text())
+              realized = any(
+                  run.get("results")
+                  for h in record.get("hypotheses", [])
+                  for c in h.get("claims", [])
+                  for d in c.get("designs", [])
+                  for run in d.get("runs", [])
+              )
+              entry_id = f"{repo}@{sha}"
+              entries.append({
+                  "id": entry_id,
+                  "url": f"https://github.com/{repo}",
+                  "commit": sha,
+                  "stage": "results" if realized else "prereg",
+                  "collected_at": old.get(entry_id, {}).get("collected_at", now),
+              })
+          entries.sort(key=lambda e: e["id"])
+          Path("manifest.json").write_text(json.dumps(entries, indent=2, ensure_ascii=False) + "\n")
+          print(f"{len(entries)} records in the manifest")
+          PY
+          rm -f collected.txt
+
+      - name: Commit
+        run: |
+          set -euo pipefail
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "collect: $(date -u +%Y-%m-%d)"
+          git push -q
