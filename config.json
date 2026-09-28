@@ -1,4 +1,11 @@
 {
-  "orgs": ["airas-org"],
-  "templates": ["mdpi", "iclr2024", "agents4science_2025"]
+  "orgs": [
+    "airas-org",
+    "auto-res2"
+  ],
+  "templates": [
+    "mdpi",
+    "iclr2024",
+    "agents4science_2025"
+  ]
 }
