@@ -1,0 +1,107 @@
+\PassOptionsToPackage{numbers}{natbib}
+\documentclass{article}
+\usepackage{iclr2024_conference}
+\usepackage{luatexja-fontspec}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\graphicspath{{../}}
+
+\InputIfFileExists{values.tex}{}{}
+\providecommand{\airasval}[1]{\textbf{??airasval:\detokenize{#1}??}}
+\providecommand{\unverified}[1]{#1}
+\providecommand{\airasrecordlink}[1]{#1}
+
+\title{SciGym における反復上限の引き上げと large split の事前登録評価: open-weight 5 モデルは反復を 100 に増やすと改善し、より大きな系でも論文の最良に届くか}
+\author{AIRAS}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+SciGym \citep{duan-2025-measuring} は、反応をすべて取り除いた SBML モデルを LLM エージェントに渡し、摂動実験とコード実行を繰り返して反応機構を復元させるベンチマークである。論文は反復上限 20 で SciGym-small 137 件だけを評価しており、反復を増やしたときに性能が飽和するのか、より大きな系（large split 213 件）でどこまで解けるのかは示されていない。本研究は、公開コードの Controller と評価器をそのまま用い、理研の計算機 RIKYU の推論 API で提供される open-weight 5 モデル（kimi-k2.6、kimi-k3、deepseek-v4.1-flash、qwen3.8-27b、qwen3.6-35b）を、反復上限 100 で small と large の両方に走らせる。実験前に、(1) small では各モデルの平均 Simulation Trajectory Error（STE）が先行研究の 20 反復の値以下になること、(2) large では各モデルの平均 STE が論文 Table 1 の最良行（Gemini-2.5-Pro の 0.3212）以下になること、を反証線として登録する。反復上限は当初 200 を検討したが、5 モデル共通の文脈長 262144 トークンと計算機の 1 job 4 日の上限から 100 に下げた。提出までに使った反復数、上限前に自ら提出した件数、文脈超過で提出に至らなかった件数を飽和の指標として表で報告する。
+\end{abstract}
+
+\section{はじめに}
+\label{sec:intro}
+LLM に科学的発見のサイクル全体（実験の設計、結果の解析、機構の提案）を行わせて測るベンチマークとして、SciGym \citep{duan-2025-measuring} が提案された。BioModels 由来の SBML モデルから反応をすべて取り除いたものをエージェントに渡し、エージェントは初期濃度を変えた摂動実験を要求し、返ってきた時系列を Python で解析し、最終的な SBML を提出する。提出は任意の時点で行え、反復数の上限は 20 である \cite[s1.p3]{duan-2025-measuring}。論文は計算資源の制約から SciGym-small の 137 件だけを評価した \cite[s1.p2]{duan-2025-measuring}。
+
+先行する AIRAS の研究は、同じ Controller と反復上限 20 で open-weight 6 モデルの平均 STE が論文の GPT-4.1-mini の 0.6007 を 0.05 より大きくは上回らないかを評価し \cite[s3.p1]{scigymrikyuopenmodels-2026-scigym}、kimi-k2.6 が \unverified{0.2100} \cite[s3.p2]{scigymrikyuopenmodels-2026-scigym}、kimi-k3 が \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym}、deepseek-v4.1-flash が \unverified{0.2405} \cite[s3.p4]{scigymrikyuopenmodels-2026-scigym}、qwen3.8-27b が \unverified{0.2479} \cite[s3.p5]{scigymrikyuopenmodels-2026-scigym}、qwen3.6-35b が \unverified{0.4571} \cite[s3.p6]{scigymrikyuopenmodels-2026-scigym} であった。その実行では 137 件のうちおよそ 8 割の件が上限の 20 反復を使い切っており、反復を増やせばさらに良くなるのか、それとも飽和しているのかは分からない。また large split の 213 件は論文でも先行研究でも評価されていない。
+
+本研究はこの 2 点を、同じ 5 モデル、同じ Controller、反復上限 100 で問う。判定は AIRAS の事前登録の枠組みに従い、仮説・判定基準・予測区間・実行条件を実験前に記録へ凍結し、実験後は計測値だけを流し込む。
+
+\section{関連研究}
+\label{sec:related}
+SciGym \citep{duan-2025-measuring} の評価指標は 3 つで、種間の相互作用の F1（NTS）、反応物と生成物の集合が一致した反応の適合率・再現率・F1（RMS。modifier まで要求する厳格版もある）\cite[s1.p7]{duan-2025-measuring}、および全種の時系列の対称平均絶対パーセント誤差（STE）\cite[s1.p8]{duan-2025-measuring} である。論文 Table 1 では Gemini-Pro が最良で \cite[s1.p6]{duan-2025-measuring}、その STE は \unverified{0.3212} である \cite[s1.p5]{duan-2025-measuring}。
+
+\section{仮説と予測}
+\label{sec:hypothesis}
+以下は記録（record.json）から生成された仮説・主張・判定基準・予測区間の一覧である。実験後は Observed と Verdict が計測値から埋められる。
+
+\input{claims.tex}
+
+\paragraph{判定基準と予測区間の根拠.}
+仮説 1（small）の各主張の反証線は「（当該モデルの 100 反復での平均 STE）$-$（先行研究の 20 反復での平均 STE）$\le 0$」である。先行研究の値は同じ API、同じ Controller、同じ評価層での 1 回実行であり、本研究では 20 反復を再実行しない。予測区間は $[-0.08, 0.02]$（qwen3.6-35b は 20 反復での値が高く余地が大きいので $[-0.15, 0.02]$）とする。20 反復では大半の件が上限まで使い切っていたので改善の余地はあるが、文脈が長くなると推論が乱れることもあり、改善は小さめと見る。
+
+仮説 2（large）の各主張の反証線は「（当該モデルの large での平均 STE）$-$ \unverified{0.3212} $\le 0$」である。large には論文の公表値が無いので、論文の small での最良行 Gemini-2.5-Pro の STE \cite[s1.p5]{duan-2025-measuring} を絶対水準の基準に置く。予測区間は $[-0.10, 0.10]$ とし、small で基準を上回っていた qwen3.6-35b だけは $[0, 0.25]$（反証されると予測）とする。1 件の STE の標準偏差を 0.27 程度と見積もると 137 件平均の標準誤差は約 0.02 で、差が 0.02 未満のときは結論が揺らぎうることを前提として記録する。
+
+RMS（modifier あり / なし）と NTS、提出までの反復数、上限前に自ら提出した件数、文脈超過で提出に至らなかった件数は同じ実行から表として報告するが、判定には用いない。small と large の難易度差も表で示すにとどめ、主張にはしない。
+
+\section{方法}
+\label{sec:method}
+\paragraph{タスク.}
+各インスタンスは真の SBML（\texttt{truth.xml}）、反応を取り除いた不完全な SBML（\texttt{partial.xml}）、シミュレーション条件（\texttt{truth.sedml}）からなる。エージェントは不完全な SBML を受け取り、各ターンで実験（初期濃度の変更を指定し、真のモデルの時系列を得る）、コード実行（numpy / pandas / scipy / libsbml と、仮説モデルを走らせる \texttt{simulate} 関数が使える）、提出のいずれかを markdown 形式で返す。提出は任意の時点で行え、反復数の上限はプロンプトでエージェントに伝えられる \cite[s1.p3]{duan-2025-measuring}。提出した SBML が無効な場合は追加のデバッグ反復が許され、それでも無効なら不完全 SBML のまま採点される \cite[s1.p4]{duan-2025-measuring}。
+
+\paragraph{実行系.}
+ループ、プロンプト、実験の実行はすべて公開コード \citep{h4duan-2025-scigym} の \texttt{Controller} をそのまま用いる。本研究が書くのは、(1) OpenAI 互換 API でモデルを呼ぶ \texttt{LLM} 実装（公式の GPT 実装と同じく、システムプロンプトと全履歴を毎回送る）、(2) インスタンスごとに 1 プロセスで Controller を起動して並列に走らせ、終わった件を 1 件 1 書庫で保存する駆動部、(3) 各インスタンスの提出モデルと公式データを評価層の入力ファイルに書き出す部分だけである。会話が文脈長を超えて API が要求を拒んだ件は、その時点で終了し「文脈超過」として数える。提出に至らなかった件は公式規約どおり不完全 SBML の採点値で平均に含める。
+
+\paragraph{指標.}
+採点は評価層 airas-eval のベンチマークパック \texttt{scigym\_small}（137 件）と \texttt{scigym\_large}（213 件）が行う。パックは公式リリースの各件（truth / partial / sedml）を sha256 で固定し、公開コードの \texttt{Evaluator}（コミット 88a7b93）で提出モデルを採点して、STE（\texttt{trajectory\_smape}）、RMS の適合率・再現率・F1（modifier なし \texttt{reaction\_*}、あり \texttt{reaction\_*\_with\_modifiers}）、NTS の F1（\texttt{topology\_f1}）を件の単純平均で返す。
+
+\section{実験設計}
+\label{sec:design}
+\paragraph{モデル.}
+RIKYU の推論 API が提供する open-weight モデルのうち、先行研究で 20 反復の full run が完走した 5 モデルを用いる: kimi-k2.6、kimi-k3、deepseek-v4.1-flash、qwen3.8-27b、qwen3.6-35b。いずれも思考（thinking）を出力するモデルである。文脈長は qwen 2 種と kimi-k2.6 が 262144、deepseek-v4.1-flash が 1000000、kimi-k3 が 928000 トークンで、5 モデル共通の上限 262144 を設計の基準にする。GLM 系は先行研究で生成速度が遅く期限内に終わらなかったため除く。
+
+\paragraph{データ.}
+SciGym の公式リリース（Hugging Face \texttt{h4duan/scigym-sbml}）のうち、論文が評価対象とした small split 137 件 \cite[s1.p2]{duan-2025-measuring} に加え、論文では評価されていない large split 213 件を用いる（いずれも RIKYU 上のコピー）。large の真のモデルの SBML は small のおよそ 3.5 倍長い。評価層は各件の内容を公式リリースの sha256 と照合する。
+
+\paragraph{反復上限.}
+\texttt{max\_iterations} は 100 とする。当初は 200 を検討したが、先行研究の 20 反復の会話は 1 反復あたり中央値 0.85k、90 パーセンタイル 1.3k トークン伸びており、出力用に 32768 を確保した入力の上限約 230k トークンでは、200 反復だと large で 90 パーセンタイルの件が文脈長を超える見込みだった。また 1 モデル 1 run で small か large の全件を回すと、計算機の 1 job 4 日の上限に対して 200 反復は収まらない。この 2 つの理由で small / large 共通の上限を 100 に下げた。100 でも一部の件は文脈長を超えうるので、その件数を表で報告する。
+
+\paragraph{設定.}
+\texttt{eval\_debug\_rounds} は論文本文の 3 \cite[s1.p4]{duan-2025-measuring}（公開 config の既定値は 5 \cite[s2.p3]{h4duan-2025-scigym}）、\texttt{temperature} は公開 config の 1.0 \cite[s2.p1]{h4duan-2025-scigym}、摂動は初期濃度の変更のみとする。応答のトークン上限は 32768 とし、思考で使い切った応答は文脈長に収まる範囲で上限を倍にして呼び直す。本文が空で返った呼び出しは呼び直し、reasoning 側に本文が入っていればそれを用いる。各モデル、各インスタンスを 1 回ずつ実行する。1 件の試行の上限時間は 36 時間とし、上限で打ち切られた件は最大 3 回やり直す。
+
+\paragraph{計算資源と環境.}
+実行は Seyval を通じて RIKYU（Slurm、GB200 ノード、aarch64）で行い、LLM は同じ RIKYU の推論 API を呼ぶ。GPU は使わないが、資源の単位が GPU であるため 1 GPU を要求する。1 run は 1 モデル × 1 split で、48 件を並列に走らせる。1 job の上限は 4 日で、打ち切られた run は保存済みの件の書庫から続きを実行する。環境は Dockerfile と \texttt{uv.lock} で固定する。aarch64 向けの wheel が無いため、libroadrunner は公式の 2.8.0 ではなく 2.7.0、antimony は 2.14.0 を用い、rrplugins と phrasedml は除外する。
+
+\paragraph{段階.}
+sanity は各 split の先頭 1 件を 2 反復で走らせて配管を確かめる。pilot は sorted した件から等間隔に 10 件を 100 反復で走らせ、1 件あたりの所要時間と文脈の伸びを測る。主張の判定は full の結果だけで行い、sanity と pilot の結果は記録に取り込まない。
+
+\paragraph{run と主張の対応.}
+small: \texttt{kimi-k2.6-small} $\to$ Claim 1、\texttt{kimi-k3-small} $\to$ Claim 2、\texttt{deepseek-v4.1-flash-small} $\to$ Claim 3、\texttt{qwen3.8-27b-small} $\to$ Claim 4、\texttt{qwen3.6-35b-small} $\to$ Claim 5。large: \texttt{kimi-k2.6-large} $\to$ Claim 6、\texttt{kimi-k3-large} $\to$ Claim 7、\texttt{deepseek-v4.1-flash-large} $\to$ Claim 8、\texttt{qwen3.8-27b-large} $\to$ Claim 9、\texttt{qwen3.6-35b-large} $\to$ Claim 10。
+
+% ===== airas: post-experiment sections, filled once runs exist =====
+
+\section{結果}
+\label{sec:results}
+実験は未実施である。実行後にこの節へ、small と large の各 run の平均 STE、RMS、有効提出件数、平均反復数、早期提出件数、文脈超過件数を \texttt{small} と \texttt{large} の表として、また先行研究の 20 反復の値と並べた対比表を記入する。
+
+\section{考察}
+\label{sec:discussion}
+実験は未実施である。
+
+\section{結論}
+\label{sec:conclusion}
+実験は未実施である。
+
+\section*{データの利用可能性}
+記録は \airasrecordlink{record.json} にある。実験コード、環境の固定（Dockerfile と \texttt{uv.lock}）、各 run の結果と provenance は同じリポジトリに含まれる。
+
+\bibliographystyle{iclr2024_conference}
+\bibliography{references}
+
+\end{document}

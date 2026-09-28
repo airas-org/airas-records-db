@@ -1,0 +1,1101 @@
+{
+  "literature": [
+    {
+      "id": "s1",
+      "title": "Measuring Scientific Capabilities of Language Models with a Systems Biology Dry Lab",
+      "authors": [
+        "Haonan Duan",
+        "Stephen Zhewen Lu",
+        "Caitlin Fiona Harrigan",
+        "Nishkrit Desai",
+        "Jiarui Lu",
+        "Michał Koziarski",
+        "Leonardo Cotta",
+        "Chris J. Maddison"
+      ],
+      "year": 2025,
+      "venue": "arXiv preprint arXiv:2507.02083 (NeurIPS 2025 Datasets and Benchmarks Track)",
+      "arxiv_id": "2507.02083",
+      "url": "https://arxiv.org/pdf/2507.02083",
+      "bibkey": "duan-2025-measuring",
+      "verified_by": "arxiv",
+      "verified_at": "2026-09-28T06:01:20+00:00",
+      "fulltext": {
+        "path": ".research/sources/s1/fulltext.txt",
+        "sha256": "da6c8d3dcbbd8c768ee7735346726853026ccc88a9b03d475dc293e347c378fd"
+      },
+      "parser": "pymupdf 1.26.6",
+      "passages": [
+        {
+          "id": "s1.p1",
+          "node_type": "setup",
+          "quote": "We evaluated six models from three frontier model families, each represented by their professional and mini variants: Anthropic’s Claude-3.7-Sonnet-20250219 (P) and Claude-3.5-Haiku-20241022 (M); Google’s Gemini-2.5-Pro-Preview-03-25 (P) and Gemini-2.5-Flash-Preview-04-17 (M); and OpenAI’s GPT-4.1-2025-04-14 (P) and GPT-4.1-Mini-2025-04-14 (M)."
+        },
+        {
+          "id": "s1.p2",
+          "node_type": "setup",
+          "quote": "Due to computational resource constraints, we restricted our evaluation to SCIGYM-small, with a total of 137 tasks.",
+          "judgments": [
+            {
+              "text_sha256": "359ab651e6ea252d8f13c1c6989ab8896514599c3b00502a9e8f23be6da39823",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "aecb053d85ca25cdfc5f46327e32320dc1b2f980f1e70cf026e3b0af77f65a1e",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The cited source only evaluates SCIGYM-small (137 tasks), not large (213 tasks); citing text implies usage of both splits, which the passage does not support."
+            },
+            {
+              "text_sha256": "08fc1b681b300e58d8fd9f0a52309060bdc411f75d9201f5fc9addb927537057",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p3",
+          "node_type": "setup",
+          "quote": "The agent may submit its final model and conclude the discovery process at any point, subject to a maximum iteration limit (20 in our benchmark).",
+          "judgments": [
+            {
+              "text_sha256": "359ab651e6ea252d8f13c1c6989ab8896514599c3b00502a9e8f23be6da39823",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "b148018bb508d224f3097fb62a1f612854785bbc1bdf2828c3d1aee21bc5e9c8",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p4",
+          "node_type": "setup",
+          "quote": "If the submitted model is invalid or cannot be simulated, we allow for 3 additional debugging iterations before evaluating against the incomplete SBML structure.",
+          "judgments": [
+            {
+              "text_sha256": "b148018bb508d224f3097fb62a1f612854785bbc1bdf2828c3d1aee21bc5e9c8",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "ea6372b632f0f27f1560848bb197ae29174858a89d3a1ed0e2394be564a35b9b",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p5",
+          "node_type": "result",
+          "quote": "Gemini-2.5-Flash 0.4181 0.1527 0.1071 0.1217 0.2399 0.1839 0.2005 GPT-4.1-mini 0.6007 0.1516 0.1253 0.1320 0.2530 0.2313 0.2322 Claude-3.5-Haiku 0.6281 0.0858 0.0421 0.0530 0.1454 0.0805 0.0987 Gemini-2.5-Pro 0.3212 0.2138 0.1664 0.1817 0.3781 0.3219 0.3383 GPT-4.1 0.4611 0.2067 0.1597 0.1740 0.3517 0.2888 0.3038 Claude-3.7-Sonnet 0.3615 0.1780 0.1698 0.1688 0.3160 0.3170 0.3047",
+          "judgments": [
+            {
+              "text_sha256": "2d62ab56bb63f36450230042df51fced7e47b92516fb82233977042f44d826bc",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "c312b737da7bad15aaabfba67f0dd0cefaebb7dd7fb23ef1c65f39dd21012474",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p6",
+          "node_type": "claim",
+          "quote": "Among all models evaluated, Gemini-Pro achieved the best overall performance.",
+          "judgments": [
+            {
+              "text_sha256": "2d62ab56bb63f36450230042df51fced7e47b92516fb82233977042f44d826bc",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text accurately summarizes that Gemini-Pro achieved the best overall performance, which is directly stated in the passage."
+            }
+          ]
+        },
+        {
+          "id": "s1.p7",
+          "node_type": "definition",
+          "quote": "We consider two reactions \"matched\" if they have identical sets of reactants and products. In the second, more stringent version, we additionally require matching modifiers.",
+          "judgments": [
+            {
+              "text_sha256": "2d62ab56bb63f36450230042df51fced7e47b92516fb82233977042f44d826bc",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p8",
+          "node_type": "definition",
+          "quote": "We employ the Symmetric Mean Absolute Percentage Error (SMAPE) (Makridakis, 1993), which normalizes errors relative to magnitude.",
+          "judgments": [
+            {
+              "text_sha256": "2d62ab56bb63f36450230042df51fced7e47b92516fb82233977042f44d826bc",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p9",
+          "node_type": "result",
+          "quote": "Table 1: Pro models outperform their mini counterparts in SCIGYM, with Gemini dominating in both size categories. We report the average Simulation Trajectory Error (STE) and Reaction Matching Score (RMS) across all benchmark instances."
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "kind": "repository",
+      "title": "h4duan/SciGym",
+      "authors": [
+        "h4duan"
+      ],
+      "year": 2025,
+      "url": "https://github.com/h4duan/SciGym",
+      "commit": "88a7b93609e35b6ecb4eb343d816d6ff09256c6a",
+      "bibkey": "h4duan-2025-scigym",
+      "verified_by": "git",
+      "verified_at": "2026-09-28T06:01:21+00:00",
+      "fulltext": {
+        "path": ".research/sources/s2/fulltext.txt",
+        "sha256": "ef43f447563987d222448b49dc32ea96f55b0df79e5ea614f247dc36166bc6f2"
+      },
+      "parser": "git show",
+      "passages": [
+        {
+          "id": "s2.p1",
+          "node_type": "setup",
+          "quote": "temperature: 1.0",
+          "judgments": [
+            {
+              "text_sha256": "ea6372b632f0f27f1560848bb197ae29174858a89d3a1ed0e2394be564a35b9b",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p2",
+          "node_type": "setup",
+          "quote": "max_iterations: 5"
+        },
+        {
+          "id": "s2.p3",
+          "node_type": "setup",
+          "quote": "eval_debug_rounds: 5",
+          "judgments": [
+            {
+              "text_sha256": "ea6372b632f0f27f1560848bb197ae29174858a89d3a1ed0e2394be564a35b9b",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "kind": "airas_record",
+      "title": "SciGym-small における open-weight モデルの事前登録評価: RIKYU の推論 API で提供される 8 モデルは論文の GPT-4.1-mini に届くか",
+      "authors": [
+        "auto-res2/scigym-rikyu-open-models (AIRAS)"
+      ],
+      "year": 2026,
+      "url": "https://github.com/auto-res2/scigym-rikyu-open-models",
+      "commit": "448f37a09a0b08100c7106ae09d7dfdb474c5372",
+      "bibkey": "scigymrikyuopenmodels-2026-scigym",
+      "verified_by": "airas_records",
+      "verified_at": "2026-09-28T06:01:27+00:00",
+      "fulltext": {
+        "path": ".research/sources/s3/fulltext.txt",
+        "sha256": "0b78acd15b4b3ecf545d3c43ff0e4bbc9e6eb8efb975d34fb7a77a14a82161bf"
+      },
+      "parser": "git show",
+      "passages": [
+        {
+          "id": "s3.p1",
+          "node_type": "claim",
+          "quote": "RIKYU の推論 API（OpenAI 互換）で提供される open-weight モデル 6 種（deepseek-v4.1-flash、glm-5.2、kimi-k2.6、kimi-k3、qwen3.6-35b、qwen3.8-27b）は、SciGym 公開コードの Controller をそのまま用いて SciGym-small 137 件を最大 20 反復で解かせたとき、いずれも平均 Simulation Trajectory Error（STE）が論文 Table 1 の GPT-4.1-mini（0.6007）の水準に届く（0.05 より大きくは上回らない）。",
+          "judgments": [
+            {
+              "text_sha256": "3ca86c8222aca6b26f549757ab5202668abdce70c29b9cff320a451318302259",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The citing text claims the study evaluated whether the six open-weight models reach the performance level of GPT-4.1-mini, but the source passage says that none exceeded the reference value by more than 0.05, meaning they do not reach but rather approach it; this subtle difference (not 'reach', but 'do not greatly exceed') is important."
+            },
+            {
+              "text_sha256": "18e5043b5e5d6d9b4e133e9a325074a8693c383363f5d9b35c378e003c4a03b1",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s3.p2",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.21004969535683385",
+          "judgments": [
+            {
+              "text_sha256": "11ce6289523907ed84d535f6ea0752b3b0857f848f4bd9574c8b94dd77bfe45a",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text correctly reports the value of 'trajectory_smape' (0.2100) from the quoted passage, and does not overstate or misrepresent the context in which this value appears."
+            },
+            {
+              "text_sha256": "a9d5f3d6f60b18eb9496bf4b56bf43bf0468df4169e1746c941fd7e731078731",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text faithfully reports the value of 'trajectory_smape' as 0.2100 for kimi-k2.6, which matches the value in the quoted passage."
+            }
+          ]
+        },
+        {
+          "id": "s3.p3",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.22507247610652192",
+          "judgments": [
+            {
+              "text_sha256": "11ce6289523907ed84d535f6ea0752b3b0857f848f4bd9574c8b94dd77bfe45a",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text faithfully reports the value of 0.2251 (rounded from 0.225072...) for kimi-k3 from the quoted passage, without generalization or added context beyond the number reported."
+            },
+            {
+              "text_sha256": "a9d5f3d6f60b18eb9496bf4b56bf43bf0468df4169e1746c941fd7e731078731",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s3.p4",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.24046025032909796",
+          "judgments": [
+            {
+              "text_sha256": "11ce6289523907ed84d535f6ea0752b3b0857f848f4bd9574c8b94dd77bfe45a",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The claimed metric value (0.2405 for deepseek-v4.1-flash) matches the quoted passage's 'trajectory_smape' value, and there is no context-dependent qualifier or condition missed in the citation."
+            },
+            {
+              "text_sha256": "a9d5f3d6f60b18eb9496bf4b56bf43bf0468df4169e1746c941fd7e731078731",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text faithfully reports the value for trajectory_smape (0.2405) for deepseek-v4.1-flash from the quoted passage, and it properly attributes the result to the cited source without adding unstated conditions or generalizations."
+            }
+          ]
+        },
+        {
+          "id": "s3.p5",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.24793430926739368",
+          "judgments": [
+            {
+              "text_sha256": "11ce6289523907ed84d535f6ea0752b3b0857f848f4bd9574c8b94dd77bfe45a",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text reports the trajectory_smape value (0.2479) for qwen3.8-27b, which is precisely supported by the quoted passage and its source."
+            },
+            {
+              "text_sha256": "a9d5f3d6f60b18eb9496bf4b56bf43bf0468df4169e1746c941fd7e731078731",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text faithfully reports the value of 0.2479 for trajectory_smape for qwen3.8-27b, matching the quoted passage and its context."
+            }
+          ]
+        },
+        {
+          "id": "s3.p6",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.4570888053620998",
+          "judgments": [
+            {
+              "text_sha256": "11ce6289523907ed84d535f6ea0752b3b0857f848f4bd9574c8b94dd77bfe45a",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text accurately reports the 'trajectory_smape' value (0.4571, rounded from 0.4570888) for qwen3.6-35b as found in the quoted passage and its source context, without overstatement or misrepresentation."
+            },
+            {
+              "text_sha256": "381788d5bd1db3b8327d49842bf7f6130b86b8c4f370789c59f542806af938d3",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text correctly reports the value 0.4571 (rounded from 0.4570888053620998) for qwen3.6-35b, labeled as trajectory_smape in the source."
+            }
+          ]
+        },
+        {
+          "id": "s3.p7",
+          "node_type": "setup",
+          "quote": "公式 Controller（max_iterations=20、eval_debug_rounds=3、temperature=1.0、max_tokens=32768、摂動は初期濃度変更のみ）で SciGym-small 137 件を 1 件 1 プロセスで解かせ、提出モデルと公式データを評価層 scigym_small（公式 Evaluator）で採点する。"
+        }
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "statement": "RIKYU の推論 API の open-weight モデル 5 種（kimi-k2.6、kimi-k3、deepseek-v4.1-flash、qwen3.8-27b、qwen3.6-35b）は、SciGym 公開コードの Controller で反復上限を論文の 20 から 100 に引き上げて SciGym-small 137 件を解かせたとき、いずれも平均 Simulation Trajectory Error（STE）が先行研究の 20 反復の値以下になる（反復を増やしても悪化しない）。",
+      "assumptions": [
+        "temperature 1.0 での 1 回実行の平均 STE（137 件平均）の実行間変動が判定に対して十分小さいこと。件ごとの STE の標準偏差はおよそ 0.27、137 件平均の標準誤差はおよそ 0.02 で、差が 0.02 未満のときは結論が揺らぎうる（c1〜c5）",
+        "先行研究の 20 反復の値（同じ API、同じ Controller、同じ評価層での 1 回実行）を比較対象とし、本研究では 20 反復を再実行しないこと（c1〜c5）",
+        "反復上限 100 はプロンプトでエージェントに伝えられ、エージェントは任意の反復で提出できる。上限を使い切らずに提出した件の割合と、文脈長の上限（5 モデル共通の 262144 トークン）や時間切れで提出に至らなかった件の数は表で報告するが、判定には用いない。提出に至らなかった件は公式規約どおり不完全モデルの採点値で平均に含める（c1〜c5）",
+        "RIKYU の推論 API が提供する各モデルが、先行研究の時点と同じ重み・同じ serving 設定であること（c1〜c5）",
+        "aarch64 向けの libroadrunner 2.7.0 と antimony 2.14.0 が、論文環境の libroadrunner 2.8.0 と同じ軌道と評価値を与えること（c1〜c5）",
+        "平均 STE が「反復を増やして悪化しない」を代表すること。RMS（modifier あり / なし）と NTS は同じ実行から表として報告するが、判定基準には用いない（c1〜c5）"
+      ],
+      "grounded_on": [
+        "s1.p3",
+        "s3.p1",
+        "s3.p2",
+        "s3.p3",
+        "s3.p4",
+        "s3.p5",
+        "s3.p6"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "kimi-k2.6 で SciGym-small 137 件を最大 100 反復で解かせたときの平均 STE は、先行研究の 20 反復の値 0.2100 以下である。",
+          "rationale": "反復を 5 倍にしても悪化しないことが示せれば、h1 の kimi-k2.6 の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "公式 Controller（max_iterations=100、eval_debug_rounds=3、temperature=1.0、max_tokens=32768、摂動は初期濃度変更のみ）で SciGym-small 137 件を 1 件 1 プロセスで解かせ、提出モデルと公式データを評価層 scigym_small（公式 Evaluator）で採点する。モデルは RIKYU API の kimi-k2.6。",
+              "runs": [
+                {
+                  "run_id": "kimi-k2.6-small",
+                  "description": "kimi-k2.6 で SciGym-small 137 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1",
+                "s3.p7"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p3",
+            "s1.p4",
+            "s3.p2",
+            "s3.p7"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "kimi-k2.6-small",
+            "reference": 0.21004969535683385,
+            "op": "<=",
+            "reference_passage": "s3.p2"
+          },
+          "prediction": {
+            "low": -0.08,
+            "high": 0.02,
+            "basis": "20 反復では大半の件が上限まで使い切っていたので余地はあるが、文脈が長くなると推論が乱れることもある。改善は小さめと見る"
+          }
+        },
+        {
+          "id": "c2",
+          "statement": "kimi-k3 で SciGym-small 137 件を最大 100 反復で解かせたときの平均 STE は、先行研究の 20 反復の値 0.2251 以下である。",
+          "rationale": "c1 と同じ。h1 の kimi-k3 の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d2",
+              "summary": "d1 と同じ設定でモデルを kimi-k3 に替える。",
+              "runs": [
+                {
+                  "run_id": "kimi-k3-small",
+                  "description": "kimi-k3 で SciGym-small 137 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1",
+                "s3.p7"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p3",
+            "s1.p4",
+            "s3.p3",
+            "s3.p7"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "kimi-k3-small",
+            "reference": 0.22507247610652192,
+            "op": "<=",
+            "reference_passage": "s3.p3"
+          },
+          "prediction": {
+            "low": -0.08,
+            "high": 0.02,
+            "basis": "c1 と同じ"
+          }
+        },
+        {
+          "id": "c3",
+          "statement": "deepseek-v4.1-flash で SciGym-small 137 件を最大 100 反復で解かせたときの平均 STE は、先行研究の 20 反復の値 0.2405 以下である。",
+          "rationale": "c1 と同じ。h1 の deepseek-v4.1-flash の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d3",
+              "summary": "d1 と同じ設定でモデルを deepseek-v4.1-flash に替える。",
+              "runs": [
+                {
+                  "run_id": "deepseek-v4.1-flash-small",
+                  "description": "deepseek-v4.1-flash で SciGym-small 137 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1",
+                "s3.p7"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p3",
+            "s1.p4",
+            "s3.p4",
+            "s3.p7"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "deepseek-v4.1-flash-small",
+            "reference": 0.24046025032909796,
+            "op": "<=",
+            "reference_passage": "s3.p4"
+          },
+          "prediction": {
+            "low": -0.08,
+            "high": 0.02,
+            "basis": "c1 と同じ"
+          }
+        },
+        {
+          "id": "c4",
+          "statement": "qwen3.8-27b で SciGym-small 137 件を最大 100 反復で解かせたときの平均 STE は、先行研究の 20 反復の値 0.2479 以下である。",
+          "rationale": "c1 と同じ。h1 の qwen3.8-27b の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d4",
+              "summary": "d1 と同じ設定でモデルを qwen3.8-27b に替える。",
+              "runs": [
+                {
+                  "run_id": "qwen3.8-27b-small",
+                  "description": "qwen3.8-27b で SciGym-small 137 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1",
+                "s3.p7"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p3",
+            "s1.p4",
+            "s3.p5",
+            "s3.p7"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "qwen3.8-27b-small",
+            "reference": 0.24793430926739368,
+            "op": "<=",
+            "reference_passage": "s3.p5"
+          },
+          "prediction": {
+            "low": -0.08,
+            "high": 0.02,
+            "basis": "c1 と同じ"
+          }
+        },
+        {
+          "id": "c5",
+          "statement": "qwen3.6-35b で SciGym-small 137 件を最大 100 反復で解かせたときの平均 STE は、先行研究の 20 反復の値 0.4571 以下である。",
+          "rationale": "c1 と同じ。h1 の qwen3.6-35b の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d5",
+              "summary": "d1 と同じ設定でモデルを qwen3.6-35b に替える。",
+              "runs": [
+                {
+                  "run_id": "qwen3.6-35b-small",
+                  "description": "qwen3.6-35b で SciGym-small 137 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1",
+                "s3.p7"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p3",
+            "s1.p4",
+            "s3.p6",
+            "s3.p7"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "qwen3.6-35b-small",
+            "reference": 0.4570888053620998,
+            "op": "<=",
+            "reference_passage": "s3.p6"
+          },
+          "prediction": {
+            "low": -0.15,
+            "high": 0.02,
+            "basis": "20 反復での値が他の 4 モデルより高く、反復を増やす余地が大きいと見る"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "key": "small",
+          "caption": "SciGym-small 137 件、最大 100 反復。平均 STE（低いほど良い）、RMS の F1（modifier なし / あり）、有効な提出件数、提出までの平均反復数、上限前に自ら提出した件数、文脈超過で終わった件数。先行研究の 20 反復の値は本文の対比表で並べる。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 3
+            },
+            {
+              "header": "F1",
+              "ref_path": "reaction_f1",
+              "round": 3
+            },
+            {
+              "header": "F1$_m$",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "n\\_valid",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "平均反復",
+              "ref_path": "mean_iterations",
+              "round": 1
+            },
+            {
+              "header": "早期提出",
+              "ref_path": "n_early_submit",
+              "round": 0
+            },
+            {
+              "header": "文脈超過",
+              "ref_path": "n_context_overflow",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "kimi-k2.6-small",
+              "label": "kimi-k2.6"
+            },
+            {
+              "run_id": "kimi-k3-small",
+              "label": "kimi-k3"
+            },
+            {
+              "run_id": "deepseek-v4.1-flash-small",
+              "label": "deepseek-v4.1-flash"
+            },
+            {
+              "run_id": "qwen3.8-27b-small",
+              "label": "qwen3.8-27b"
+            },
+            {
+              "run_id": "qwen3.6-35b-small",
+              "label": "qwen3.6-35b"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "反復上限 100 の根拠: 先行研究の 20 反復の会話は 1 反復あたり中央値 0.85k、90 パーセンタイル 1.3k トークン伸びた。モデル共通の文脈長 262144（出力用に 32768 を確保して入力約 230k）と、Slurm の 1 job 4 日上限と、large の SBML が small の約 3.5 倍長いことから、small / large 共通で 100 とした。200 では large で 90 パーセンタイルの件が文脈長を超える見込みであった。",
+        "ギャップ: 論文（s1）は反復上限 20 で SciGym-small だけを評価しており、反復を増やしたときに性能が飽和するのか、より大きな系（large split 213 件）でどこまで解けるのかは示されていない。先行研究（s3）では 20 反復で 137 件中およそ 8 割の件が上限まで使い切っていた。"
+      ]
+    },
+    {
+      "id": "h2",
+      "statement": "同じ 5 モデルは、反復上限 100 でより大きな系からなる SciGym-large 213 件を解かせたときも、いずれも平均 STE が論文 Table 1（SciGym-small）の最良行 Gemini-2.5-Pro の 0.3212 以下になる。",
+      "assumptions": [
+        "large split には論文の公表値が無いので、論文の small での最良値を絶対水準の基準とする。難易度の差は small の表と並べて示すが、判定には用いない（c6〜c10）",
+        "213 件平均の実行間変動が判定に対して十分小さいこと。件ごとの標準偏差を 0.27 とすれば平均の標準誤差はおよそ 0.02（c6〜c10）",
+        "文脈長（262144）や時間切れで提出に至らなかった件は不完全モデルの採点値で平均に含める。large は SBML が長く文脈超過が増えうるが、その件数を表で報告する（c6〜c10）",
+        "評価層 scigym_large（airas-eval v0.13.0）が公式リリースの large split 213 件を sha256 で固定し、small と同じ公式 Evaluator で採点すること（c6〜c10）"
+      ],
+      "grounded_on": [
+        "s1.p2",
+        "s1.p5",
+        "s1.p6",
+        "s3.p1"
+      ],
+      "claims": [
+        {
+          "id": "c6",
+          "statement": "kimi-k2.6 で SciGym-large 213 件を最大 100 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "small で最良だった kimi-k2.6 が large でも論文の最良行の水準を保てば、h2 の kimi-k2.6 の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d6",
+              "summary": "d1 と同じ設定でデータを SciGym-large 213 件（公式リリースの large split）に替え、評価層 scigym_large で採点する。モデルは kimi-k2.6。",
+              "runs": [
+                {
+                  "run_id": "kimi-k2.6-large",
+                  "description": "kimi-k2.6 で SciGym-large 213 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p2",
+            "s1.p3",
+            "s1.p4",
+            "s1.p5",
+            "s3.p2"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "kimi-k2.6-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.1,
+            "high": 0.1,
+            "basis": "small での 0.2100（s3.p2）に、系が大きくなる分の悪化を見込む。先行値が無く幅を広く取る"
+          }
+        },
+        {
+          "id": "c7",
+          "statement": "kimi-k3 で SciGym-large 213 件を最大 100 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "c6 と同じ。h2 の kimi-k3 の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d7",
+              "summary": "d6 と同じ設定でモデルを kimi-k3 に替える。",
+              "runs": [
+                {
+                  "run_id": "kimi-k3-large",
+                  "description": "kimi-k3 で SciGym-large 213 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p2",
+            "s1.p3",
+            "s1.p4",
+            "s1.p5",
+            "s3.p3"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "kimi-k3-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.1,
+            "high": 0.1,
+            "basis": "c6 と同じ（small での値は 0.2251、s3.p3）"
+          }
+        },
+        {
+          "id": "c8",
+          "statement": "deepseek-v4.1-flash で SciGym-large 213 件を最大 100 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "c6 と同じ。h2 の deepseek-v4.1-flash の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d8",
+              "summary": "d6 と同じ設定でモデルを deepseek-v4.1-flash に替える。",
+              "runs": [
+                {
+                  "run_id": "deepseek-v4.1-flash-large",
+                  "description": "deepseek-v4.1-flash で SciGym-large 213 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p2",
+            "s1.p3",
+            "s1.p4",
+            "s1.p5",
+            "s3.p4"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "deepseek-v4.1-flash-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.1,
+            "high": 0.1,
+            "basis": "c6 と同じ（small での値は 0.2405、s3.p4）"
+          }
+        },
+        {
+          "id": "c9",
+          "statement": "qwen3.8-27b で SciGym-large 213 件を最大 100 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "c6 と同じ。h2 の qwen3.8-27b の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d9",
+              "summary": "d6 と同じ設定でモデルを qwen3.8-27b に替える。",
+              "runs": [
+                {
+                  "run_id": "qwen3.8-27b-large",
+                  "description": "qwen3.8-27b で SciGym-large 213 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p2",
+            "s1.p3",
+            "s1.p4",
+            "s1.p5",
+            "s3.p5"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "qwen3.8-27b-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.1,
+            "high": 0.1,
+            "basis": "c6 と同じ（small での値は 0.2479、s3.p5）"
+          }
+        },
+        {
+          "id": "c10",
+          "statement": "qwen3.6-35b で SciGym-large 213 件を最大 100 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "c6 と同じ。h2 の qwen3.6-35b の部分を担う。small では 0.4571 と基準を上回っていたので、反復を増やしても届かない可能性が高い。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d10",
+              "summary": "d6 と同じ設定でモデルを qwen3.6-35b に替える。",
+              "runs": [
+                {
+                  "run_id": "qwen3.6-35b-large",
+                  "description": "qwen3.6-35b で SciGym-large 213 件を最大 100 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s1.p3"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s1.p3",
+                "s1.p4",
+                "s2.p1"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p2",
+            "s1.p3",
+            "s1.p4",
+            "s1.p5",
+            "s3.p6"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "qwen3.6-35b-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": 0.0,
+            "high": 0.25,
+            "basis": "small での 0.4571（s3.p6）が基準を 0.14 上回っていた。反証されると予測する"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "key": "large",
+          "caption": "SciGym-large 213 件、最大 100 反復。平均 STE（低いほど良い）、論文 Table 1 の最良行（Gemini-2.5-Pro、0.3212）との差、RMS の F1（modifier なし / あり）、有効な提出件数、提出までの平均反復数、上限前に自ら提出した件数、文脈超過で終わった件数。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 3
+            },
+            {
+              "header": "$\\Delta$ vs Gemini-2.5-Pro",
+              "ref_path": "trajectory_smape",
+              "reference": {
+                "passage": "s1.p5",
+                "values": {
+                  "kimi-k2.6-large": 0.3212,
+                  "kimi-k3-large": 0.3212,
+                  "deepseek-v4.1-flash-large": 0.3212,
+                  "qwen3.8-27b-large": 0.3212,
+                  "qwen3.6-35b-large": 0.3212
+                }
+              },
+              "round": 3
+            },
+            {
+              "header": "F1",
+              "ref_path": "reaction_f1",
+              "round": 3
+            },
+            {
+              "header": "F1$_m$",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "n\\_valid",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "平均反復",
+              "ref_path": "mean_iterations",
+              "round": 1
+            },
+            {
+              "header": "早期提出",
+              "ref_path": "n_early_submit",
+              "round": 0
+            },
+            {
+              "header": "文脈超過",
+              "ref_path": "n_context_overflow",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "kimi-k2.6-large",
+              "label": "kimi-k2.6"
+            },
+            {
+              "run_id": "kimi-k3-large",
+              "label": "kimi-k3"
+            },
+            {
+              "run_id": "deepseek-v4.1-flash-large",
+              "label": "deepseek-v4.1-flash"
+            },
+            {
+              "run_id": "qwen3.8-27b-large",
+              "label": "qwen3.8-27b"
+            },
+            {
+              "run_id": "qwen3.6-35b-large",
+              "label": "qwen3.6-35b"
+            }
+          ]
+        },
+        {
+          "key": "tokens",
+          "caption": "各 run の評価件数、有効な SBML が提出された件数、トークン消費。出力トークンには thinking を含む。",
+          "columns": [
+            {
+              "header": "n\\_instances",
+              "ref_path": "n_instances",
+              "round": 0
+            },
+            {
+              "header": "n\\_valid\\_submissions",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "入力トークン",
+              "ref_path": "input_tokens",
+              "round": 0
+            },
+            {
+              "header": "出力トークン",
+              "ref_path": "output_tokens",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "kimi-k2.6-small",
+              "label": "kimi-k2.6 small"
+            },
+            {
+              "run_id": "kimi-k3-small",
+              "label": "kimi-k3 small"
+            },
+            {
+              "run_id": "deepseek-v4.1-flash-small",
+              "label": "deepseek-v4.1-flash small"
+            },
+            {
+              "run_id": "qwen3.8-27b-small",
+              "label": "qwen3.8-27b small"
+            },
+            {
+              "run_id": "qwen3.6-35b-small",
+              "label": "qwen3.6-35b small"
+            },
+            {
+              "run_id": "kimi-k2.6-large",
+              "label": "kimi-k2.6 large"
+            },
+            {
+              "run_id": "kimi-k3-large",
+              "label": "kimi-k3 large"
+            },
+            {
+              "run_id": "deepseek-v4.1-flash-large",
+              "label": "deepseek-v4.1-flash large"
+            },
+            {
+              "run_id": "qwen3.8-27b-large",
+              "label": "qwen3.8-27b large"
+            },
+            {
+              "run_id": "qwen3.6-35b-large",
+              "label": "qwen3.6-35b large"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
