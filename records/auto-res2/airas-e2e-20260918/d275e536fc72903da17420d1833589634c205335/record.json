@@ -1,0 +1,336 @@
+{
+  "literature": [
+    {
+      "id": "s1",
+      "title": "When Does Label Smoothing Help?",
+      "authors": [
+        "Rafael Müller",
+        "Simon Kornblith",
+        "Geoffrey E. Hinton"
+      ],
+      "year": 2019,
+      "venue": "NeurIPS",
+      "arxiv_id": "1906.02629",
+      "url": "https://arxiv.org/pdf/1906.02629",
+      "bibkey": "muller-2019-when",
+      "verified_by": "arxiv",
+      "verified_at": "2026-09-18T10:22:44+00:00",
+      "fulltext": {
+        "path": ".research/sources/s1/fulltext.txt",
+        "sha256": "772d3a33ccb9510825e76b19f48d05b650cfefb6fa995d7e07ae0861aebe8581"
+      },
+      "parser": "pymupdf 1.26.6",
+      "passages": [
+        {
+          "id": "s1.p1",
+          "node_type": "result",
+          "quote": "label smoothing improves model calibration which can significantly improve beam-search",
+          "judgments": [
+            {
+              "text_sha256": "c87e7091c05213bbae48eaaefeeab4b8c0709c1464934ba113f3e0fc16f9e1b5",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            },
+            {
+              "text_sha256": "58dfb81db74da384983b742255d6349451839233643315639d33907024c85e28",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p2",
+          "node_type": "result",
+          "quote": "if a teacher network is trained with label smoothing, knowledge distillation into a student network is much less effective",
+          "judgments": [
+            {
+              "text_sha256": "c87e7091c05213bbae48eaaefeeab4b8c0709c1464934ba113f3e0fc16f9e1b5",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            },
+            {
+              "text_sha256": "58dfb81db74da384983b742255d6349451839233643315639d33907024c85e28",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "Is Label Smoothing Truly Incompatible with Knowledge Distillation: An Empirical Study",
+      "authors": [
+        "Zhiqiang Shen",
+        "Zechun Liu",
+        "Dejia Xu",
+        "Zitian Chen",
+        "Kwang-Ting Cheng",
+        "Marios Savvides"
+      ],
+      "year": 2021,
+      "venue": "ICLR",
+      "arxiv_id": "2104.00676",
+      "url": "https://arxiv.org/pdf/2104.00676",
+      "bibkey": "shen-2021-label",
+      "verified_by": "arxiv",
+      "verified_at": "2026-09-18T10:22:45+00:00",
+      "fulltext": {
+        "path": ".research/sources/s2/fulltext.txt",
+        "sha256": "7526a046333890f4ef1b0d6ce4e225ebab38055fd61cb3aeb15b9126ea7ea952"
+      },
+      "parser": "pymupdf 1.26.6",
+      "passages": [
+        {
+          "id": "s2.p1",
+          "node_type": "claim",
+          "quote": "label smoothing erases relative information between teacher logits",
+          "judgments": [
+            {
+              "text_sha256": "c87e7091c05213bbae48eaaefeeab4b8c0709c1464934ba113f3e0fc16f9e1b5",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            },
+            {
+              "text_sha256": "8551f594eaa33abff88f53f6b1a5381ffcb6f6ec0c6ffaaa83e3151ce4a08bfe",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "title": "Revisiting Label Smoothing and Knowledge Distillation Compatibility: What was Missing?",
+      "authors": [
+        "Keshigeyan Chandrasegaran",
+        "Ngoc-Trung Tran",
+        "Yunqing Zhao",
+        "Ngai-Man Cheung"
+      ],
+      "year": 2022,
+      "venue": "ICML",
+      "arxiv_id": "2206.14532",
+      "url": "https://arxiv.org/pdf/2206.14532",
+      "bibkey": "chandrasegaran-2022-revisiting",
+      "verified_by": "arxiv",
+      "verified_at": "2026-09-18T10:22:45+00:00",
+      "fulltext": {
+        "path": ".research/sources/s3/fulltext.txt",
+        "sha256": "f57e38080119905244d29303c9a07d616ee5f29159c8b4a7bedaacf6dcce3811"
+      },
+      "parser": "pymupdf 1.26.6",
+      "passages": [
+        {
+          "id": "s3.p1",
+          "node_type": "result",
+          "quote": "This systematic diffusion essentially curtails the benefits (as claimed by Shen et al. (2021b)) obtained by distilling from an LS-trained teacher, thereby rendering KD at increased temperatures ineffective.",
+          "judgments": [
+            {
+              "text_sha256": "c87e7091c05213bbae48eaaefeeab4b8c0709c1464934ba113f3e0fc16f9e1b5",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            },
+            {
+              "text_sha256": "8551f594eaa33abff88f53f6b1a5381ffcb6f6ec0c6ffaaa83e3151ce4a08bfe",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s3.p2",
+          "node_type": "method",
+          "quote": "We suggest to use an LS-trained teacher with a low-temperature transfer (i.e. T = 1) to achieve high performance students.",
+          "judgments": [
+            {
+              "text_sha256": "c87e7091c05213bbae48eaaefeeab4b8c0709c1464934ba113f3e0fc16f9e1b5",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            },
+            {
+              "text_sha256": "8551f594eaa33abff88f53f6b1a5381ffcb6f6ec0c6ffaaa83e3151ce4a08bfe",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "title": "Knowledge Distillation ≈ Label Smoothing: Fact or Fallacy?",
+      "authors": [
+        "Md Arafat Sultan"
+      ],
+      "year": 2023,
+      "venue": "EMNLP",
+      "doi": "10.18653/v1/2023.emnlp-main.271",
+      "arxiv_id": "2301.12609",
+      "url": "https://arxiv.org/pdf/2301.12609",
+      "bibkey": "sultan-2023-knowledge",
+      "verified_by": "doi.org",
+      "verified_at": "2026-09-18T10:22:46+00:00",
+      "fulltext": {
+        "path": ".research/sources/s4/fulltext.txt",
+        "sha256": "fb34f6ad92951b114ebeb0cfd2c000414a87a1257afc494e82334e901c7809fe"
+      },
+      "parser": "pymupdf 1.26.6",
+      "passages": [
+        {
+          "id": "s4.p1",
+          "node_type": "result",
+          "quote": "In KD, the student inherits not only its knowledge but also its confidence from the teacher",
+          "judgments": [
+            {
+              "text_sha256": "c09982fda560f96484016ab0025b2348f36318cd156bf92d3a47e42709f9d731",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            },
+            {
+              "text_sha256": "51a4345cbc439744908a2ba81cf3a0a34da2de5d36f4abb34f86015f2cdccd3c",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s4.p2",
+          "node_type": "setup",
+          "quote": "Experiments on four text classification tasks involving models of different sizes",
+          "judgments": [
+            {
+              "text_sha256": "51a4345cbc439744908a2ba81cf3a0a34da2de5d36f4abb34f86015f2cdccd3c",
+              "model": "rikyu/kimi-k3",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "statement": "画像分類において、ラベルスムージング（α=0.1）で学習した教師から低温度（T=1）で蒸留した生徒は、hard target で学習した教師から同条件で蒸留した生徒より較正が良い（期待較正誤差 ECE が低い）。",
+      "assumptions": [
+        "15-bin ECE が「較正の良さ」を代表する（c1）。",
+        "CIFAR-100 と ResNet-18 教師 / 小型 CNN 生徒という 1 設定での差が、画像分類一般に外挿できる（c1）。",
+        "hard target 教師からの蒸留が「較正を継承しない」側の代表的な基準になっている（c1）。",
+        "seed 1 本の ECE 差 0.01 が run 間のばらつきより大きい（c1）。"
+      ],
+      "grounded_on": [
+        "s1.p1",
+        "s1.p2",
+        "s3.p2",
+        "s4.p1",
+        "s4.p2"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "LS 教師から T=1 で蒸留した生徒の ECE は、hard 教師から T=1 で蒸留した生徒の ECE より 0.01 以上低い。",
+          "rationale": "仮説そのものの測定である。教師の較正差（s1.p1）が蒸留を通じて生徒に現れるか（s4.p1）を、Chandrasegaran らが精度の面で推奨する T=1（s3.p2）で直接比較する。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "CIFAR-100。各 run は教師（ResNet-18、hard または LS α=0.1）を学習し、その凍結 logit から小型 CNN 生徒を T=1、KL:CE=0.9:0.1 で蒸留し、テスト集合で生徒の ece / accuracy / nll と教師の teacher_ece / teacher_accuracy を出力する。教師の損失以外の全条件を共有する。",
+              "runs": [
+                {
+                  "run_id": "student-hard",
+                  "description": "hard target（α=0）教師 → T=1 蒸留",
+                  "params": {
+                    "mode": "full"
+                  }
+                },
+                {
+                  "run_id": "student-ls",
+                  "description": "LS（α=0.1）教師 → T=1 蒸留",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "cites_passages": [
+                    "s3.p2"
+                  ]
+                }
+              ],
+              "cites_passages": [
+                "s3.p2"
+              ]
+            }
+          ],
+          "cites_passages": [
+            "s1.p1",
+            "s3.p2",
+            "s4.p1"
+          ],
+          "criterion": {
+            "metric": "ece",
+            "subject": "student-ls",
+            "reference": "student-hard",
+            "op": "<=",
+            "margin": -0.01
+          },
+          "prediction": {
+            "low": -0.04,
+            "high": -0.01,
+            "basis": "Müller らは CIFAR-100 で LS が教師の ECE を数ポイント下げると報告しており、その一部が生徒に継承されるという想定。"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "key": "main",
+          "caption": "CIFAR-100 テスト集合における生徒と教師の較正・精度。",
+          "columns": [
+            {
+              "header": "ECE",
+              "ref_path": "ece",
+              "round": 4
+            },
+            {
+              "header": "Accuracy",
+              "ref_path": "accuracy",
+              "round": 4
+            },
+            {
+              "header": "NLL",
+              "ref_path": "nll",
+              "round": 4
+            },
+            {
+              "header": "Teacher ECE",
+              "ref_path": "teacher_ece",
+              "round": 4
+            },
+            {
+              "header": "Teacher Acc.",
+              "ref_path": "teacher_accuracy",
+              "round": 4
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "student-hard",
+              "label": "hard 教師 → 生徒 (T=1)"
+            },
+            {
+              "run_id": "student-ls",
+              "label": "LS 教師 → 生徒 (T=1)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "ギャップ: LS と KD の相性の議論（s1.p2, s2.p1, s3.p1）は生徒の精度だけを対象にしており、LS が教師に与える較正の改善（s1.p1）が蒸留で生徒に受け渡されるかは測られていない。Sultan（s4.p1）はテキスト分類で生徒が教師の confidence を継承すると報告した（s4.p2）が、画像分類の LS 教師では未検証。",
+        "余白 0.01: CIFAR-100 の 15-bin ECE における単一 seed のばらつきを上回る差として選んだ。予測区間 [-0.04, -0.01] の上端を余白と一致させ、基準を満たす最小の差までを予測どおりと数える。下端は Müller らが報告した教師側の ECE 低減幅を超えない範囲。",
+        "計算ターゲット: NVIDIA GPU 1 枚、x86_64、Seyval managed compute。教師 ResNet-18 と生徒は短いスケジュール（教師 30 epoch、生徒 30 epoch 程度）で学習し、run 1 本 30 分以内を目標にする。",
+        "run と claim の対応: c1 ← {student-hard, student-ls}。教師は各 run の内部で学習し、teacher_ece / teacher_accuracy は報告のみで判定には用いない。"
+      ]
+    }
+  ]
+}

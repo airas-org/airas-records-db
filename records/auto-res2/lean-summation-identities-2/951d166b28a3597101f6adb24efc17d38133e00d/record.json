@@ -1,0 +1,173 @@
+{
+  "hypotheses": [
+    {
+      "id": "h1",
+      "statement": "初等的な総和恒等式（ガウスの和と奇数の和）は、Lean 4 と mathlib の標準公理のみに依存して数学的帰納法により形式証明でき、その検証は実験と同じ事前登録・隔離実行・provenance 照合の流れで行える。",
+      "assumptions": [
+        "c1 と c2 の statement が、それぞれの恒等式の意図した数学的内容を忠実に形式化している（形式化の忠実性は Lean が検証しない）。",
+        "Lean 4 v4.33.1 と mathlib v4.33.1 のカーネルおよび report ツール（airas-report）が正しく、collectAxioms の返す公理集合が完全である。",
+        "GitHub Actions 上の実行が、record が宣言した commit の子孫で行われている（provenance 照合が依拠する前提）。"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "ガウスの和 2·Σ_{i<n+1} i = n(n+1) は、すべての自然数 n について Lean 4 で sorry 無しに証明され、依存公理は標準 3 公理に収まる。",
+          "rationale": "h1 の『初等的な総和恒等式が標準公理のみで形式証明できる』の第一の実例。等差数列の和という最も基本的な恒等式で、帰納法と Finset.sum_range_succ だけで閉じるはず。",
+          "verifier": {
+            "kind": "lean",
+            "toolchain": "leanprover/lean4:v4.33.1",
+            "mathlib_rev": "0df444a360eaa60ab8c11dca51a86af692955474"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "Airas.GaussSum に宣言 gauss_sum_mul_two を置き、帰納法で証明する。GitHub Actions の full stage で lake build と airas-report を走らせる。",
+              "runs": [
+                {
+                  "run_id": "gauss-sum",
+                  "description": "gauss_sum_mul_two のビルドと report",
+                  "params": {
+                    "module": "Airas.GaussSum",
+                    "decl": "gauss_sum_mul_two",
+                    "statement": "∀ (n : ℕ), 2 * ∑ i ∈ Finset.range (n + 1), i = n * (n + 1)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "statement": "奇数の和 Σ_{i<n} (2i+1) = n² は、すべての自然数 n について Lean 4 で sorry 無しに証明され、依存公理は標準 3 公理に収まる。",
+          "rationale": "h1 の第二の実例。c1 と独立な恒等式で、同じ帰納法の型で閉じることが、手法が特定の恒等式に依存しないことの証拠になる。",
+          "verifier": {
+            "kind": "lean",
+            "toolchain": "leanprover/lean4:v4.33.1",
+            "mathlib_rev": "0df444a360eaa60ab8c11dca51a86af692955474"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "Airas.OddSum に宣言 odd_sum_eq_sq を置き、帰納法で証明する。GitHub Actions の full stage で lake build と airas-report を走らせる。",
+              "runs": [
+                {
+                  "run_id": "odd-sum",
+                  "description": "odd_sum_eq_sq のビルドと report",
+                  "params": {
+                    "module": "Airas.OddSum",
+                    "decl": "odd_sum_eq_sq",
+                    "statement": "∀ (n : ℕ), ∑ i ∈ Finset.range n, (2 * i + 1) = n ^ 2"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "statement は Lean が印字する形（∀ の束縛子、mathlib の ∑ 記法、ℕ）で手書きした。ビルドされた型の印字と表記がずれた場合は inconclusive になり、同じ id で append して凍結し直す。これはこの方式の弱点として報告対象。",
+        "Lean は反証しない。verdict は supported か inconclusive のどちらかで、refuted は出ない。"
+      ]
+    },
+    {
+      "id": "h1",
+      "statement": "Two elementary summation identities (the Gauss sum and the sum of the first n odd numbers) can be formally proved in Lean 4 with mathlib by induction, depending only on Lean's standard axioms, and that verification can run through the same preregistration, isolated-execution and provenance flow that AIRAS uses for experiments.",
+      "assumptions": [
+        "The statements of C1 and C2 faithfully formalize the intended mathematical content of each identity (faithfulness of a formalization is not something Lean checks).",
+        "The Lean 4 v4.33.1 kernel, mathlib v4.33.1 and the report tool (airas-report) are correct, and the axiom set returned by collectAxioms is complete.",
+        "The GitHub Actions run executes a descendant of the commit the record declared (the premise the provenance cross-check rests on)."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "The Gauss sum, twice the sum of i over i below n+1 equals n(n+1), is proved in Lean 4 without sorry for every natural number n, and its proof depends on no axiom outside the standard three.",
+          "rationale": "The first instance of H1's claim that elementary summation identities are formally provable from the standard axioms alone. It is the most basic arithmetic-progression identity and should close with induction and Finset.sum\\_range\\_succ only.",
+          "verifier": {
+            "kind": "lean",
+            "toolchain": "leanprover/lean4:v4.33.1",
+            "mathlib_rev": "0df444a360eaa60ab8c11dca51a86af692955474"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "Declare gauss\\_sum\\_mul\\_two in module Airas.GaussSum and prove it by induction; run lake build and airas-report at the full stage on GitHub Actions.",
+              "runs": [
+                {
+                  "run_id": "gauss-sum",
+                  "description": "build and report of gauss_sum_mul_two",
+                  "params": {
+                    "module": "Airas.GaussSum",
+                    "decl": "gauss_sum_mul_two",
+                    "statement": "∀ (n : ℕ), 2 * ∑ i ∈ Finset.range (n + 1), i = n * (n + 1)"
+                  },
+                  "results": [
+                    {
+                      "commit": "b3f04fa76e3f2ac3ddc6d421daadc3d1caaaf4b2",
+                      "toolchain": "leanprover/lean4:v4.33.1",
+                      "mathlib_rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+                      "statement": "∀ (n : ℕ), 2 * ∑ i ∈ Finset.range (n + 1), i = n * (n + 1)",
+                      "axioms": [
+                        "Classical.choice",
+                        "Quot.sound",
+                        "propext"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "verified": true,
+          "verdict": "supported"
+        },
+        {
+          "id": "c2",
+          "statement": "The sum of the first n odd numbers equals n squared, is proved in Lean 4 without sorry for every natural number n, and its proof depends on no axiom outside the standard three.",
+          "rationale": "The second instance of H1. It is an identity independent of C1, and closing it with the same induction pattern is evidence that the method does not depend on one particular identity.",
+          "verifier": {
+            "kind": "lean",
+            "toolchain": "leanprover/lean4:v4.33.1",
+            "mathlib_rev": "0df444a360eaa60ab8c11dca51a86af692955474"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "Declare odd\\_sum\\_eq\\_sq in module Airas.OddSum and prove it by induction; run lake build and airas-report at the full stage on GitHub Actions.",
+              "runs": [
+                {
+                  "run_id": "odd-sum",
+                  "description": "build and report of odd_sum_eq_sq",
+                  "params": {
+                    "module": "Airas.OddSum",
+                    "decl": "odd_sum_eq_sq",
+                    "statement": "∀ (n : ℕ), ∑ i ∈ Finset.range n, (2 * i + 1) = n ^ 2"
+                  },
+                  "results": [
+                    {
+                      "commit": "b3f04fa76e3f2ac3ddc6d421daadc3d1caaaf4b2",
+                      "toolchain": "leanprover/lean4:v4.33.1",
+                      "mathlib_rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+                      "statement": "∀ (n : ℕ), ∑ i ∈ Finset.range n, (2 * i + 1) = n ^ 2",
+                      "axioms": [
+                        "Classical.choice",
+                        "Quot.sound",
+                        "propext"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "verified": true,
+          "verdict": "supported"
+        }
+      ],
+      "notes": [
+        "Revision of h1/c1/c2 with the same ids: the first entries were written in Japanese with raw math characters, which claims.tex renders verbatim into a pdflatex document. The declared runs, statements and verifiers are unchanged.",
+        "Each statement is hand-written in the form Lean prints (binder form, mathlib's sum notation, the natural-number symbol). If the built type prints differently the run is inconclusive and the claim is appended again under the same id; that is reported as a weakness of string comparison.",
+        "Lean does not refute: a verdict is supported or inconclusive, never refuted."
+      ]
+    }
+  ]
+}

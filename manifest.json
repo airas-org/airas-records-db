@@ -1,1 +1,65 @@
-[]
+[
+  {
+    "id": "auto-res2/airas-e2e-20260917@37cd76e57a537cb5ab31346cfcc5fd2bb5613839",
+    "url": "https://github.com/auto-res2/airas-e2e-20260917",
+    "commit": "37cd76e57a537cb5ab31346cfcc5fd2bb5613839",
+    "stage": "prereg",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/airas-e2e-20260918@d275e536fc72903da17420d1833589634c205335",
+    "url": "https://github.com/auto-res2/airas-e2e-20260918",
+    "commit": "d275e536fc72903da17420d1833589634c205335",
+    "stage": "prereg",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/airas-smoke-1017-e2e@269026ecd2d119fa8746c1cea51a04f91ecbb352",
+    "url": "https://github.com/auto-res2/airas-smoke-1017-e2e",
+    "commit": "269026ecd2d119fa8746c1cea51a04f91ecbb352",
+    "stage": "results",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/airas-smoke-1017@b2d08db064c0e6d6e3b40b4058af5cb58cd6ffa5",
+    "url": "https://github.com/auto-res2/airas-smoke-1017",
+    "commit": "b2d08db064c0e6d6e3b40b4058af5cb58cd6ffa5",
+    "stage": "prereg",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/lean-summation-identities-2@951d166b28a3597101f6adb24efc17d38133e00d",
+    "url": "https://github.com/auto-res2/lean-summation-identities-2",
+    "commit": "951d166b28a3597101f6adb24efc17d38133e00d",
+    "stage": "results",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/lean-summation-identities-3@fb5df9d961dbc230fdf87f4ac838be4411222333",
+    "url": "https://github.com/auto-res2/lean-summation-identities-3",
+    "commit": "fb5df9d961dbc230fdf87f4ac838be4411222333",
+    "stage": "results",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-rikyu-open-models@448f37a09a0b08100c7106ae09d7dfdb474c5372",
+    "url": "https://github.com/auto-res2/scigym-rikyu-open-models",
+    "commit": "448f37a09a0b08100c7106ae09d7dfdb474c5372",
+    "stage": "results",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-table1-reproduction-2@390c26f4285892097dfe1c94579545609b0e1bec",
+    "url": "https://github.com/auto-res2/scigym-table1-reproduction-2",
+    "commit": "390c26f4285892097dfe1c94579545609b0e1bec",
+    "stage": "prereg",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-table1-reproduction@4e9a531369741dd40e96224216012b4d29a91cb0",
+    "url": "https://github.com/auto-res2/scigym-table1-reproduction",
+    "commit": "4e9a531369741dd40e96224216012b4d29a91cb0",
+    "stage": "results",
+    "collected_at": "2026-09-28T04:44:30+00:00"
+  }
+]
