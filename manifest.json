@@ -1,10 +1,24 @@
 [
   {
-    "id": "auto-res2/scigym-frontier-models@27789a244ea033f58c50f6f4363fd51379fcb613",
+    "id": "auto-res2/scigym-frontier-models@8ac1dcaee9004287a8a854a1c76dbd75358d8da1",
     "url": "https://github.com/auto-res2/scigym-frontier-models",
-    "commit": "27789a244ea033f58c50f6f4363fd51379fcb613",
-    "stage": "prereg",
-    "collected_at": "2026-09-28T09:43:40+00:00"
+    "commit": "8ac1dcaee9004287a8a854a1c76dbd75358d8da1",
+    "stage": "results",
+    "collected_at": "2026-10-05T10:22:17+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-iteration-budget@e50720eed5dac754d0f189d5064d31b3d9d7924b",
+    "url": "https://github.com/auto-res2/scigym-iteration-budget",
+    "commit": "e50720eed5dac754d0f189d5064d31b3d9d7924b",
+    "stage": "results",
+    "collected_at": "2026-10-05T10:22:17+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-nemotron@d1df5baf9d69058f25960f9b83b4272102a51415",
+    "url": "https://github.com/auto-res2/scigym-nemotron",
+    "commit": "d1df5baf9d69058f25960f9b83b4272102a51415",
+    "stage": "results",
+    "collected_at": "2026-10-05T10:22:17+00:00"
   },
   {
     "id": "auto-res2/scigym-rikyu-open-models@448f37a09a0b08100c7106ae09d7dfdb474c5372",
@@ -14,11 +28,11 @@
     "collected_at": "2026-09-28T04:44:30+00:00"
   },
   {
-    "id": "auto-res2/scigym-rikyu-saturation@41b3ab94c37407d70c4d69fe37cf24e954653607",
+    "id": "auto-res2/scigym-rikyu-saturation@80ee7084c718815109fae0582fe546635068c41a",
     "url": "https://github.com/auto-res2/scigym-rikyu-saturation",
-    "commit": "41b3ab94c37407d70c4d69fe37cf24e954653607",
-    "stage": "prereg",
-    "collected_at": "2026-09-28T09:43:40+00:00"
+    "commit": "80ee7084c718815109fae0582fe546635068c41a",
+    "stage": "results",
+    "collected_at": "2026-10-05T10:22:17+00:00"
   },
   {
     "id": "auto-res2/scigym-table1-reproduction-2@390c26f4285892097dfe1c94579545609b0e1bec",

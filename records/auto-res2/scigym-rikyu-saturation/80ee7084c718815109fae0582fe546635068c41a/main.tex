@@ -1,0 +1,141 @@
+\PassOptionsToPackage{numbers}{natbib}
+\documentclass{article}
+\usepackage{iclr2024_conference}
+\usepackage{luatexja-fontspec}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\graphicspath{{../}}
+
+\InputIfFileExists{values.tex}{}{}
+\providecommand{\airasval}[1]{\textbf{??airasval:\detokenize{#1}??}}
+\providecommand{\unverified}[1]{#1}
+\providecommand{\airasrecordlink}[1]{#1}
+
+\title{SciGym における反復上限の引き上げと large split の事前登録評価: open-weight 5 モデルは反復を 100 に増やすと改善し、より大きな系でも論文の最良に届くか}
+\author{AIRAS}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+SciGym \citep{duan-2025-measuring} は、反応をすべて取り除いた SBML モデルを LLM エージェントに渡し、摂動実験とコード実行を繰り返して反応機構を復元させるベンチマークである。論文は反復上限 20 で SciGym-small 137 件だけを評価しており、反復を増やしたときに性能が飽和するのか、より大きな系（large split 213 件）でどこまで解けるのかは示されていない。本研究は、公開コードの Controller と評価器をそのまま用い、理研の計算機 RIKYU の推論 API で提供される open-weight 5 モデル（kimi-k2.6、kimi-k3、deepseek-v4.1-flash、qwen3.8-27b、qwen3.6-35b）を、反復上限 100 で small と large の両方に走らせる。実験前に、(1) small では各モデルの平均 Simulation Trajectory Error（STE）が先行研究の 20 反復の値以下になること、(2) large では各モデルの平均 STE が論文 Table 1 の最良行（Gemini-2.5-Pro の 0.3212）以下になること、を反証線として登録する。反復上限は当初 200 を検討したが、5 モデル共通の文脈長 262144 トークンと計算機の 1 job 4 日の上限から 100 に下げた。提出までに使った反復数、上限前に自ら提出した件数、文脈超過で提出に至らなかった件数を飽和の指標として表で報告する。第 2 版（2026 年 9 月 30 日）は、推論 API の鍵に掛かった同時要求数の制限のため 5 モデルのうち 3 モデル（kimi-k3、deepseek-v4.1-flash、qwen3.6-35b）の結果で判定する。small では 3 モデルとも平均 STE が 20 反復の値以下で（Claim 2、3、5 支持）、kimi-k3 は \airasval{kimi-k3-small.trajectory_smape} と 20 反復の \unverified{0.2251} から大きく改善した。large では deepseek-v4.1-flash が \airasval{deepseek-v4.1-flash-large.trajectory_smape}、qwen3.6-35b が \airasval{qwen3.6-35b-large.trajectory_smape} と基準を上回った（Claim 8、10 反証）。ただし deepseek-v4.1-flash は small で 33 件、large で 53 件が制限のため反復を終えられず、提出無しとして平均に含めているので、その判定は保守的である。
+\end{abstract}
+
+\section{はじめに}
+\label{sec:intro}
+LLM に科学的発見のサイクル全体（実験の設計、結果の解析、機構の提案）を行わせて測るベンチマークとして、SciGym \citep{duan-2025-measuring} が提案された。BioModels 由来の SBML モデルから反応をすべて取り除いたものをエージェントに渡し、エージェントは初期濃度を変えた摂動実験を要求し、返ってきた時系列を Python で解析し、最終的な SBML を提出する。提出は任意の時点で行え、反復数の上限は 20 である \cite[s1.p3]{duan-2025-measuring}。論文は計算資源の制約から SciGym-small の 137 件だけを評価した \cite[s1.p2]{duan-2025-measuring}。
+
+先行する AIRAS の研究は、同じ Controller と反復上限 20 で open-weight 6 モデルの平均 STE が論文の GPT-4.1-mini の 0.6007 を 0.05 より大きくは上回らないかを評価し \cite[s3.p1]{scigymrikyuopenmodels-2026-scigym}、kimi-k2.6 が \unverified{0.2100} \cite[s3.p2]{scigymrikyuopenmodels-2026-scigym}、kimi-k3 が \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym}、deepseek-v4.1-flash が \unverified{0.2405} \cite[s3.p4]{scigymrikyuopenmodels-2026-scigym}、qwen3.8-27b が \unverified{0.2479} \cite[s3.p5]{scigymrikyuopenmodels-2026-scigym}、qwen3.6-35b が \unverified{0.4571} \cite[s3.p6]{scigymrikyuopenmodels-2026-scigym} であった。その実行では 137 件のうちおよそ 8 割の件が上限の 20 反復を使い切っており、反復を増やせばさらに良くなるのか、それとも飽和しているのかは分からない。また large split の 213 件は論文でも先行研究でも評価されていない。
+
+本研究はこの 2 点を、同じ 5 モデル、同じ Controller、反復上限 100 で問う。判定は AIRAS の事前登録の枠組みに従い、仮説・判定基準・予測区間・実行条件を実験前に記録へ凍結し、実験後は計測値だけを流し込む。
+
+\section{関連研究}
+\label{sec:related}
+SciGym \citep{duan-2025-measuring} の評価指標は 3 つで、種間の相互作用の F1（NTS）、反応物と生成物の集合が一致した反応の適合率・再現率・F1（RMS。modifier まで要求する厳格版もある）\cite[s1.p7]{duan-2025-measuring}、および全種の時系列の対称平均絶対パーセント誤差（STE）\cite[s1.p8]{duan-2025-measuring} である。論文 Table 1 では Gemini-Pro が最良で \cite[s1.p6]{duan-2025-measuring}、その STE は \unverified{0.3212} である \cite[s1.p5]{duan-2025-measuring}。
+
+\section{仮説と予測}
+\label{sec:hypothesis}
+以下は記録（record.json）から生成された仮説・主張・判定基準・予測区間の一覧である。実験後は Observed と Verdict が計測値から埋められる。
+
+\input{claims.tex}
+
+\paragraph{判定基準と予測区間の根拠.}
+仮説 1（small）の各主張の反証線は「（当該モデルの 100 反復での平均 STE）$-$（先行研究の 20 反復での平均 STE）$\le 0$」である。先行研究の値は同じ API、同じ Controller、同じ評価層での 1 回実行であり、本研究では 20 反復を再実行しない。予測区間は $[-0.08, 0.02]$（qwen3.6-35b は 20 反復での値が高く余地が大きいので $[-0.15, 0.02]$）とする。20 反復では大半の件が上限まで使い切っていたので改善の余地はあるが、文脈が長くなると推論が乱れることもあり、改善は小さめと見る。
+
+仮説 2（large）の各主張の反証線は「（当該モデルの large での平均 STE）$-$ \unverified{0.3212} $\le 0$」である。large には論文の公表値が無いので、論文の small での最良行 Gemini-2.5-Pro の STE \cite[s1.p5]{duan-2025-measuring} を絶対水準の基準に置く。予測区間は $[-0.10, 0.10]$ とし、small で基準を上回っていた qwen3.6-35b だけは $[0, 0.25]$（反証されると予測）とする。1 件の STE の標準偏差を 0.27 程度と見積もると 137 件平均の標準誤差は約 0.02 で、差が 0.02 未満のときは結論が揺らぎうることを前提として記録する。
+
+RMS（modifier あり / なし）と NTS、提出までの反復数、上限前に自ら提出した件数、文脈超過で提出に至らなかった件数は同じ実行から表として報告するが、判定には用いない。small と large の難易度差も表で示すにとどめ、主張にはしない。
+
+\section{方法}
+\label{sec:method}
+\paragraph{タスク.}
+各インスタンスは真の SBML（\texttt{truth.xml}）、反応を取り除いた不完全な SBML（\texttt{partial.xml}）、シミュレーション条件（\texttt{truth.sedml}）からなる。エージェントは不完全な SBML を受け取り、各ターンで実験（初期濃度の変更を指定し、真のモデルの時系列を得る）、コード実行（numpy / pandas / scipy / libsbml と、仮説モデルを走らせる \texttt{simulate} 関数が使える）、提出のいずれかを markdown 形式で返す。提出は任意の時点で行え、反復数の上限はプロンプトでエージェントに伝えられる \cite[s1.p3]{duan-2025-measuring}。提出した SBML が無効な場合は追加のデバッグ反復が許され、それでも無効なら不完全 SBML のまま採点される \cite[s1.p4]{duan-2025-measuring}。
+
+\paragraph{実行系.}
+ループ、プロンプト、実験の実行はすべて公開コード \citep{h4duan-2025-scigym} の \texttt{Controller} をそのまま用いる。本研究が書くのは、(1) OpenAI 互換 API でモデルを呼ぶ \texttt{LLM} 実装（公式の GPT 実装と同じく、システムプロンプトと全履歴を毎回送る）、(2) インスタンスごとに 1 プロセスで Controller を起動して並列に走らせ、終わった件を 1 件 1 書庫で保存する駆動部、(3) 各インスタンスの提出モデルと公式データを評価層の入力ファイルに書き出す部分だけである。会話が文脈長を超えて API が要求を拒んだ件は、その時点で終了し「文脈超過」として数える。提出に至らなかった件は公式規約どおり不完全 SBML の採点値で平均に含める。
+
+\paragraph{指標.}
+採点は評価層 airas-eval のベンチマークパック \texttt{scigym\_small}（137 件）と \texttt{scigym\_large}（213 件）が行う。パックは公式リリースの各件（truth / partial / sedml）を sha256 で固定し、公開コードの \texttt{Evaluator}（コミット 88a7b93）で提出モデルを採点して、STE（\texttt{trajectory\_smape}）、RMS の適合率・再現率・F1（modifier なし \texttt{reaction\_*}、あり \texttt{reaction\_*\_with\_modifiers}）、NTS の F1（\texttt{topology\_f1}）を件の単純平均で返す。
+
+\section{実験設計}
+\label{sec:design}
+\paragraph{モデル.}
+RIKYU の推論 API が提供する open-weight モデルのうち、先行研究で 20 反復の full run が完走した 5 モデルを用いる: kimi-k2.6、kimi-k3、deepseek-v4.1-flash、qwen3.8-27b、qwen3.6-35b。いずれも思考（thinking）を出力するモデルである。文脈長は qwen 2 種と kimi-k2.6 が 262144、deepseek-v4.1-flash が 1000000、kimi-k3 が 928000 トークンで、5 モデル共通の上限 262144 を設計の基準にする。GLM 系は先行研究で生成速度が遅く期限内に終わらなかったため除く。
+
+\paragraph{データ.}
+SciGym の公式リリース（Hugging Face \texttt{h4duan/scigym-sbml}）のうち、論文が評価対象とした small split 137 件 \cite[s1.p2]{duan-2025-measuring} に加え、論文では評価されていない large split 213 件を用いる（いずれも RIKYU 上のコピー）。large の真のモデルの SBML は small のおよそ 3.5 倍長い。評価層は各件の内容を公式リリースの sha256 と照合する。
+
+\paragraph{反復上限.}
+\texttt{max\_iterations} は 100 とする。当初は 200 を検討したが、先行研究の 20 反復の会話は 1 反復あたり中央値 0.85k、90 パーセンタイル 1.3k トークン伸びており、出力用に 32768 を確保した入力の上限約 230k トークンでは、200 反復だと large で 90 パーセンタイルの件が文脈長を超える見込みだった。また 1 モデル 1 run で small か large の全件を回すと、計算機の 1 job 4 日の上限に対して 200 反復は収まらない。この 2 つの理由で small / large 共通の上限を 100 に下げた。100 でも一部の件は文脈長を超えうるので、その件数を表で報告する。
+
+\paragraph{設定.}
+\texttt{eval\_debug\_rounds} は論文本文の 3 \cite[s1.p4]{duan-2025-measuring}（公開 config の既定値は 5 \cite[s2.p3]{h4duan-2025-scigym}）、\texttt{temperature} は公開 config の 1.0 \cite[s2.p1]{h4duan-2025-scigym}、摂動は初期濃度の変更のみとする。応答のトークン上限は 32768 とし、思考で使い切った応答は文脈長に収まる範囲で上限を倍にして呼び直す。本文が空で返った呼び出しは呼び直し、reasoning 側に本文が入っていればそれを用いる。各モデル、各インスタンスを 1 回ずつ実行する。1 件の試行の上限時間は 36 時間とし、上限で打ち切られた件は最大 3 回やり直す。
+
+\paragraph{計算資源と環境.}
+実行は Seyval を通じて RIKYU（Slurm、GB200 ノード、aarch64）で行い、LLM は同じ RIKYU の推論 API を呼ぶ。GPU は使わないが、資源の単位が GPU であるため 1 GPU を要求する。1 run は 1 モデル × 1 split で、48 件を並列に走らせる。1 job の上限は 4 日で、打ち切られた run は保存済みの件の書庫から続きを実行する。環境は Dockerfile と \texttt{uv.lock} で固定する。aarch64 向けの wheel が無いため、libroadrunner は公式の 2.8.0 ではなく 2.7.0、antimony は 2.14.0 を用い、rrplugins と phrasedml は除外する。
+
+\paragraph{段階.}
+sanity は各 split の先頭 1 件を 2 反復で走らせて配管を確かめる。pilot は sorted した件から等間隔に 10 件を 100 反復で走らせ、1 件あたりの所要時間と文脈の伸びを測る。主張の判定は full の結果だけで行い、sanity と pilot の結果は記録に取り込まない。
+
+\paragraph{run と主張の対応.}
+small: \texttt{kimi-k2.6-small} $\to$ Claim 1、\texttt{kimi-k3-small} $\to$ Claim 2、\texttt{deepseek-v4.1-flash-small} $\to$ Claim 3、\texttt{qwen3.8-27b-small} $\to$ Claim 4、\texttt{qwen3.6-35b-small} $\to$ Claim 5。large: \texttt{kimi-k2.6-large} $\to$ Claim 6、\texttt{kimi-k3-large} $\to$ Claim 7、\texttt{deepseek-v4.1-flash-large} $\to$ Claim 8、\texttt{qwen3.8-27b-large} $\to$ Claim 9、\texttt{qwen3.6-35b-large} $\to$ Claim 10。
+
+% ===== airas: post-experiment sections, filled once runs exist =====
+
+\section{結果}
+\label{sec:results}
+表~\ref{tab:small} に small（137 件）、表~\ref{tab:large} に large（213 件）の各 run の平均 STE、RMS の F1（modifier なし / あり）、有効な SBML が提出された件数、提出までの平均反復数、上限（100 反復）前に自ら提出した件数、文脈長を超えて提出に至らなかった件数を示す。large には論文 Table 1 の最良行 Gemini-2.5-Pro（\unverified{0.3212}）\cite[s1.p5]{duan-2025-measuring} との差も載せる。各値は評価層 \texttt{scigym\_small} / \texttt{scigym\_large} のレポートと駆動部の集計から記録経由で流し込んだものである。第 2 版で表に載るのは結果のある 5 run で、除外した run と結果の無い run は後述の「実行で起きたこと」に記す。
+
+{\scriptsize\setlength{\tabcolsep}{2.5pt}\input{tables/small.tex}}
+
+{\scriptsize\setlength{\tabcolsep}{2.5pt}\input{tables/large.tex}}
+
+\paragraph{主張の判定（仮説 1、small）.}
+反証線は「（100 反復での平均 STE）$-$（先行研究の 20 反復での平均 STE）$\le 0$」である（第\ref{sec:hypothesis}節）。kimi-k3 は \airasval{kimi-k3-small.trajectory_smape} で、20 反復の \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym} から $-0.14$ 改善し（Claim 2 支持）、予測区間 $[-0.08, 0.02]$ を下に外れた。deepseek-v4.1-flash は \airasval{deepseek-v4.1-flash-small.trajectory_smape} で、20 反復の \unverified{0.2405} \cite[s3.p4]{scigymrikyuopenmodels-2026-scigym} との差は $-0.02$（Claim 3 支持、予測区間の内側）。ただしこの run は \airasval{deepseek-v4.1-flash-small.n_not_finished} 件が制限のため反復を終えられず提出無しとして平均に入っているので、完了していれば差はさらに開く。qwen3.6-35b は \airasval{qwen3.6-35b-small.trajectory_smape} で、20 反復の \unverified{0.4571} \cite[s3.p6]{scigymrikyuopenmodels-2026-scigym} との差は $-0.01$（Claim 5 支持、予測区間 $[-0.15, 0.02]$ の内側）で、改善はほとんど無い。kimi-k2.6（Claim 1）と qwen3.8-27b（Claim 4）は run を実行できず保留である。
+
+\paragraph{主張の判定（仮説 2、large）.}
+反証線は「（large での平均 STE）$-$ \unverified{0.3212} $\le 0$」である。deepseek-v4.1-flash は \airasval{deepseek-v4.1-flash-large.trajectory_smape} で差 $+0.03$、qwen3.6-35b は \airasval{qwen3.6-35b-large.trajectory_smape} で差 $+0.20$ と、いずれも基準を上回った（Claim 8、10 反証）。qwen3.6-35b の差は事前に反証を予測した区間 $[0, 0.25]$ の内側で、deepseek-v4.1-flash の差は区間 $[-0.10, 0.10]$ の内側である。deepseek-v4.1-flash の large は \airasval{deepseek-v4.1-flash-large.n_not_finished} 件が反復を終えられず提出無しとして入っており、その件が完了すれば基準を下回る余地がある。この反証は「未完の件を提出無しと数えた上での反証」であり、残件の実行後に主張を同じ id で追記して判定を更新する。qwen3.6-35b の large は未完 \airasval{qwen3.6-35b-large.n_not_finished} 件のうち \airasval{qwen3.6-35b-large.n_context_overflow} 件が文脈超過で、残りが全件完了しても差は $0.1$ を超えると見込まれ、反証は頑健である。kimi-k2.6（Claim 6）、kimi-k3（Claim 7）、qwen3.8-27b（Claim 9）は結果が無く保留である。
+
+\paragraph{反復の使い方.}
+100 反復の上限に対して、kimi-k3 は small で平均 \airasval{kimi-k3-small.mean_iterations} 反復を使い、137 件中 \airasval{kimi-k3-small.n_early_submit} 件を上限前に自ら提出した。20 反復では大半の件が上限まで使い切っていたので、この差がそのまま STE の改善に現れている。deepseek-v4.1-flash は small で平均 \airasval{deepseek-v4.1-flash-small.mean_iterations} 反復、large で \airasval{deepseek-v4.1-flash-large.mean_iterations} 反復を使い、いずれも大半を自ら提出した。qwen3.6-35b は large で平均 \airasval{qwen3.6-35b-large.mean_iterations} 反復と、20 反復の上限に近いところで自ら提出しており（\airasval{qwen3.6-35b-large.n_early_submit} 件が早期提出）、反復を増やしても使わない。文脈超過は qwen3.6-35b の large で \airasval{qwen3.6-35b-large.n_context_overflow} 件、small で \airasval{qwen3.6-35b-small.n_context_overflow} 件、deepseek-v4.1-flash の large で \airasval{deepseek-v4.1-flash-large.n_context_overflow} 件である。
+
+\paragraph{RMS.}
+modifier なしの RMS F1 は kimi-k3 の small が \airasval{kimi-k3-small.reaction_f1}、deepseek-v4.1-flash が small \airasval{deepseek-v4.1-flash-small.reaction_f1}、large \airasval{deepseek-v4.1-flash-large.reaction_f1}、qwen3.6-35b が small \airasval{qwen3.6-35b-small.reaction_f1}、large \airasval{qwen3.6-35b-large.reaction_f1} である。small の 3 モデルは論文 Table 1 の最良 \unverified{0.3383} \cite[s1.p5]{duan-2025-measuring} を上回るか同水準で、STE の順位と一致する。
+
+\paragraph{トークン.}
+表~\ref{tab:tokens} に各 run のトークン消費を示す。100 反復では入力トークンが 1 run で数億に達し、deepseek-v4.1-flash の large は \airasval{deepseek-v4.1-flash-large.input_tokens} トークンである。履歴を毎回送る Controller の設計では、反復数の増加が入力トークンにほぼ二乗で効く。
+
+\input{tables/tokens.tex}
+
+\paragraph{実行で起きたこと.}
+事前登録した設計からの逸脱と、実行中に判明した事実を記す。第一に、LLM が書いた解析コードや提出モデルの評価が ODE ソルバーの C ライブラリの中で止まり、公式 Controller の 3 分制限（\texttt{signal.alarm}）が効かない件が多発した。実行の途中で「出力が 90 分止まった試行を打ち切って反復 0 からやり直す」判定を駆動部に加え、走っていた run をすべて止めて完了済みの件を引き継いで投げ直した。この変更は Controller、プロンプト、モデルの呼び方、採点には触れていない。第 1 版の執筆時点で打ち切りは deepseek-v4.1-flash の large で \unverified{31} 回、small で \unverified{25} 回、kimi-k3 の large で \unverified{18} 回、qwen3.6-35b の large で \unverified{9} 回起きていた。なお本版の run が使った駆動部には、打ち切り後の再試行を開始 30 秒で再び打ち切る不具合があり、打ち切られた件は実質 1 試行しか受けていない。不具合はその後直したが、本版の結果には反映されていない。第二に、実行開始から約 7 時間後（2026 年 9 月 28 日 15:40 UTC 頃）に RIKYU の推論 API が deepseek-v4.1-flash を除く全モデルで 502 または無応答になり、kimi-k3 と qwen3.6-35b は約 1 時間半で、kimi-k2.6 と qwen3.8-27b は翌日まで復旧しなかった。当時の実験コードは 5xx を 30 分呼び直すと試行を落としていたため、5xx と接続断を最大 6 時間呼び直すように変え、再度全 run を止めて完了済みの件を引き継いで投げ直した。第三に、2026 年 9 月 29 日 05:19 UTC 以降、推論 API の鍵に同時要求数 2 の制限（HTTP 429、\texttt{max\_parallel\_requests}）が掛かった。48 並列で走る run はほぼ進まなくなり、制限前に進んでいなかった kimi-k2.6 と qwen3.8-27b の 4 run は利用者の判断で本研究から除外した。他の run も制限下で job の時間を使い切り、deepseek-v4.1-flash は small で \airasval{deepseek-v4.1-flash-small.n_not_finished} 件、large で \airasval{deepseek-v4.1-flash-large.n_not_finished} 件、qwen3.6-35b は large で \airasval{qwen3.6-35b-large.n_not_finished} 件（うち文脈超過 \airasval{qwen3.6-35b-large.n_context_overflow} 件）が反復を終えられず、提出無しとして平均に含めた。第四に、kimi-k3 の large は 213 件中 \unverified{169} 件が完了した時点で job がメモリ超過（Slurm の OUT\_OF\_MEMORY）で終了し、採点に至らなかったので本版に結果が無い。完了件は引き継ぎ用に保存してある。第五に、評価入力が large では 1 run で 100 MB 近くになり記録への取り込み上限を超えるため、評価入力を gzip で書くように駆動部と評価層（airas-eval 0.13.1）を変えた。これらの経緯は記録の notes にも残した。
+
+\section{考察}
+\label{sec:discussion}
+\paragraph{反復を増やす効果はモデルによって大きく異なる.}
+仮説 1 の判定できた 3 主張はすべて支持されたが、改善の幅は kimi-k3 の $-0.14$ から qwen3.6-35b の $-0.01$ まで開いた。kimi-k3 は 100 反復のうち平均 \airasval{kimi-k3-small.mean_iterations} 反復を使って自ら提出し、STE は \airasval{kimi-k3-small.trajectory_smape} であった。20 反復の先行値からの改善幅は 3 モデルで最も大きい（第\ref{sec:results}節）。反復上限 20 はこのモデルにとって能力ではなく予算の制約だったことになる。一方 qwen3.6-35b は反復を与えても 20 回前後で自ら提出し、STE も変わらなかった。20 反復で上限まで使い切っていた件が多かった先行研究の観察から「余地がある」と見た事前の予測は、モデルが実験を続ける判断をするかどうかを織り込んでいなかった。反復上限を上げたときの改善は、上限を使い切る性質（kimi-k3、deepseek-v4.1-flash）と、早く提出する性質（qwen3.6-35b）で分かれる。
+
+\paragraph{large では 100 反復でも論文最良行に届かず、未完の件が判定を左右する.}
+deepseek-v4.1-flash の large は \airasval{deepseek-v4.1-flash-large.trajectory_smape} と基準 \unverified{0.3212} を $0.03$ 上回った。この run は \airasval{deepseek-v4.1-flash-large.n_not_finished} 件が制限のため提出無しで入っており、その件の不完全モデルの採点値が平均を押し上げている。完了していれば基準を下回った可能性があり、Claim 8 の反証は本版では暫定である。qwen3.6-35b の large は \airasval{qwen3.6-35b-large.trajectory_smape} で、文脈超過 \airasval{qwen3.6-35b-large.n_context_overflow} 件と早期提出の多さから、残件が完了しても基準には届かない。large では系が大きく、100 反復の実験データが 262144 トークンの文脈長を圧迫するので、文脈長が反復上限より先に制約になる。
+
+\paragraph{反復を 100 に増やすと、時間と文脈の両方が制約になる.}
+反復上限 20 の先行研究の run は 1 本あたり \unverified{9}〜\unverified{20} 時間で終わっていた（本研究と同じ計算機での実行記録による）が、100 反復では 1 件に 6〜12 時間かかり、48 並列でも 137 件の small に丸 1 日以上を要した。入力トークンは 1 run で数億に達し、履歴を毎回送る設計では反復数にほぼ二乗で効く。C ライブラリ内で止まる件も反復数に比例して増え、止まった件をどう打ち切るかが run の所要時間を支配した。反復上限を 200 から 100 に下げた判断（第\ref{sec:design}節）は、この観察と整合している。
+
+\paragraph{推論 API の運用が結果の件数を決めた.}
+本研究で最終的に判定できたのは 10 主張のうち 5 つで、残りは API の停止と鍵の同時要求数制限で run が進まなかったことによる。先行研究でも qwen3.6-35b の API が 1 日応答しなかったが、本研究では複数モデルが同時に落ち、その後に掛かった制限は 48 並列の設計を前提から崩した。open-weight モデルを共有の推論 API で評価する場合、モデルの能力とは別に、serving の安定性と利用上限が結果の件数と所要時間に直接効く。自分で serving する（GPU を確保して NIM や vLLM を立てる）ほうが、時間はかかっても件数は揃う。
+
+\section{結論}
+\label{sec:conclusion}
+SciGym 公開コードの Controller で反復上限を論文の 20 から 100 に引き上げ、RIKYU の推論 API の open-weight モデルを SciGym-small 137 件と large 213 件で評価した。第 2 版で判定できた 3 モデルでは、small の平均 STE はいずれも 20 反復の値以下で（Claim 2、3、5 支持）、kimi-k3 は \airasval{kimi-k3-small.trajectory_smape} と 20 反復から大きく改善した一方、qwen3.6-35b はほとんど変わらなかった。large では deepseek-v4.1-flash \airasval{deepseek-v4.1-flash-large.trajectory_smape} と qwen3.6-35b \airasval{qwen3.6-35b-large.trajectory_smape} が論文最良行 \unverified{0.3212} を上回った（Claim 8、10 反証。前者は未完の件を提出無しと数えた上での暫定）。kimi-k2.6 と qwen3.8-27b は推論 API の鍵の制限で実行できず除外し、kimi-k3 の large は job のメモリ超過で結果が無い。制限が解除されたら残件を引き継いで実行し、主張を同じ id で追記して判定を更新する。記録は追記式で、本版の判定はすべて記録の計測値から機械的に導かれている。
+
+\section*{データの利用可能性}
+記録は \airasrecordlink{record.json} にある。実験コード、環境の固定（Dockerfile と \texttt{uv.lock}）、各 run の結果と provenance は同じリポジトリに含まれる。
+
+\bibliographystyle{iclr2024_conference}
+\bibliography{references}
+
+\end{document}

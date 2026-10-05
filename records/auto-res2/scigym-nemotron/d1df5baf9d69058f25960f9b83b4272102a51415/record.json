@@ -1,0 +1,1267 @@
+{
+  "literature": [
+    {
+      "id": "s1",
+      "title": "Measuring Scientific Capabilities of Language Models with a Systems Biology Dry Lab",
+      "authors": [
+        "Haonan Duan",
+        "Stephen Zhewen Lu",
+        "Caitlin Fiona Harrigan",
+        "Nishkrit Desai",
+        "Jiarui Lu",
+        "Michał Koziarski",
+        "Leonardo Cotta",
+        "Chris J. Maddison"
+      ],
+      "year": 2025,
+      "venue": "arXiv preprint arXiv:2507.02083 (NeurIPS 2025 Datasets and Benchmarks Track)",
+      "arxiv_id": "2507.02083",
+      "url": "https://arxiv.org/pdf/2507.02083",
+      "bibkey": "duan-2025-measuring",
+      "verified_by": "arxiv",
+      "verified_at": "2026-09-29T07:41:32+00:00",
+      "fulltext": {
+        "path": ".research/sources/s1/fulltext.txt",
+        "sha256": "da6c8d3dcbbd8c768ee7735346726853026ccc88a9b03d475dc293e347c378fd"
+      },
+      "parser": "pymupdf 1.26.6",
+      "passages": [
+        {
+          "id": "s1.p1",
+          "node_type": "setup",
+          "quote": "We evaluated six models from three frontier model families, each represented by their professional and mini variants: Anthropic’s Claude-3.7-Sonnet-20250219 (P) and Claude-3.5-Haiku-20241022 (M); Google’s Gemini-2.5-Pro-Preview-03-25 (P) and Gemini-2.5-Flash-Preview-04-17 (M); and OpenAI’s GPT-4.1-2025-04-14 (P) and GPT-4.1-Mini-2025-04-14 (M).",
+          "judgments": [
+            {
+              "text_sha256": "09251f1f5c09646a8d0c5c8092ef97daccbad764125d86681b73e5d326970eb5",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p2",
+          "node_type": "setup",
+          "quote": "Due to computational resource constraints, we restricted our evaluation to SCIGYM-small, with a total of 137 tasks.",
+          "judgments": [
+            {
+              "text_sha256": "3b42086053755cd9fb920eed764d55588a49ed1c42cd112851b951ce4bc5a546",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "74970137b9b4f6c8041c25b11c552b99b9cfeede84ec63207369577403434fd7",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The citing text states that 213 large split tasks were not evaluated due to resource constraints, but the cited passage only states evaluation was limited to SCIGYM-small's 137 tasks; the number 213 and 'large split' are not mentioned or supported."
+            },
+            {
+              "text_sha256": "8d234dbcbb3359124c29d72722c5dce9d39fecd6f8cd7626f56b676560e8b791",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The cited passage says only the small split (137 tasks) was evaluated, not that a large split (213 entries) exists or is available; the citing text extrapolates this unstated information."
+            },
+            {
+              "text_sha256": "d398299627a6f0a15d43c238d7ea06cb835de6a1dc5644be1f97e4fbd7fd1bfb",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "56d149e6233457b055b4d12c4864fc0ff457ade8c48a31574daefe400e2ae9d9",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "f56829ded1f2708dbde085ec7f79fe65991bd69510b02e7c89b974e4ca8b3376",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The original passage only states that the evaluation was restricted to 'small split' (137 tasks); the citing text describes an addition of the 'large split' (213 tasks), which the passage does not mention or support."
+            },
+            {
+              "text_sha256": "ad43c62138a7bf2a6a8beafe8a7211f442b560d423a6f1cbd7883aa9c0fc1af6",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "8982ca12bafab28f30195344c7077925869ff225392b7518dfd6607b92e77136",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p3",
+          "node_type": "setup",
+          "quote": "The agent may submit its final model and conclude the discovery process at any point, subject to a maximum iteration limit (20 in our benchmark).",
+          "judgments": [
+            {
+              "text_sha256": "7749638f5f75ae723b5c0ff3a49757204ed0207982a8a2ee1466a9e2579f35cb",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "0bc6f1dd0b49cff38c7a83207a611df60ae5e4af7ed6153baf7ff930ac4c6b89",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p4",
+          "node_type": "setup",
+          "quote": "If the submitted model is invalid or cannot be simulated, we allow for 3 additional debugging iterations",
+          "judgments": [
+            {
+              "text_sha256": "7749638f5f75ae723b5c0ff3a49757204ed0207982a8a2ee1466a9e2579f35cb",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "0bc6f1dd0b49cff38c7a83207a611df60ae5e4af7ed6153baf7ff930ac4c6b89",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "c6aa77b697ef56d87b600507641112f7e8bb16e86664dfada1e638c70eb22501",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p5",
+          "node_type": "result",
+          "quote": "Gemini-2.5-Flash 0.4181 0.1527 0.1071 0.1217 0.2399 0.1839 0.2005 GPT-4.1-mini 0.6007 0.1516 0.1253 0.1320 0.2530 0.2313 0.2322 Claude-3.5-Haiku 0.6281 0.0858 0.0421 0.0530 0.1454 0.0805 0.0987 Gemini-2.5-Pro 0.3212 0.2138 0.1664 0.1817 0.3781 0.3219 0.3383 GPT-4.1 0.4611 0.2067 0.1597 0.1740 0.3517 0.2888 0.3038 Claude-3.7-Sonnet 0.3615 0.1780 0.1698 0.1688 0.3160 0.3170 0.3047",
+          "judgments": [
+            {
+              "text_sha256": "1f68599379fb86af9b75fd619c64e9a9dba44b5923b333334d4c789dc03cd9f6",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "69144ec94685357a3519fac3738199c6e15ff02427fe803a2c318defec8d72f2",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "15c0dad8ee439cda107da19cad9c1fae594e610a3aa67c53393e2eff1a7963fa",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "8715bfca045f18bf122a04375b4ec7db4b60f0c013172a18cfd367abd1957fa6",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "b165a8537ca511798d8253e270f542c466d7df07812c614f40a85aa59979401c",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "094d6ed576f62d5e315cd73eec6d707f8f3cad3f64798d7f53d72ee0d1d5cc08",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text correctly reports the STE (0.6007) for GPT-4.1-mini as shown in the quoted table from the passage."
+            },
+            {
+              "text_sha256": "a96d2647fe17744093060eb16cd17cf4ed9e61486ebbbaf352c0b8aa9c5a1869",
+              "model": "gpt-4.1",
+              "supported": true
+            },
+            {
+              "text_sha256": "4f7e776d127994e40daccb5b7533eedbdedd1e75f85f768131a20b0df3da7acc",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p6",
+          "node_type": "result",
+          "quote": "Table 1: Pro models outperform their mini counterparts in SCIGYM, with Gemini dominating in both size categories. We report the average Simulation Trajectory Error (STE) and Reaction Matching Score (RMS) across all benchmark instances.",
+          "judgments": [
+            {
+              "text_sha256": "3b42086053755cd9fb920eed764d55588a49ed1c42cd112851b951ce4bc5a546",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The cited passage states that Table 1 reports averages across all benchmark instances, which matches the citing text's description that Table 1 is based on the evaluation of 6 models over 137 SciGym-small instances."
+            },
+            {
+              "text_sha256": "d85e5ba80da363972d171f47aa1309b152db1f41d1a90e7e5acce66e93811ed8",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "kind": "repository",
+      "title": "h4duan/SciGym",
+      "authors": [
+        "h4duan"
+      ],
+      "year": 2025,
+      "url": "https://github.com/h4duan/SciGym",
+      "commit": "88a7b93609e35b6ecb4eb343d816d6ff09256c6a",
+      "bibkey": "h4duan-2025-scigym",
+      "verified_by": "git",
+      "verified_at": "2026-09-29T07:41:33+00:00",
+      "fulltext": {
+        "path": ".research/sources/s2/fulltext.txt",
+        "sha256": "ef43f447563987d222448b49dc32ea96f55b0df79e5ea614f247dc36166bc6f2"
+      },
+      "parser": "git show",
+      "passages": [
+        {
+          "id": "s2.p1",
+          "node_type": "setup",
+          "quote": "temperature: 1.0",
+          "judgments": [
+            {
+              "text_sha256": "0bc6f1dd0b49cff38c7a83207a611df60ae5e4af7ed6153baf7ff930ac4c6b89",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p2",
+          "node_type": "setup",
+          "quote": "max_iterations: 5",
+          "judgments": [
+            {
+              "text_sha256": "0bc6f1dd0b49cff38c7a83207a611df60ae5e4af7ed6153baf7ff930ac4c6b89",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p3",
+          "node_type": "setup",
+          "quote": "eval_debug_rounds: 5",
+          "judgments": [
+            {
+              "text_sha256": "0bc6f1dd0b49cff38c7a83207a611df60ae5e4af7ed6153baf7ff930ac4c6b89",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "kind": "airas_record",
+      "title": "SciGym-small における open-weight モデルの事前登録評価: RIKYU の推論 API で提供される 8 モデルは論文の GPT-4.1-mini に届くか",
+      "authors": [
+        "auto-res2/scigym-rikyu-open-models (AIRAS)"
+      ],
+      "year": 2026,
+      "url": "https://github.com/auto-res2/scigym-rikyu-open-models",
+      "commit": "448f37a09a0b08100c7106ae09d7dfdb474c5372",
+      "bibkey": "scigymrikyuopenmodels-2026-scigym",
+      "verified_by": "airas_records",
+      "verified_at": "2026-09-29T07:41:39+00:00",
+      "fulltext": {
+        "path": ".research/sources/s3/fulltext.txt",
+        "sha256": "0b78acd15b4b3ecf545d3c43ff0e4bbc9e6eb8efb975d34fb7a77a14a82161bf"
+      },
+      "parser": "git show",
+      "passages": [
+        {
+          "id": "s3.p1",
+          "node_type": "claim",
+          "quote": "RIKYU の推論 API（OpenAI 互換）で提供される open-weight モデル 6 種（deepseek-v4.1-flash、glm-5.2、kimi-k2.6、kimi-k3、qwen3.6-35b、qwen3.8-27b）は、SciGym 公開コードの Controller をそのまま用いて SciGym-small 137 件を最大 20 反復で解かせたとき、いずれも平均 Simulation Trajectory Error（STE）が論文 Table 1 の GPT-4.1-mini（0.6007）の水準に届く（0.05 より大きくは上回らない）。",
+          "judgments": [
+            {
+              "text_sha256": "09251f1f5c09646a8d0c5c8092ef97daccbad764125d86681b73e5d326970eb5",
+              "model": "gpt-4.1",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s3.p2",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.21004969535683385",
+          "judgments": [
+            {
+              "text_sha256": "09251f1f5c09646a8d0c5c8092ef97daccbad764125d86681b73e5d326970eb5",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text accurately reports the value of kimi-k2.6's average STE (0.2100) as given by 'trajectory_smape': 0.2100496 in the source passage, rounded to four decimal places."
+            },
+            {
+              "text_sha256": "39b5a7bef495e143122d30d3cd1ea576b4a8115395db159b9729bc457b349689",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text gives the value 0.2100 (rounded) for kimi-k2.6 as 'trajectory_smape', which matches the quoted passage and context."
+            },
+            {
+              "text_sha256": "b4272436654e222c338e4edf7cbbff5d580a2f82eb4039ab3cb40fede68102db",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The citing text summarizes a range (0.21–0.24) of STEs for large open-weight MoE models, but the quoted passage only provides a single trajectory_smape value (0.21005), not a range or data about multiple models. The generalization to a range is not supported by this singular value."
+            },
+            {
+              "text_sha256": "b165a8537ca511798d8253e270f542c466d7df07812c614f40a85aa59979401c",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text attributes the correct 'trajectory_smape' score to kimi-k2.6 as in the source passage; no conditions, context, or qualifiers are dropped or misrepresented."
+            },
+            {
+              "text_sha256": "7a3921d22b72ee95785db9c6c2e290173e532d337160cc890ed477bfe2af3fa0",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text attributes the number 0.2100 for kimi-k2.6's STE to the cited passage, which indeed reports 'trajectory_smape': 0.21004969535683385. This is a faithful paraphrase and supported by the source."
+            }
+          ]
+        },
+        {
+          "id": "s3.p3",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.22507247610652192",
+          "judgments": [
+            {
+              "text_sha256": "09251f1f5c09646a8d0c5c8092ef97daccbad764125d86681b73e5d326970eb5",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text reports the 'trajectory_smape' for kimi-k3 as 0.2251, which is a faithful summary of the quoted value (0.22507247610652192), appropriately rounded."
+            },
+            {
+              "text_sha256": "39b5a7bef495e143122d30d3cd1ea576b4a8115395db159b9729bc457b349689",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text correctly gives the 'trajectory_smape' value from the quoted passage without overstatement or misrepresentation."
+            },
+            {
+              "text_sha256": "b4272436654e222c338e4edf7cbbff5d580a2f82eb4039ab3cb40fede68102db",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text uses the 'trajectory_smape' value of 0.225 from the source, which is directly shown in the quoted passage (0.22507247610652192). It provides this as the value for a given model and uses similar values from other passages to construct intervals. This is a faithful use of the cited value and does not overstate or generalize its meaning."
+            },
+            {
+              "text_sha256": "b165a8537ca511798d8253e270f542c466d7df07812c614f40a85aa59979401c",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The cited text accurately presents the 'trajectory_smape' metric (0.2251...) as shown in the passage; no overstatement or misrepresentation."
+            },
+            {
+              "text_sha256": "3a9998d0ad45bd9fb0839c66baed163d1b90f2a09280189b3c9172a4997463e6",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text accurately reports that 'kimi-k3' had a trajectory_smape of 0.2251, matching the quoted value (rounded) from the source passage."
+            }
+          ]
+        },
+        {
+          "id": "s3.p4",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.24046025032909796",
+          "judgments": [
+            {
+              "text_sha256": "39b5a7bef495e143122d30d3cd1ea576b4a8115395db159b9729bc457b349689",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text accurately reports the 'trajectory_smape' score (0.2405 rounded from 0.24046025032909796) from the quoted passage for deepseek-v4.1-flash as a model evaluation result. No overstatement or generalization."
+            },
+            {
+              "text_sha256": "b4272436654e222c338e4edf7cbbff5d580a2f82eb4039ab3cb40fede68102db",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The cited value 0.24 for the ultra model's STE (trajectory_smape) is explicitly given in the source passage and used appropriately to build the described interval."
+            },
+            {
+              "text_sha256": "1068a6bc6b9d7b0af6b60c8572e02d3f56d5f077a10a848ec530b22ecbd7fbc5",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text's score for deepseek-v4.1-flash (0.2405) matches the quoted passage (trajectory_smape = 0.240460...) and faithfully attributes it to this model; there is no misrepresentation or overstatement."
+            },
+            {
+              "text_sha256": "7766392083b1d0db28de78b9cafdf5c1973b1ce117108743ff9d9f2c3c2120c9",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The cited value for deepseek-v4.1-flash 'trajectory_smape' as 0.2405 is directly supported by the quoted passage's value 0.24046025032909796; this is a faithful (rounded) report."
+            }
+          ]
+        },
+        {
+          "id": "s3.p5",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.24793430926739368",
+          "judgments": [
+            {
+              "text_sha256": "39b5a7bef495e143122d30d3cd1ea576b4a8115395db159b9729bc457b349689",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text faithfully states the trajectory_smape value as given in the source (0.2479 for qwen3.8-27b), which matches the quoted passage and context."
+            },
+            {
+              "text_sha256": "b4272436654e222c338e4edf7cbbff5d580a2f82eb4039ab3cb40fede68102db",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The citing text does not faithfully represent what the quoted passage supports: the passage gives the 'trajectory_smape' value (0.2479) for one model in some condition, but the citing text uses the number '0.25' (rounded) as a basis for demarcation and range choice among model classes and sizes, and implicitly treats it as a representative value for all 27B–35B models under 'lightning' conditions. The source context does not show that this value applies to all those model types, nor does it justify the set ranges based on just this number."
+            },
+            {
+              "text_sha256": "094d6ed576f62d5e315cd73eec6d707f8f3cad3f64798d7f53d72ee0d1d5cc08",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text reports the trajectory_smape value (0.2479) for qwen3.8-27b, which matches the quoted value in the source passage without exaggeration or misinterpretation."
+            },
+            {
+              "text_sha256": "06e3b398d7aba9272eda4c5bf3402a4e2e6230fbdabf8c2c54bd8021127c4685",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text accurately uses the value 0.2479 for qwen3.8-27b's average STE, which matches the quoted passage 'trajectory_smape': 0.2479343..., and the context confirms this is an output metric for that model."
+            }
+          ]
+        },
+        {
+          "id": "s3.p6",
+          "node_type": "result",
+          "quote": "\"trajectory_smape\": 0.4570888053620998",
+          "judgments": [
+            {
+              "text_sha256": "39b5a7bef495e143122d30d3cd1ea576b4a8115395db159b9729bc457b349689",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text gives a value for 'trajectory_smape' matching the source for qwen3.6-35b (0.4571, rounded from 0.457088...), as claimed, with appropriate context."
+            },
+            {
+              "text_sha256": "b4272436654e222c338e4edf7cbbff5d580a2f82eb4039ab3cb40fede68102db",
+              "model": "gpt-4.1",
+              "supported": false,
+              "reason": "The citing text refers to a split between 0.25 and 0.46 for '27B〜35B 級', but the quoted passage provides only a single value (0.457...); there is no explicit evidence here of a set of models or a split at these values."
+            },
+            {
+              "text_sha256": "094d6ed576f62d5e315cd73eec6d707f8f3cad3f64798d7f53d72ee0d1d5cc08",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text uses the metric value (trajectory_smape = 0.4571) faithfully, comparing it with other models as reported in the source, and does not misrepresent it."
+            },
+            {
+              "text_sha256": "af3106d9c56ab4abb36e1a697e3bb0e7805a6d4d27c5e7dcb3d7aba06ed75bbf",
+              "model": "gpt-4.1",
+              "supported": true,
+              "reason": "The citing text uses the value 0.4571 for qwen3.6-35b's STE and attributes it to the cited source (trajectory_smape: 0.457088...), which is consistent with the cited passage given rounding."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "statement": "NVIDIA の open-weight モデル nemotron-3.5-lightning（30B、活性 3B の MoE）と nemotron-3-ultra（550B、活性 55B の MoE）を RIKYU の GPU ノード上の NIM サーバー（OpenAI 互換）で自前 serving し、SciGym 公開コードの Controller をそのまま用いて論文と同じ条件（SciGym-small 137 件、最大 20 反復、temperature 1.0）で解かせたとき、いずれも平均 Simulation Trajectory Error（STE）が論文 Table 1 の最良行（Gemini-2.5-Pro の 0.3212）以下である。",
+      "assumptions": [
+        "temperature 1.0 での 1 回実行の平均 STE（137 件平均）の実行間変動が判定に対して十分小さいこと。先行する Table 1 再現では件ごとの STE の標準偏差はおよそ 0.27、137 件平均の標準誤差はおよそ 0.02 であった（c1、c2）",
+        "NIM コンテナ（vLLM）で serving したモデルが、提供元の推奨設定で呼んだ場合と同じ能力で応答すること。思考（reasoning）はモデルの既定のままとし、思考の文が本文に含まれて返る場合もそのまま Controller に渡す（c1、c2）",
+        "aarch64 向けの libroadrunner 2.7.0 と antimony 2.14.0 が、論文環境の libroadrunner 2.8.0 と同じ軌道と評価値を与えること（c1、c2）",
+        "平均 STE が「論文の最良行に届くか」を代表すること。RMS（modifier あり / なし）と NTS は同じ実行から表として報告するが、判定基準には用いない（c1、c2）",
+        "文脈長（262144 トークン）や時間切れで提出に至らなかった件は不完全モデルの採点値で平均に含める（c1、c2）",
+        "NIM サーバーの job が計算機の 4 日上限で打ち切られても、別ノードで立ち直したサーバーに実験側が接続し直し、反復の途中で条件が変わらないこと（c1、c2）"
+      ],
+      "grounded_on": [
+        "s1.p1",
+        "s1.p5",
+        "s1.p6",
+        "s3.p2"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "nemotron-3.5-lightning（nvidia/nemotron-3.5-lightning）で SciGym-small 137 件を最大 20 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "活性 3B の軽量 MoE が論文の最良行に届けば、h1 の lightning の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "公式 Controller（max_iterations=20、eval_debug_rounds=3、temperature=1.0、max_tokens=32768、摂動は初期濃度変更のみ）で SciGym-small 137 件を 1 件 1 プロセスで解かせ、提出モデルと公式データを評価層 scigym_small（公式 Evaluator）で採点する。モデルは RIKYU の GB200 ノード 1 枚で立てた NIM サーバー（nemotron-3.5-lightning-30b-a3b 2.0.9）の nvidia/nemotron-3.5-lightning。",
+              "runs": [
+                {
+                  "run_id": "nemotron-3.5-lightning-small",
+                  "description": "nemotron-3.5-lightning で SciGym-small 137 件を 20 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "results": [
+                    {
+                      "id": "61fae25c-b9a9-42a2-babf-04d410fb23ec",
+                      "commit": "358d11549518d48bf65571c66ae1b2f90b52d73e",
+                      "eval_inputs": {
+                        "path": ".research/results/nemotron-3.5-lightning-small/eval_inputs/scigym_small.json.gz",
+                        "sha256": "fabc970c9eb95c7d5cc9a49202e8e0a39e292768f4cca83d2a646b31f52bf2ac"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_small",
+                        "task_signature": "scigym_small/v1@139c6084495c",
+                        "inputs_sha256": "2e83414088d8febb7cae79614094c1c1d9cbb14c8cabe8271e33b4ae758497b3",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.12069337799264807,
+                          "reaction_f1_vs_best_published": -0.21760662200735192,
+                          "reaction_f1_with_modifiers": 0.06509305779378773,
+                          "reaction_precision": 0.14763642683350714,
+                          "reaction_precision_with_modifiers": 0.08400243309002434,
+                          "reaction_recall": 0.11067663074962346,
+                          "reaction_recall_with_modifiers": 0.05923415594948442,
+                          "topology_f1": 0.29387323800154946,
+                          "topology_f1_modifier_product": 0.0,
+                          "topology_f1_reactant_modifier": 0.0,
+                          "topology_f1_reactant_product": 0.1613103102203448,
+                          "topology_precision": 0.40709071949947867,
+                          "topology_recall": 0.2580377861511029,
+                          "trajectory_smape": 0.5783737311381445,
+                          "trajectory_smape_vs_best_published": 0.2571737311381445
+                        },
+                        "inputs_summary": {
+                          "n_instances": 137.0,
+                          "n_valid_submissions": 86.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.12069337799264807,
+                        "reaction_f1_vs_best_published": -0.21760662200735192,
+                        "reaction_f1_with_modifiers": 0.06509305779378773,
+                        "reaction_precision": 0.14763642683350714,
+                        "reaction_precision_with_modifiers": 0.08400243309002434,
+                        "reaction_recall": 0.11067663074962346,
+                        "reaction_recall_with_modifiers": 0.05923415594948442,
+                        "topology_f1": 0.29387323800154946,
+                        "topology_f1_modifier_product": 0.0,
+                        "topology_f1_reactant_modifier": 0.0,
+                        "topology_f1_reactant_product": 0.1613103102203448,
+                        "topology_precision": 0.40709071949947867,
+                        "topology_recall": 0.2580377861511029,
+                        "trajectory_smape": 0.5783737311381445,
+                        "trajectory_smape_vs_best_published": 0.2571737311381445,
+                        "n_instances": 137.0,
+                        "n_valid_submissions": 86.0,
+                        "input_tokens": 125562287,
+                        "output_tokens": 7928284,
+                        "mean_iterations": 21.0381679389313,
+                        "n_early_submit": 25,
+                        "n_context_overflow": 6,
+                        "n_not_finished": 6
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "verified": true,
+          "verdict": "refuted",
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "nemotron-3.5-lightning-small",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.07,
+            "high": 0.18,
+            "basis": "同条件の 27B〜35B の open-weight モデルは 0.248〜0.457（s3.p5、s3.p6）。活性 3B の軽量モデルはこの幅に収まると見る"
+          }
+        },
+        {
+          "id": "c2",
+          "statement": "nemotron-3-ultra（nvidia/nemotron-3-ultra-550b-a55b）で SciGym-small 137 件を最大 20 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "活性 55B の大型 MoE が論文の最良行に届けば、h1 の ultra の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d2",
+              "summary": "d1 と同じ手順。モデルは RIKYU の GB200 ノード 4 枚で立てた NIM サーバー（nemotron-3-ultra-550b-a55b 2.0.11、NVFP4）の nvidia/nemotron-3-ultra-550b-a55b。生成が遅いので並列は 16 件。",
+              "runs": [
+                {
+                  "run_id": "nemotron-3-ultra-small",
+                  "description": "nemotron-3-ultra で SciGym-small 137 件を 20 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "results": [
+                    {
+                      "id": "ffd25caa-4196-49a5-a974-f89d2d4b5c17",
+                      "commit": "d7468cd6f7dfe39230bab6096121c086d92149d5",
+                      "eval_inputs": {
+                        "path": ".research/results/nemotron-3-ultra-small/eval_inputs/scigym_small.json.gz",
+                        "sha256": "dd1512d6deac58666e9b0b23f388dc9630657fc5320c6da54b8e49c177ef2924"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_small",
+                        "task_signature": "scigym_small/v1@139c6084495c",
+                        "inputs_sha256": "1299c4ce588c8e697a51477011a5f16714948637df9c785dd2223786f8a57408",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.4212339633872477,
+                          "reaction_f1_vs_best_published": 0.08293396338724773,
+                          "reaction_f1_with_modifiers": 0.23484347440234463,
+                          "reaction_precision": 0.43137237863515215,
+                          "reaction_precision_with_modifiers": 0.2494177963156065,
+                          "reaction_recall": 0.4310103116672459,
+                          "reaction_recall_with_modifiers": 0.23302919708029193,
+                          "topology_f1": 0.6041090971182695,
+                          "topology_f1_modifier_product": 0.06802684262968543,
+                          "topology_f1_reactant_modifier": 0.0552376443001443,
+                          "topology_f1_reactant_product": 0.38857121494322544,
+                          "topology_precision": 0.7127543685025438,
+                          "topology_recall": 0.5629031971578383,
+                          "trajectory_smape": 0.2835930949461249,
+                          "trajectory_smape_vs_best_published": -0.037606905053875095
+                        },
+                        "inputs_summary": {
+                          "n_instances": 137.0,
+                          "n_valid_submissions": 135.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.4212339633872477,
+                        "reaction_f1_vs_best_published": 0.08293396338724773,
+                        "reaction_f1_with_modifiers": 0.23484347440234463,
+                        "reaction_precision": 0.43137237863515215,
+                        "reaction_precision_with_modifiers": 0.2494177963156065,
+                        "reaction_recall": 0.4310103116672459,
+                        "reaction_recall_with_modifiers": 0.23302919708029193,
+                        "topology_f1": 0.6041090971182695,
+                        "topology_f1_modifier_product": 0.06802684262968543,
+                        "topology_f1_reactant_modifier": 0.0552376443001443,
+                        "topology_f1_reactant_product": 0.38857121494322544,
+                        "topology_precision": 0.7127543685025438,
+                        "topology_recall": 0.5629031971578383,
+                        "trajectory_smape": 0.2835930949461249,
+                        "trajectory_smape_vs_best_published": -0.037606905053875095,
+                        "n_instances": 137.0,
+                        "n_valid_submissions": 135.0,
+                        "input_tokens": 79284373,
+                        "output_tokens": 7343906,
+                        "mean_iterations": 18.364963503649633,
+                        "n_early_submit": 50,
+                        "n_context_overflow": 0,
+                        "n_not_finished": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "verified": true,
+          "verdict": "supported",
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "nemotron-3-ultra-small",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.22,
+            "high": -0.02,
+            "basis": "同条件の大型 open-weight MoE（kimi-k2.6、kimi-k3、deepseek-v4.1-flash）は 0.21〜0.24（s3.p2〜s3.p4）。ultra は同等かやや良いと見る"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "key": "small",
+          "caption": "SciGym-small 137 件、最大 20 反復。平均 STE（低いほど良い）、論文 Table 1 の最良行（Gemini-2.5-Pro、0.3212）との差、Reaction Matching Score の適合率 / 再現率 / F1（modifier なし・あり、高いほど良い）、有効な提出件数、提出までの平均反復数、上限前に自ら提出した件数、文脈長を超えて提出に至らなかった件数。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 3
+            },
+            {
+              "header": "$\\Delta$ vs Gemini-2.5-Pro",
+              "ref_path": "trajectory_smape",
+              "reference": {
+                "passage": "s1.p5",
+                "values": {
+                  "nemotron-3.5-lightning-small": 0.3212,
+                  "nemotron-3-ultra-small": 0.3212
+                }
+              },
+              "round": 3
+            },
+            {
+              "header": "P",
+              "ref_path": "reaction_precision",
+              "round": 3
+            },
+            {
+              "header": "R",
+              "ref_path": "reaction_recall",
+              "round": 3
+            },
+            {
+              "header": "F1",
+              "ref_path": "reaction_f1",
+              "round": 3
+            },
+            {
+              "header": "P$_m$",
+              "ref_path": "reaction_precision_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "R$_m$",
+              "ref_path": "reaction_recall_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "F1$_m$",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "n\\_valid",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "平均反復",
+              "ref_path": "mean_iterations",
+              "round": 1
+            },
+            {
+              "header": "早期提出",
+              "ref_path": "n_early_submit",
+              "round": 0
+            },
+            {
+              "header": "文脈超過",
+              "ref_path": "n_context_overflow",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "nemotron-3.5-lightning-small",
+              "label": "nemotron-3.5-lightning"
+            },
+            {
+              "run_id": "nemotron-3-ultra-small",
+              "label": "nemotron-3-ultra"
+            }
+          ]
+        },
+        {
+          "key": "tokens",
+          "caption": "各 run の評価件数、有効な SBML が提出された件数、トークン消費。出力トークンには思考を含む。",
+          "columns": [
+            {
+              "header": "n\\_instances",
+              "ref_path": "n_instances",
+              "round": 0
+            },
+            {
+              "header": "n\\_valid\\_submissions",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "入力トークン",
+              "ref_path": "input_tokens",
+              "round": 0
+            },
+            {
+              "header": "出力トークン",
+              "ref_path": "output_tokens",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "nemotron-3.5-lightning-small",
+              "label": "nemotron-3.5-lightning small"
+            },
+            {
+              "run_id": "nemotron-3-ultra-small",
+              "label": "nemotron-3-ultra small"
+            },
+            {
+              "run_id": "nemotron-3.5-lightning-large",
+              "label": "nemotron-3.5-lightning large"
+            },
+            {
+              "run_id": "nemotron-3-ultra-large",
+              "label": "nemotron-3-ultra large"
+            }
+          ]
+        },
+        {
+          "key": "small",
+          "caption": "SciGym-small 137 件、最大 20 反復。平均 STE（低いほど良い）、論文 Table 1 の最良行（Gemini-2.5-Pro、0.3212）との差、Reaction Matching Score の F1（modifier なし・あり、高いほど良い）、有効な提出件数、提出までの平均反復数（デバッグ反復を含む）、上限前に自ら提出した件数、文脈長を超えて提出に至らなかった件数。適合率と再現率は記録にある。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 3
+            },
+            {
+              "header": "$\\Delta$ vs Gemini-2.5-Pro",
+              "ref_path": "trajectory_smape",
+              "reference": {
+                "passage": "s1.p5",
+                "values": {
+                  "nemotron-3.5-lightning-small": 0.3212,
+                  "nemotron-3-ultra-small": 0.3212
+                }
+              },
+              "round": 3
+            },
+            {
+              "header": "F1",
+              "ref_path": "reaction_f1",
+              "round": 3
+            },
+            {
+              "header": "F1$_m$",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "n\\_valid",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "平均反復",
+              "ref_path": "mean_iterations",
+              "round": 1
+            },
+            {
+              "header": "早期提出",
+              "ref_path": "n_early_submit",
+              "round": 0
+            },
+            {
+              "header": "文脈超過",
+              "ref_path": "n_context_overflow",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "nemotron-3.5-lightning-small",
+              "label": "nemotron-3.5-lightning"
+            },
+            {
+              "run_id": "nemotron-3-ultra-small",
+              "label": "nemotron-3-ultra"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h2",
+      "statement": "同じ 2 モデルを、論文が評価していない SciGym-large 213 件（反応数の多い系）で同じ条件（最大 20 反復、temperature 1.0）で解かせたとき、いずれも平均 STE が論文 Table 1 の最良行（small での Gemini-2.5-Pro の 0.3212）以下である。",
+      "assumptions": [
+        "large split には論文の公表値が無いので、論文の small での最良値を絶対水準の基準とする。small との難易度の差は表で並べて示すが、判定には用いない（c3、c4）",
+        "213 件平均の実行間変動が判定に対して十分小さいこと。件ごとの標準偏差を 0.27 とすれば平均の標準誤差はおよそ 0.02（c3、c4）",
+        "評価層 scigym_large（airas-eval v0.13.1）が公式リリースの large split 213 件を sha256 で固定し、small と同じ公式 Evaluator で採点すること（c3、c4）",
+        "文脈長（262144 トークン）や時間切れで提出に至らなかった件は不完全モデルの採点値で平均に含める（c3、c4）"
+      ],
+      "grounded_on": [
+        "s1.p2",
+        "s1.p5",
+        "s3.p2"
+      ],
+      "claims": [
+        {
+          "id": "c3",
+          "statement": "nemotron-3.5-lightning で SciGym-large 213 件を最大 20 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "軽量モデルが大規模な系でも論文の最良行に届けば、h2 の lightning の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d3",
+              "summary": "d1 と同じ手順を SciGym-large 213 件に適用し、評価層 scigym_large で採点する。",
+              "runs": [
+                {
+                  "run_id": "nemotron-3.5-lightning-large",
+                  "description": "nemotron-3.5-lightning で SciGym-large 213 件を 20 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "results": [
+                    {
+                      "id": "5d75aa7b-0e86-42b2-bffc-cb8aef3b3138",
+                      "commit": "358d11549518d48bf65571c66ae1b2f90b52d73e",
+                      "eval_inputs": {
+                        "path": ".research/results/nemotron-3.5-lightning-large/eval_inputs/scigym_large.json.gz",
+                        "sha256": "f30471379481b314a025c0e5e835837a3033b27d1607bb2d59dbf776337e20fa"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_large",
+                        "task_signature": "scigym_large/v1@e2594567c496",
+                        "inputs_sha256": "cf4049f5b4f4cded9d2d781c94ef258217086bd459b9c43d4dedc2844bde06b0",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.02958225400519802,
+                          "reaction_f1_with_modifiers": 0.019479478732510016,
+                          "reaction_precision": 0.06815714280503012,
+                          "reaction_precision_with_modifiers": 0.04562193153742449,
+                          "reaction_recall": 0.022127191916610667,
+                          "reaction_recall_with_modifiers": 0.014733542619301567,
+                          "topology_f1": 0.07941290639617565,
+                          "topology_f1_modifier_product": 0.0,
+                          "topology_f1_reactant_modifier": 0.0,
+                          "topology_f1_reactant_product": 0.03964464407705311,
+                          "topology_precision": 0.23074413594951682,
+                          "topology_recall": 0.05834729234361075,
+                          "trajectory_smape": 0.5968555210109178
+                        },
+                        "inputs_summary": {
+                          "n_instances": 213.0,
+                          "n_valid_submissions": 111.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.02958225400519802,
+                        "reaction_f1_with_modifiers": 0.019479478732510016,
+                        "reaction_precision": 0.06815714280503012,
+                        "reaction_precision_with_modifiers": 0.04562193153742449,
+                        "reaction_recall": 0.022127191916610667,
+                        "reaction_recall_with_modifiers": 0.014733542619301567,
+                        "topology_f1": 0.07941290639617565,
+                        "topology_f1_modifier_product": 0.0,
+                        "topology_f1_reactant_modifier": 0.0,
+                        "topology_f1_reactant_product": 0.03964464407705311,
+                        "topology_precision": 0.23074413594951682,
+                        "topology_recall": 0.05834729234361075,
+                        "trajectory_smape": 0.5968555210109178,
+                        "n_instances": 213.0,
+                        "n_valid_submissions": 111.0,
+                        "input_tokens": 254781663,
+                        "output_tokens": 10962576,
+                        "mean_iterations": 21.52513966480447,
+                        "n_early_submit": 24,
+                        "n_context_overflow": 34,
+                        "n_not_finished": 34
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "verified": true,
+          "verdict": "refuted",
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "nemotron-3.5-lightning-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": 0.03,
+            "high": 0.28,
+            "basis": "large には先行値が無い。small での予測（0.25〜0.50）に、反応数の多い系での悪化を 0.1 程度見込む"
+          }
+        },
+        {
+          "id": "c4",
+          "statement": "nemotron-3-ultra で SciGym-large 213 件を最大 20 反復で解かせたときの平均 STE は、論文 Table 1 の最良行（Gemini-2.5-Pro）の 0.3212 以下である。",
+          "rationale": "大型モデルが大規模な系でも論文の最良行に届けば、h2 の ultra の部分を担う。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d4",
+              "summary": "d2 と同じ手順を SciGym-large 213 件に適用し、評価層 scigym_large で採点する。",
+              "runs": [
+                {
+                  "run_id": "nemotron-3-ultra-large",
+                  "description": "nemotron-3-ultra で SciGym-large 213 件を 20 反復で実行",
+                  "params": {
+                    "mode": "full"
+                  },
+                  "results": [
+                    {
+                      "id": "e24e795e-3769-46ed-88e3-6da5f5d17cb8",
+                      "commit": "d7468cd6f7dfe39230bab6096121c086d92149d5",
+                      "eval_inputs": {
+                        "path": ".research/results/nemotron-3-ultra-large/eval_inputs/scigym_large.json.gz",
+                        "sha256": "3284c6ac0cf4b63ce28025042a57683c26ff3b8d509ea6bb23048229ea16424e"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_large",
+                        "task_signature": "scigym_large/v1@e2594567c496",
+                        "inputs_sha256": "891fd98f57d4b6c6b722b3a980986466abaa24bd06193665126141bf468a1258",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.19678835842542008,
+                          "reaction_f1_with_modifiers": 0.1052853368353696,
+                          "reaction_precision": 0.23669340294965197,
+                          "reaction_precision_with_modifiers": 0.12705354011634984,
+                          "reaction_recall": 0.1935769775840013,
+                          "reaction_recall_with_modifiers": 0.10389311676890779,
+                          "topology_f1": 0.30648152020141795,
+                          "topology_f1_modifier_product": 0.01650979686262002,
+                          "topology_f1_reactant_modifier": 0.008595030686857894,
+                          "topology_f1_reactant_product": 0.18135820419076643,
+                          "topology_precision": 0.4701735090462871,
+                          "topology_recall": 0.29162058102649324,
+                          "trajectory_smape": 0.432774199958411
+                        },
+                        "inputs_summary": {
+                          "n_instances": 213.0,
+                          "n_valid_submissions": 190.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.19678835842542008,
+                        "reaction_f1_with_modifiers": 0.1052853368353696,
+                        "reaction_precision": 0.23669340294965197,
+                        "reaction_precision_with_modifiers": 0.12705354011634984,
+                        "reaction_recall": 0.1935769775840013,
+                        "reaction_recall_with_modifiers": 0.10389311676890779,
+                        "topology_f1": 0.30648152020141795,
+                        "topology_f1_modifier_product": 0.01650979686262002,
+                        "topology_f1_reactant_modifier": 0.008595030686857894,
+                        "topology_f1_reactant_product": 0.18135820419076643,
+                        "topology_precision": 0.4701735090462871,
+                        "topology_recall": 0.29162058102649324,
+                        "trajectory_smape": 0.432774199958411,
+                        "n_instances": 213.0,
+                        "n_valid_submissions": 190.0,
+                        "input_tokens": 226448624,
+                        "output_tokens": 11576415,
+                        "mean_iterations": 19.974489795918366,
+                        "n_early_submit": 38,
+                        "n_context_overflow": 17,
+                        "n_not_finished": 17
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "verified": true,
+          "verdict": "refuted",
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "nemotron-3-ultra-large",
+            "reference": 0.3212,
+            "op": "<=",
+            "reference_passage": "s1.p5"
+          },
+          "prediction": {
+            "low": -0.12,
+            "high": 0.13,
+            "basis": "large には先行値が無い。small での予測（0.10〜0.30）に、反応数の多い系での悪化を 0.1 程度見込む"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "key": "large",
+          "caption": "SciGym-large 213 件、最大 20 反復。平均 STE（低いほど良い）、論文 Table 1 の最良行（Gemini-2.5-Pro、0.3212）との差、Reaction Matching Score の適合率 / 再現率 / F1（modifier なし・あり、高いほど良い）、有効な提出件数、提出までの平均反復数、上限前に自ら提出した件数、文脈長を超えて提出に至らなかった件数。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 3
+            },
+            {
+              "header": "$\\Delta$ vs Gemini-2.5-Pro",
+              "ref_path": "trajectory_smape",
+              "reference": {
+                "passage": "s1.p5",
+                "values": {
+                  "nemotron-3.5-lightning-large": 0.3212,
+                  "nemotron-3-ultra-large": 0.3212
+                }
+              },
+              "round": 3
+            },
+            {
+              "header": "P",
+              "ref_path": "reaction_precision",
+              "round": 3
+            },
+            {
+              "header": "R",
+              "ref_path": "reaction_recall",
+              "round": 3
+            },
+            {
+              "header": "F1",
+              "ref_path": "reaction_f1",
+              "round": 3
+            },
+            {
+              "header": "P$_m$",
+              "ref_path": "reaction_precision_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "R$_m$",
+              "ref_path": "reaction_recall_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "F1$_m$",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "n\\_valid",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "平均反復",
+              "ref_path": "mean_iterations",
+              "round": 1
+            },
+            {
+              "header": "早期提出",
+              "ref_path": "n_early_submit",
+              "round": 0
+            },
+            {
+              "header": "文脈超過",
+              "ref_path": "n_context_overflow",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "nemotron-3.5-lightning-large",
+              "label": "nemotron-3.5-lightning"
+            },
+            {
+              "run_id": "nemotron-3-ultra-large",
+              "label": "nemotron-3-ultra"
+            }
+          ]
+        },
+        {
+          "key": "large",
+          "caption": "SciGym-large 213 件、最大 20 反復。平均 STE（低いほど良い）、論文 Table 1 の最良行（Gemini-2.5-Pro、0.3212）との差、Reaction Matching Score の F1（modifier なし・あり、高いほど良い）、有効な提出件数、提出までの平均反復数（デバッグ反復を含む）、上限前に自ら提出した件数、文脈長を超えて提出に至らなかった件数。適合率と再現率は記録にある。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 3
+            },
+            {
+              "header": "$\\Delta$ vs Gemini-2.5-Pro",
+              "ref_path": "trajectory_smape",
+              "reference": {
+                "passage": "s1.p5",
+                "values": {
+                  "nemotron-3.5-lightning-large": 0.3212,
+                  "nemotron-3-ultra-large": 0.3212
+                }
+              },
+              "round": 3
+            },
+            {
+              "header": "F1",
+              "ref_path": "reaction_f1",
+              "round": 3
+            },
+            {
+              "header": "F1$_m$",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 3
+            },
+            {
+              "header": "n\\_valid",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "平均反復",
+              "ref_path": "mean_iterations",
+              "round": 1
+            },
+            {
+              "header": "早期提出",
+              "ref_path": "n_early_submit",
+              "round": 0
+            },
+            {
+              "header": "文脈超過",
+              "ref_path": "n_context_overflow",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "nemotron-3.5-lightning-large",
+              "label": "nemotron-3.5-lightning"
+            },
+            {
+              "run_id": "nemotron-3-ultra-large",
+              "label": "nemotron-3-ultra"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

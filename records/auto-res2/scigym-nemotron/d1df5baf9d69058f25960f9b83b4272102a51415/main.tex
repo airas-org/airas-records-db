@@ -1,0 +1,138 @@
+\PassOptionsToPackage{numbers}{natbib}
+\documentclass{article}
+\usepackage{iclr2024_conference}
+\usepackage{luatexja-fontspec}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\graphicspath{{../}}
+
+\InputIfFileExists{values.tex}{}{}
+\providecommand{\airasval}[1]{\textbf{??airasval:\detokenize{#1}??}}
+\providecommand{\unverified}[1]{#1}
+\providecommand{\airasrecordlink}[1]{#1}
+
+\title{SciGym における自前 serving の NVIDIA Nemotron 2 種の事前登録評価: 論文 Table 1 と同じ条件で small を測り、large にも広げる}
+\author{AIRAS}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+SciGym \citep{duan-2025-measuring} は、反応をすべて取り除いた SBML モデルを LLM エージェントに渡し、摂動実験とコード実行を繰り返して反応機構を復元させるベンチマークである。論文の Table 1 は 2025 年春の 3 社のフロンティアモデル 6 つを SciGym-small 137 件で各 1 回走らせた平均値を報告している。本研究は、公開コードの Controller と評価器をそのまま用い、論文と同じ条件（137 件、最大 20 反復、temperature 1.0）で、NVIDIA の open-weight モデル 2 種（nemotron-3.5-lightning、30B で活性 3B の MoE と、nemotron-3-ultra、550B で活性 55B の MoE）を評価する。両モデルは外部の推論 API ではなく、RIKYU の GB200 ノード上に NIM コンテナで自前 serving する。あわせて、論文が評価していない large split 213 件も同じ条件で走らせる。実験前に、small と large のそれぞれで 2 モデルの平均 Simulation Trajectory Error（STE）が論文 Table 1 の最良行（Gemini-2.5-Pro の 0.3212）以下であることを反証線として登録する。Reaction Matching Score（RMS）と Network Topology Score（NTS）は同じ実行から表として報告する。結果: small では ultra の平均 STE が \airasval{nemotron-3-ultra-small.trajectory_smape} と論文最良行を下回り（Claim 2 支持）、RMS の F1 でも論文最良を上回った。lightning は small で \airasval{nemotron-3.5-lightning-small.trajectory_smape}、large で \airasval{nemotron-3.5-lightning-large.trajectory_smape} と論文の GPT-4.1-mini の水準にとどまり、ultra も large では \airasval{nemotron-3-ultra-large.trajectory_smape} と基準を上回った（Claim 1、3、4 は反証）。lightning の低さは提出した SBML の 3 割強がシミュレーションできず不完全モデルの採点値になったことによる。自前 serving で起きた文脈超過、ODE ソルバー内での停止、思考の文が本文に混じる応答の件数をあわせて報告する。
+\end{abstract}
+
+\section{はじめに}
+\label{sec:intro}
+LLM に科学的発見のサイクル全体（実験の設計、結果の解析、機構の提案）を行わせて測るベンチマークとして、SciGym \citep{duan-2025-measuring} が提案された。BioModels 由来の SBML モデルから反応をすべて取り除いたものをエージェントに渡し、エージェントは初期濃度を変えた摂動実験を要求し、返ってきた時系列を Python で解析し、最終的な SBML を提出する。提出モデルは真のモデルと、軌道誤差（STE）と反応の一致度（RMS）で比較される。
+
+論文の主結果である Table 1 は、3 社の pro / mini 計 6 モデルを SciGym-small の 137 件で評価した平均値である \cite[s1.p2, s1.p6]{duan-2025-measuring}。評価されたのは 2025 年春の版（Claude-3.7-Sonnet と 3.5-Haiku、Gemini-2.5-Pro と Flash のプレビュー版、GPT-4.1 と 4.1-mini）である \cite[s1.p1]{duan-2025-measuring}。AIRAS の先行研究は、RIKYU の推論 API で提供される open-weight モデル 6 種を同じプロトコルで評価し \cite[s3.p1]{scigymrikyuopenmodels-2026-scigym}、kimi-k2.6 の平均 STE が \unverified{0.2100} \cite[s3.p2]{scigymrikyuopenmodels-2026-scigym}、kimi-k3 が \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym} と、論文 Table 1 の最良行 Gemini-2.5-Pro の \unverified{0.3212} \cite[s1.p5]{duan-2025-measuring} を下回ることを示した。
+
+これらはいずれも、第三者が運用する推論 API を呼ぶ形の評価であった。本研究は、重みが公開されているモデルを自分の計算機で serving する場合に同じ課題がどこまで解けるかを、NVIDIA の Nemotron 系列 2 種で測る。lightning は 1 GPU で動く活性 3B の軽量モデル、ultra は 4 GPU を要する活性 55B の大型モデルであり、同じ系列の中で規模の効果も見える。論文は計算資源の制約から small の 137 件に限って評価しており \cite[s1.p2]{duan-2025-measuring}、本研究は公式リリースの large split 213 件にも同じ設定で広げる。判定は AIRAS の事前登録の枠組みに従い、仮説・判定基準・予測区間・実行条件を実験前に記録へ凍結し、実験後は計測値だけを流し込む。
+
+\section{関連研究}
+\label{sec:related}
+SciGym \citep{duan-2025-measuring} は、単一スキルを測る既存のベンチマークと異なり、エージェントが自ら摂動実験を設計してその結果を受け取る閉ループを評価する。評価指標は STE、RMS（modifier まで要求する厳格版もある）、NTS の 3 つで、論文は pro モデルが mini モデルを一貫して上回り、Gemini-Pro が最良であったと報告している \cite[s1.p6]{duan-2025-measuring}。
+
+open-weight モデルの評価では kimi-k2.6 が \unverified{0.2100} \cite[s3.p2]{scigymrikyuopenmodels-2026-scigym}、kimi-k3 が \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym}、deepseek-v4.1-flash が \unverified{0.2405} \cite[s3.p4]{scigymrikyuopenmodels-2026-scigym} に達し、27B〜35B 級は qwen3.8-27b の \unverified{0.2479} \cite[s3.p5]{scigymrikyuopenmodels-2026-scigym} と qwen3.6-35b の \unverified{0.4571} \cite[s3.p6]{scigymrikyuopenmodels-2026-scigym} に分かれた。
+
+\section{仮説と予測}
+\label{sec:hypothesis}
+以下は記録（record.json）から生成された仮説・主張・判定基準・予測区間の一覧である。実験後は Observed と Verdict が計測値から埋められる。
+
+\input{claims.tex}
+
+\paragraph{判定基準と予測区間の根拠.}
+各主張の反証線は「（当該モデルの平均 STE）$-$ \unverified{0.3212} $\le 0$」である。\unverified{0.3212} は論文 Table 1 の最良行 Gemini-2.5-Pro の STE \cite[s1.p5]{duan-2025-measuring} であり、small（仮説 1）と large（仮説 2）の 4 主張すべてに同じ基準を置く。large には論文の公表値が無いので、small での最良行を絶対水準の基準とする。予測区間は、small の lightning で $[-0.07, 0.18]$、small の ultra で $[-0.22, -0.02]$ とする。根拠は、同条件の先行研究で qwen3.8-27b の平均 STE が \unverified{0.2479} \cite[s3.p5]{scigymrikyuopenmodels-2026-scigym}、qwen3.6-35b が \unverified{0.4571} \cite[s3.p6]{scigymrikyuopenmodels-2026-scigym} と 27B〜35B 級で大きく分かれたこと、大型の open-weight MoE では kimi-k2.6 が \unverified{0.2100} \cite[s3.p2]{scigymrikyuopenmodels-2026-scigym}、kimi-k3 が \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym}、deepseek-v4.1-flash が \unverified{0.2405} \cite[s3.p4]{scigymrikyuopenmodels-2026-scigym} であったことである。large は先行値が無いので small の予測に 0.1 程度の悪化を見込んで lightning $[0.03, 0.28]$、ultra $[-0.12, 0.13]$ とする。1 件の STE の標準偏差を 0.27 程度と見積もると 137 件平均の標準誤差は約 0.02 で、差が 0.02 未満のときは結論が揺らぎうることを前提として記録する。
+
+RMS（modifier あり / なし）と NTS も同じ実行から表として報告するが、1 つの主張に置ける判定基準は 1 つであるため、判定には用いない。lightning と ultra の差、small と large の難易度差も表で示すにとどめ、主張にはしない。
+
+\section{方法}
+\label{sec:method}
+\paragraph{タスク.}
+各インスタンスは真の SBML（\texttt{truth.xml}）、反応を取り除いた不完全な SBML（\texttt{partial.xml}）、シミュレーション条件（\texttt{truth.sedml}）からなる。エージェントは不完全な SBML を受け取り、各ターンで実験（初期濃度の変更を指定し、真のモデルの時系列を得る）、コード実行（numpy / pandas / scipy / libsbml と、仮説モデルを走らせる \texttt{simulate} 関数が使える）、提出のいずれかを markdown 形式で返す。提出は任意の時点で行え、反復数の上限は 20 である \cite[s1.p3]{duan-2025-measuring}。提出した SBML が無効な場合は追加のデバッグ反復が許され \cite[s1.p4]{duan-2025-measuring}、それでも無効なら不完全 SBML のまま採点される。
+
+\paragraph{実行系.}
+ループ、プロンプト、実験の実行はすべて公開コード \citep{h4duan-2025-scigym} の \texttt{Controller} をそのまま用いる。本研究が書くのは、(1) OpenAI 互換 API でモデルを呼ぶ \texttt{LLM} 実装（公式の GPT 実装と同じく、システムプロンプトと全履歴を毎回送る）、(2) インスタンスごとに 1 プロセスで Controller を起動し、複数件を並列に走らせる駆動部、(3) 各インスタンスの提出モデルと公式データを評価層の入力ファイルに書き出す部分だけである。公式コードでは履歴がクラス属性として定義されており 1 プロセスで複数件を走らせると履歴が持ち越されるが、1 件 1 プロセスとすることでこの問題を避ける。LLM が書いた解析コードや提出モデルの評価が ODE ソルバーの C ライブラリ内で止まると公式の 3 分制限（\texttt{signal.alarm}）が効かないので、駆動部は出力が 60 分止まった試行を打ち切って反復 0 からやり直す（最大 3 試行）。
+
+\paragraph{serving.}
+2 モデルは NVIDIA NIM のコンテナ（lightning は nemotron-3.5-lightning-30b-a3b 2.0.9、ultra は nemotron-3-ultra-550b-a55b 2.0.11、NVFP4 量子化）を Apptainer で RIKYU の GB200 ノードに立て、OpenAI 互換のエンドポイントとして呼ぶ。lightning は 1 GPU、ultra は 4 GPU の Slurm job で、いずれも文脈長は 262144 トークンである。サーバーの job は計算機の 4 日上限で打ち切られうるので、実験側はサーバーの接続先を共有ディスク上のファイルから読み、接続断のたびに読み直して別ノードで立ち直ったサーバーに繋ぎ直す。思考（reasoning）はモデルの既定のままとし、lightning のように思考の文が本文に含まれて返る場合もそのまま Controller に渡す。
+
+\paragraph{指標.}
+採点は評価層 airas-eval のベンチマークパック \texttt{scigym\_small}（137 件）と \texttt{scigym\_large}（213 件）が行う。パックは公式リリースの各件（truth / partial / sedml）を sha256 で固定し、公開コードの \texttt{Evaluator}（コミット 88a7b93）で提出モデルを採点して、STE（\texttt{trajectory\_smape}）、RMS の適合率・再現率・F1（modifier なし \texttt{reaction\_*}、あり \texttt{reaction\_*\_with\_modifiers}）、NTS の F1（\texttt{topology\_f1}）を件の単純平均で返す。提出 SBML が無い、または無効な件は、公式評価どおり不完全 SBML の採点値で平均に含める。
+
+\section{実験設計}
+\label{sec:design}
+\paragraph{モデル.}
+nvidia/nemotron-3.5-lightning（30B、活性 3B の MoE）と nvidia/nemotron-3-ultra-550b-a55b（550B、活性 55B の MoE）の 2 種。いずれも重みが公開されており、NIM の推奨設定（generation config の temperature 1.0、top-p 0.95）で serving する。
+
+\paragraph{データ.}
+SciGym の公式リリース（Hugging Face \texttt{h4duan/scigym-sbml}）のうち、論文の評価対象は small split の 137 件である \cite[s1.p2]{duan-2025-measuring}。本研究はこれに加えて公式リリースの large split 213 件も用いる（いずれも RIKYU 上のコピー）。評価層は各件の内容を公式リリースの sha256 と照合する。1 run は 1 モデル × 1 split で、計 4 run である。
+
+\paragraph{設定.}
+\texttt{max\_iterations} は論文どおり 20 \cite[s1.p3]{duan-2025-measuring}（公開 config の既定値は 5 \cite[s2.p2]{h4duan-2025-scigym}）、\texttt{eval\_debug\_rounds} は論文本文の 3 \cite[s1.p4]{duan-2025-measuring}（公開 config の既定値は 5 \cite[s2.p3]{h4duan-2025-scigym}）、\texttt{temperature} は公開 config の 1.0 \cite[s2.p1]{h4duan-2025-scigym}、摂動は初期濃度の変更のみとする。応答のトークン上限は 32768 とし、思考で使い切った応答は文脈長に収まる範囲で上限を倍にして呼び直す。文脈長を超えて提出に至らなかった件は不完全 SBML の採点値で平均に含め、件数を表に出す。各モデル、各インスタンスを 1 回ずつ実行する。並列は lightning で 48 件、生成の遅い ultra で 16 件とし、1 件 1 試行の上限は 4 時間とする。
+
+\paragraph{計算資源と環境.}
+実行は Seyval を通じて RIKYU（Slurm、GB200 ノード、aarch64）で行い、LLM は同じ計算機上の NIM サーバーを呼ぶ。実験側は GPU を使わないが、資源の単位が GPU であるため 1 GPU を要求する。環境は Dockerfile と \texttt{uv.lock} で固定する。aarch64 向けの wheel が無いため、libroadrunner は公式の 2.8.0 ではなく 2.7.0、antimony は 2.14.0 を用い、rrplugins と phrasedml は除外する。この差でシミュレーション結果がわずかに変わる可能性があり、仮説の前提として記録する。
+
+\paragraph{段階.}
+sanity は small の先頭 1 件を 2 反復で走らせて配管を確かめる。主張の判定は full（small 137 件、large 213 件）の結果だけで行い、sanity の結果は記録に取り込まない。
+
+\paragraph{run と主張の対応.}
+\texttt{nemotron-3.5-lightning-small} $\to$ Claim 1、\texttt{nemotron-3-ultra-small} $\to$ Claim 2、\texttt{nemotron-3.5-lightning-large} $\to$ Claim 3、\texttt{nemotron-3-ultra-large} $\to$ Claim 4。
+
+% ===== airas: post-experiment sections, filled once runs exist =====
+
+\section{結果}
+\label{sec:results}
+表~\ref{tab:small} に small（137 件）、表~\ref{tab:large} に large（213 件）の各 run の平均 STE、論文 Table 1 の最良行 Gemini-2.5-Pro（\unverified{0.3212}）\cite[s1.p5]{duan-2025-measuring} との差、RMS の F1（modifier なし / あり）、有効な SBML が提出された件数、提出までの平均反復数、上限前に自ら提出した件数、文脈長を超えて提出に至らなかった件数を示す。適合率と再現率は記録にあり、表では省く。各値は評価層 \texttt{scigym\_small} / \texttt{scigym\_large} のレポートと駆動部の集計から記録経由で流し込んだものである。平均反復数は会話履歴の往復数で、無効な提出のあとのデバッグ反復を含むため上限の 20 を超えることがある。
+
+{\scriptsize\setlength{\tabcolsep}{2.5pt}\input{tables/small.tex}}
+
+{\scriptsize\setlength{\tabcolsep}{2.5pt}\input{tables/large.tex}}
+
+\paragraph{主張の判定.}
+各主張の反証線は「（当該モデルの平均 STE）$-$ \unverified{0.3212} $\le 0$」である（第\ref{sec:hypothesis}節）。small では ultra の平均 STE が \airasval{nemotron-3-ultra-small.trajectory_smape} で基準を満たし（Claim 2 支持）、論文最良行との差 $-0.04$ は事前の予測区間 $[-0.22, -0.02]$ の上端近くに収まった。lightning の small は \airasval{nemotron-3.5-lightning-small.trajectory_smape} で基準を上回り（Claim 1 反証）、差 $+0.26$ は予測区間 $[-0.07, 0.18]$ の上限も超えた。large では lightning が \airasval{nemotron-3.5-lightning-large.trajectory_smape}（Claim 3 反証、差 $+0.28$ は予測区間 $[0.03, 0.28]$ の上端）、ultra が \airasval{nemotron-3-ultra-large.trajectory_smape}（Claim 4 反証、差 $+0.11$ は予測区間 $[-0.12, 0.13]$ の内側）で、いずれも基準を上回った。仮説 1 は 2 主張のうち ultra だけが支持、仮説 2 は 2 主張とも反証である。
+
+\paragraph{RMS と NTS.}
+modifier なしの RMS F1 は ultra が small で \airasval{nemotron-3-ultra-small.reaction_f1}、large で \airasval{nemotron-3-ultra-large.reaction_f1}、lightning が small で \airasval{nemotron-3.5-lightning-small.reaction_f1}、large で \airasval{nemotron-3.5-lightning-large.reaction_f1} である。ultra の small は論文 Table 1 の最良 \unverified{0.3383} \cite[s1.p5]{duan-2025-measuring} を上回り、modifier ありの厳格版でも \airasval{nemotron-3-ultra-small.reaction_f1_with_modifiers} と論文最良の \unverified{0.1817} を上回った。NTS の F1 は ultra の small で \airasval{nemotron-3-ultra-small.topology_f1}、lightning の small で \airasval{nemotron-3.5-lightning-small.topology_f1} である。STE と RMS の順位は 4 run で一致する（ultra small $<$ ultra large $<$ lightning small $<$ lightning large）。
+
+\paragraph{完走件数と提出の有効性.}
+有効な SBML が提出された件数は ultra が small で \airasval{nemotron-3-ultra-small.n_valid_submissions} / 137、large で \airasval{nemotron-3-ultra-large.n_valid_submissions} / 213、lightning が small で \airasval{nemotron-3.5-lightning-small.n_valid_submissions} / 137、large で \airasval{nemotron-3.5-lightning-large.n_valid_submissions} / 213 である。提出に至らなかった件、または提出した SBML が公式 Evaluator でシミュレーションできなかった件は、公式規約どおり不完全モデルの採点値で平均に含めた。内訳を件ごとの出力から数えると、lightning は提出したが無効だった件が small で \unverified{45} 件、large で \unverified{68} 件あり、文脈長を超えて提出に至らなかった件（表の「文脈超過」列）とあわせて有効提出を押し下げた。ultra の無効提出は small で \unverified{2} 件、large で \unverified{6} 件にとどまる。ultra は small の \airasval{nemotron-3-ultra-small.n_early_submit} 件を上限前に自ら提出し、平均反復数も \airasval{nemotron-3-ultra-small.mean_iterations} と上限を下回った。
+
+\paragraph{トークンと所要時間.}
+表~\ref{tab:tokens} に各 run のトークン消費を示す。出力トークンには思考を含む。lightning は 1 GPU のサーバーで small が約 4 時間、ultra は 4 GPU のサーバーで small が約 8 時間、large が約 7 時間であった（並列は lightning 48 件、ultra 16 件）。API 費用は発生しないので、費用は GPU 時間（lightning 約 8 GPU 時間、ultra 約 60 GPU 時間）である。
+
+\input{tables/tokens.tex}
+
+\paragraph{実行で起きたこと.}
+事前登録した設計からの逸脱と、実行中に判明した事実を記す。第一に、lightning の 2 run は全件の実行を終えたあと、駆動部の集計で落ちた。提出を採点したあとのデバッグ反復で文脈長を超えた件は評価結果だけがあってトークンの記録が無く、集計がその記録を必須にしていたためである。集計を直し、完了済みの件をそのまま読み込んで集計と採点だけをやり直した。モデルの呼び出しは発生しておらず、件ごとの結果は変わっていない。第二に、lightning の応答には思考の文が本文に含まれて返るものがあり、件ごとの会話履歴でモデルの応答を数えると、small では応答 \unverified{2887} 回のうち \unverified{274} 回、large では応答 \unverified{4032} 回のうち \unverified{319} 回（いずれも 1 割弱）が「思考過程」の見出しで始まっていた。事前登録どおり、これらはそのまま Controller に渡した。ultra の応答は思考が別のフィールドで返り、本文に混じった応答は無かった。第三に、ODE ソルバーの C ライブラリ内で止まって 60 分の無出力で打ち切った試行が ultra で small \unverified{5} 件、large \unverified{5} 件あり、いずれも反復 0 からのやり直しで提出に至った。lightning では打ち切りは起きなかった。第四に、文脈長 262144 トークンを超えて提出に至らなかった件が lightning の large で \airasval{nemotron-3.5-lightning-large.n_context_overflow} 件、ultra の large で \airasval{nemotron-3-ultra-large.n_context_overflow} 件、lightning の small で \airasval{nemotron-3.5-lightning-small.n_context_overflow} 件あった。NIM サーバーの job は 2 本とも実験の終了まで落ちず、接続先の切り替えは起きなかった。
+
+\section{考察}
+\label{sec:discussion}
+\paragraph{活性 55B の open-weight モデルは、small では論文の最良に届く.}
+ultra の small の平均 STE \airasval{nemotron-3-ultra-small.trajectory_smape} は、論文 Table 1 の最良行 \unverified{0.3212} \cite[s1.p5]{duan-2025-measuring} を下回り、RMS の F1 でも論文最良を上回った。先行研究で RIKYU の推論 API から評価した大型 open-weight モデル（kimi-k2.6 \unverified{0.2100} \cite[s3.p2]{scigymrikyuopenmodels-2026-scigym}、kimi-k3 \unverified{0.2251} \cite[s3.p3]{scigymrikyuopenmodels-2026-scigym}、deepseek-v4.1-flash \unverified{0.2405} \cite[s3.p4]{scigymrikyuopenmodels-2026-scigym}）には及ばないが、同じ水準の帯にある。重みが公開されているモデルを自分の計算機で serving しても、この課題で論文時点のフロンティアに届くことは確かめられた。
+
+\paragraph{活性 3B の軽量モデルは、能力ではなく提出の失敗で落ちる.}
+lightning の STE は small でも \airasval{nemotron-3.5-lightning-small.trajectory_smape} と論文の GPT-4.1-mini（\unverified{0.6007} \cite[s1.p5]{duan-2025-measuring}）と同程度で、先行研究の 27B〜35B 級（qwen3.8-27b の \unverified{0.2479} \cite[s3.p5]{scigymrikyuopenmodels-2026-scigym}、qwen3.6-35b の \unverified{0.4571} \cite[s3.p6]{scigymrikyuopenmodels-2026-scigym}）にも届かなかった。内訳を見ると、提出した SBML の 3 割強が公式 Evaluator でシミュレーションできず不完全モデルの採点値になっており、これが平均を押し上げている。SciGym は無効な提出に 3 回のデバッグ反復を許す \cite[s1.p4]{duan-2025-measuring} が、lightning はその中で直せないことが多かった。反応を当てる能力（RMS）以前に、SBML を正しく書き切る能力がこの規模のモデルでは律速になっている。思考の文が本文に混じる応答が 1 割近くあったことも、Controller の markdown 解析に影響した可能性があるが、本研究では分離して測っていない。
+
+\paragraph{large では ultra も届かず、差は文脈超過と反応の取りこぼしに出る.}
+論文は計算資源の制約から small の 137 件に限って評価した \cite[s1.p2]{duan-2025-measuring}。ultra の large の STE \airasval{nemotron-3-ultra-large.trajectory_smape} は small から 0.15 悪化し、基準を上回った。文脈長 262144 トークンを超えて提出に至らなかった件が \airasval{nemotron-3-ultra-large.n_context_overflow} 件あり、RMS の F1 は \airasval{nemotron-3-ultra-large.reaction_f1} と small の半分以下に落ちた。反応数の多い系では 20 反復の中で実験データの表が積み上がり、262144 トークンの文脈長が制約として効く。lightning の large では文脈超過が \airasval{nemotron-3.5-lightning-large.n_context_overflow} 件と多く、無効提出とあわせて有効提出が半数程度にとどまった。反復上限と文脈長を固定した設定が、small では規模の差を、large では規模と文脈長の両方の差を測っている。
+
+\paragraph{自前 serving の運用上の含意.}
+NIM コンテナは重みのキャッシュを起動時に読むだけで、4 日間のジョブの中で 2 本とも落ちなかった。推論 API の停止や鍵の同時要求数の制限に左右されない点は、先行研究で API の停止が結果の件数と所要時間に効いたことと対照的である。一方で、ultra は 4 GPU で 16 並列に抑えても small に 8 時間かかり、48 並列で回した lightning の 2 倍である。評価の費用は API 料金ではなく GPU 時間で、ultra の 4 run 合計はおよそ 60 GPU 時間であった。lightning の集計が落ちた件は、採点後のデバッグ反復で文脈超過するという、20 反復で 262144 トークンをほぼ使い切る運用でだけ現れる経路であり、駆動部の側で吸収した。
+
+\section{結論}
+\label{sec:conclusion}
+NVIDIA の open-weight モデル 2 種を RIKYU 上の NIM サーバーで自前 serving し、SciGym 公開コードの Controller を論文と同じ条件で用いて SciGym-small 137 件と large 213 件で評価した。活性 55B の nemotron-3-ultra は small で平均 STE \airasval{nemotron-3-ultra-small.trajectory_smape} と論文 Table 1 の最良行 \unverified{0.3212} を下回り（Claim 2 支持）、RMS でも論文最良を上回った。活性 3B の nemotron-3.5-lightning は small で \airasval{nemotron-3.5-lightning-small.trajectory_smape} と論文の GPT-4.1-mini の水準にとどまり、提出した SBML の 3 割強が無効であったことが主因である（Claim 1 反証）。large では 2 モデルとも基準を上回り（Claim 3、4 反証）、文脈超過と反応の取りこぼしが差として現れた。自前 serving は 4 日間安定し、費用は GPU 時間（ultra で約 60 GPU 時間）に置き換わった。記録は追記式で、判定はすべて記録の計測値から機械的に導かれている。
+
+\section*{データの利用可能性}
+記録は \airasrecordlink{record.json} にある。実験コード、環境の固定（Dockerfile と \texttt{uv.lock}）、NIM サーバーの起動スクリプト、各 run の結果と provenance は同じリポジトリに含まれる。
+
+\bibliographystyle{iclr2024_conference}
+\bibliography{references}
+
+\end{document}
