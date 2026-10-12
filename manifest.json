@@ -1,5 +1,12 @@
 [
   {
+    "id": "auto-res2/scigym-autoscilab@a9967dda0437d8acc8c8ca74da08fb7b6e696269",
+    "url": "https://github.com/auto-res2/scigym-autoscilab",
+    "commit": "a9967dda0437d8acc8c8ca74da08fb7b6e696269",
+    "stage": "results",
+    "collected_at": "2026-10-12T10:40:17+00:00"
+  },
+  {
     "id": "auto-res2/scigym-frontier-models@8ac1dcaee9004287a8a854a1c76dbd75358d8da1",
     "url": "https://github.com/auto-res2/scigym-frontier-models",
     "commit": "8ac1dcaee9004287a8a854a1c76dbd75358d8da1",

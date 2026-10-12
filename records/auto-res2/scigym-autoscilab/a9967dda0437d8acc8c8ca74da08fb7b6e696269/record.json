@@ -1,0 +1,1601 @@
+{
+  "literature": [
+    {
+      "id": "s1",
+      "title": "Measuring Scientific Capabilities of Language Models with a Systems Biology Dry Lab",
+      "authors": [
+        "Haonan Duan",
+        "Stephen Z. Lu",
+        "Caitlin F. Harrigan",
+        "Nishkrit Desai",
+        "Jiarui Lu",
+        "Michał Koziarski",
+        "Leonardo Cotta",
+        "Chris J. Maddison"
+      ],
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "doi": "10.48550/arXiv.2507.02083",
+      "arxiv_id": "2507.02083",
+      "url": "https://arxiv.org/pdf/2507.02083",
+      "bibkey": "duan-2025-measuring",
+      "verified_by": "doi.org",
+      "verified_at": "2026-10-07T14:10:20+00:00",
+      "fulltext": {
+        "path": ".research/sources/s1/fulltext.txt",
+        "sha256": "da6c8d3dcbbd8c768ee7735346726853026ccc88a9b03d475dc293e347c378fd"
+      },
+      "parser": "pymupdf 1.26.6",
+      "repositories": [
+        {
+          "id": "s1.r1",
+          "url": "https://github.com/h4duan/SciGym",
+          "commit": "88a7b93609e35b6ecb4eb343d816d6ff09256c6a",
+          "snapshot": {
+            "path": ".research/sources/s1/r1.txt",
+            "sha256": "f77a27ca8e8d7f67de79b155ca763e4e4eb7e1e02d9b736fd20cf43c3e9e7e75"
+          },
+          "method_entry": "scigym.controller.Controller.run_benchmark"
+        }
+      ],
+      "passages": [
+        {
+          "id": "s1.p1",
+          "node_type": "setup",
+          "quote": "The agent may submit its final model and conclude the discovery process at any point, subject to a maximum iteration limit (20 in our benchmark).",
+          "judgments": [
+            {
+              "text_sha256": "52901a22f367cd957baa8c0ecd377de6d40ed759cc6a747e071fce7a0e1159a9",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "3affc0e74575dac7bbd0e5d7a62d328f77d69b280cb7167c28aa12ac7cc2b32e",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text attributes \"temperature 1.0\" to the source and includes a reason for the number of ReAct experiments being 20 or less (\"iterations include code execution only iterations\") that are not present in the cited passage or its context."
+            },
+            {
+              "text_sha256": "43e7d4f67ddfdd4624a4db6b28f510ca9af9dcf324e218f6de7ca54ffbbd293b",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "bba20d9b36738fc9a7d91696b553aaea2aee236d174400d3a40a3843ab62ff58",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p2",
+          "node_type": "setup",
+          "quote": "If the submitted model is invalid or cannot be simulated, we allow for 3 additional debugging iterations before evaluating against the incomplete SBML structure",
+          "judgments": [
+            {
+              "text_sha256": "52901a22f367cd957baa8c0ecd377de6d40ed759cc6a747e071fce7a0e1159a9",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "3affc0e74575dac7bbd0e5d7a62d328f77d69b280cb7167c28aa12ac7cc2b32e",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "43e7d4f67ddfdd4624a4db6b28f510ca9af9dcf324e218f6de7ca54ffbbd293b",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "bba20d9b36738fc9a7d91696b553aaea2aee236d174400d3a40a3843ab62ff58",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p3",
+          "node_type": "method",
+          "quote": "We implemented a ReAct-style agent (Yao et al., 2023)using a Thoughts-Actions-Observations framework due to its simplicity for comparing performance across different models.",
+          "judgments": [
+            {
+              "text_sha256": "55bc8284ec39de9d77b4ba622f23be7ff38adec27c10ae4f87076bb2d3fed419",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "42efc456a8b9ec678c61f0c24626080a67a3ff0985a7ca2e2b119e26e7010d63",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p4",
+          "node_type": "setup",
+          "quote": "In our experiments, we allow agents to use one simple type of perturbations: changing the initial concentrations of a species",
+          "judgments": [
+            {
+              "text_sha256": "d9f3fa67b4284d12d7d25ae0c5c47a5ee4401d6446c8f067de9ccb8082d5ab9e",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "173d292d4b6387aad32bdbc87bbbd12c2289ca0935eeec05539d3fb1b33c8eb1",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text specifies \"all species\" (全種の) when the passage only states \"time-series data\" without explicitly mentioning \"all species\"."
+            },
+            {
+              "text_sha256": "9726de5d241a9a8937c1bf82839dd9f49377f8073dcfdd2bbb95529ebdc2bd6a",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p5",
+          "node_type": "definition",
+          "quote": "Simulation Trajectory Error (STE). This metric evaluates how accurately the predicted system matches the dynamic behavior of the true system by comparing time-series trajectories of each species.",
+          "judgments": [
+            {
+              "text_sha256": "52901a22f367cd957baa8c0ecd377de6d40ed759cc6a747e071fce7a0e1159a9",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p6",
+          "node_type": "definition",
+          "quote": "We consider two reactions \"matched\" if they have identical sets of reactants and products. In the second, more stringent version, we additionally require matching modifiers.",
+          "judgments": [
+            {
+              "text_sha256": "52901a22f367cd957baa8c0ecd377de6d40ed759cc6a747e071fce7a0e1159a9",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p7",
+          "node_type": "definition",
+          "quote": "To assess success in recovering the correct system topology, we measure pairwise interactions between all species in the system and calculate F1 score.",
+          "judgments": [
+            {
+              "text_sha256": "e00a491e6b0ef531e7cf77fcf731666d72e4fa712936866c929fd04d26cca79c",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p8",
+          "node_type": "gap",
+          "quote": "This perturbation type, when strategically designed, provides substantial information about species relationships, reaction types, kinetic laws, and reaction rates.",
+          "judgments": [
+            {
+              "text_sha256": "55bc8284ec39de9d77b4ba622f23be7ff38adec27c10ae4f87076bb2d3fed419",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text replaces 'reaction rates' with 'rate rates' with 'rate constants'."
+            },
+            {
+              "text_sha256": "42efc456a8b9ec678c61f0c24626080a67a3ff0985a7ca2e2b119e26e7010d63",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p9",
+          "node_type": "setup",
+          "quote": "Due to computational resource constraints, we restricted our evaluation to SCIGYM-small, with a total of 137 tasks.",
+          "judgments": [
+            {
+              "text_sha256": "8121dbd03842fd39ad65949135baf116d3f5278afb2e4c48b8cc7f3b47976a72",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p10",
+          "node_type": "result",
+          "anchor": "table",
+          "quote": "GPT-4.1-mini 0.6007 0.1516 0.1253 0.1320 0.2530 0.2313 0.2322",
+          "judgments": [
+            {
+              "text_sha256": "3ce0cbd776e27bfc9d91e0d0f32fbe4bbd81d2ff0ac18fdf16036a458c1bd314",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text claims the range of RMS F1 values is 0.10-0.34, but the passage's context (Table 1) shows values as low as 0.0421, meaning the lower bound of the cited range is an overstatement."
+            },
+            {
+              "text_sha256": "dd2b816c02eb270140e4f2bc9cffe35dd9a32a97f69fb07864f1cf6ed049a7f6",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p11",
+          "node_type": "method",
+          "quote": "def run_benchmark(self, model: LLM) -> None:",
+          "judgments": [
+            {
+              "text_sha256": "3affc0e74575dac7bbd0e5d7a62d328f77d69b280cb7167c28aa12ac7cc2b32e",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "43e7d4f67ddfdd4624a4db6b28f510ca9af9dcf324e218f6de7ca54ffbbd293b",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text claims to use Controller.run_benchmark without modification. The passage s1.p11 only provides the definition of the run_benchmark method signature, not its class context (Controller) nor details about its usage (unmodified). The citing text adds information about the method's context and how it is used that is not present in the cited passage."
+            },
+            {
+              "text_sha256": "bba20d9b36738fc9a7d91696b553aaea2aee236d174400d3a40a3843ab62ff58",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s1.p12",
+          "node_type": "method",
+          "quote": "def call_simulator(self, config: ExperimentConfig) -> ExperimentResult:",
+          "judgments": [
+            {
+              "text_sha256": "173d292d4b6387aad32bdbc87bbbd12c2289ca0935eeec05539d3fb1b33c8eb1",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text claims \"唯一の口\" (the only interface) which is not stated in the passage, and \"全種の時系列が返る\" (returns time series for all species) which is contradicted by the `config.observed_species` check implying specific species can be requested."
+            },
+            {
+              "text_sha256": "9726de5d241a9a8937c1bf82839dd9f49377f8073dcfdd2bbb95529ebdc2bd6a",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "LLM-AutoSciLab: Closed-Loop Scientific Discovery via Active Experimentation with LLMs",
+      "authors": [
+        "Sanchit Kabra",
+        "Nikhil Abhyankar",
+        "Saaketh Desai",
+        "Prasad Iyer",
+        "Chandan K. Reddy"
+      ],
+      "year": 2026,
+      "venue": "NeurIPS 2026",
+      "arxiv_id": "2605.24043",
+      "url": "https://arxiv.org/pdf/2605.24043",
+      "bibkey": "kabra-2026-llm",
+      "verified_by": "arxiv",
+      "verified_at": "2026-10-07T14:10:21+00:00",
+      "fulltext": {
+        "path": ".research/sources/s2/fulltext.txt",
+        "sha256": "51b04c27bdc07b2b317ad18399b92c77a3ff416791c952fbfedac0ab6ca1e85d"
+      },
+      "parser": "pymupdf 1.26.6",
+      "repositories": [
+        {
+          "id": "s2.r1",
+          "url": "https://github.com/scientific-discovery/LLM-AutoSciLab",
+          "commit": "351aae73e6c6c279e67943b77143b0f118d1e289",
+          "snapshot": {
+            "path": ".research/sources/s2/r1.txt",
+            "sha256": "35dc8a54deb93df462d08dfd465cc2ced0ae63e96db8bd701bb504b542fe6674"
+          },
+          "method_entry": "autoscilab.al.falsification.FalsificationSelector.select"
+        }
+      ],
+      "passages": [
+        {
+          "id": "s2.p1",
+          "node_type": "result",
+          "quote": "hypothesis-guided experimentation is 2–5× more sample-efficient than the strongest competing baselines",
+          "judgments": [
+            {
+              "text_sha256": "89d77cbc7dadfedb5be4ba9bb6f01645ca576e85f1cf47fab735a96c12473562",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "6f74ff1360bd2498bb963a23cb020ce9cf9cb8f3cddf9bece3c470b499b659b6",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p2",
+          "node_type": "claim",
+          "quote": "We propose a hypothesis-conditioned acquisition strategy that selects experiments maximizing disagreement among competing hypotheses, improving sample efficiency under fixed budgets.",
+          "judgments": [
+            {
+              "text_sha256": "726b4170aa2f87f415859761b63d9ac522b1256c4a843abaf69853a664d9f835",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The passage states the strategy improves \"sample efficiency\" under fixed budgets, but the citing text claims it improves \"mechanism recovery\". While related, the passage does not explicitly mention \"mechanism recovery\" for this specific contribution."
+            },
+            {
+              "text_sha256": "925470b2db2ecb626f14303e060dda4e7748329e2905b618dfbd289fcaf5c6f8",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "77187529e43e874ce4fbe6fb485c85b4ef3bdd9c2c8b2c3aabf0502ba867727c",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p3",
+          "node_type": "gap",
+          "quote": "most existing systems are both representation-specific and passive, searching within a predetermined output space, such as equations, materials, or programs, and use LLMs primarily for post-hoc hypothesis generation and refinement over pre-collected, static datasets",
+          "judgments": [
+            {
+              "text_sha256": "8692f437358e99428fda9eaacc8543f08ecfae883791ee6d4071b9dbba308058",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p4",
+          "node_type": "setup",
+          "quote": "We use GPT-4o-mini as the primary LLM backbone and Qwen/Qwen2.5-7B-Instruct for the smaller models used in adaptive ensembling.",
+          "judgments": [
+            {
+              "text_sha256": "1da5dfeaabbb25fed60c847b57fcc3fff35e7f1418b97a1743b62609c56b2923",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "85b428699afea66425cc359c2368a8b09472d2cbb780fb83cde1555556e96f29",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text adds specific model choices (openai/gpt-6-luna for large, meta/llama-3.1-8b as a substitute for small) and a reason for substitution (Vercel AI Gateway unavailability) that are not present in the cited passage. The passage names GPT-4o-mini and Qwen/Qwen2.5-7B-Instruct."
+            },
+            {
+              "text_sha256": "83de7c0f9afadb33a3852f2661b321562cc032980c99ab8ab4eaf26bc8e15d92",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p5",
+          "node_type": "setup",
+          "quote": "the oracle is a noiseless black-box function",
+          "judgments": [
+            {
+              "text_sha256": "726b4170aa2f87f415859761b63d9ac522b1256c4a843abaf69853a664d9f835",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "925470b2db2ecb626f14303e060dda4e7748329e2905b618dfbd289fcaf5c6f8",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "77187529e43e874ce4fbe6fb485c85b4ef3bdd9c2c8b2c3aabf0502ba867727c",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "80906b420d259cd467a432aecf000807fd8a03d841994ca48032dc55b1b47181",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p6",
+          "node_type": "method",
+          "quote": "where candidate mechanisms in Ht make maximally divergent predictions",
+          "judgments": [
+            {
+              "text_sha256": "8bf10d48b32d37be779ad7ec3018d1bf491bf445671b5d2961175810be6f3170",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p7",
+          "node_type": "result",
+          "quote": "causes a substantial drop across all benchmarks, showing that candidate mechanisms must guide data acquisition under limited oracle budgets",
+          "judgments": [
+            {
+              "text_sha256": "726b4170aa2f87f415859761b63d9ac522b1256c4a843abaf69853a664d9f835",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text claims the drop was the 'largest' ('最も大きかった'), but the passage only states it was 'substantial' ('substantial drop') and does not compare it to other ablation results."
+            },
+            {
+              "text_sha256": "a2aea1addf6fd3d3b19444f0c8050cc4fedc7d41cdfe691f79e274d4780b5b5a",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The passage describes a qualitative result of an ablation study (\"substantial drop\") and its implication, but it does not provide any quantitative basis or numerical values for a specific prediction interval like \"[0.01, 0.08]\" as claimed by the citing text."
+            },
+            {
+              "text_sha256": "90c1aa0e0301c289a5ee349a7f77c4bea62e8978224448d55c25c05813d8464f",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text describes the implementation details of 'removing hypothesis-conditioned acquisition' (setting discrepancy score to 0, greedy selection based on diversity, filling concentration space independently of the hypothesis) and claims its ablation corresponds to the one mentioned in the cited passage. However, the cited passage only names the ablation and states its effect, without defining what 'hypothesis-conditioned acquisition' entails or how its removal is implemented. Therefore, the citing text adds information about the nature of this ablation that is not supported by the passage."
+            },
+            {
+              "text_sha256": "925470b2db2ecb626f14303e060dda4e7748329e2905b618dfbd289fcaf5c6f8",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "4d8594e1acd5c059f609abf52acc7a25c67d4d24d430cc303d8792ced61d25d7",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "a61ce479062206ecb570a65138b00c584cada6ed536b17bf235dc0de2f6da876",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "77187529e43e874ce4fbe6fb485c85b4ef3bdd9c2c8b2c3aabf0502ba867727c",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "6a8f47f304469416d7fb1e0ea114ce0519246be174d4e0997e693ab616de50f1",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text claims the report is for a 'scalar response oracle' and discusses 'SciGym' and 'information from a single experiment', none of which are present in the cited passage."
+            },
+            {
+              "text_sha256": "5ee5cb5b51ce7b0b5c7bf5d5ec6937680efa3062e35db5f1d33335167a30da40",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p8",
+          "node_type": "gap",
+          "quote": "Performance also depends on the quality of LLM-generated hypotheses and on the coverage of the parser and refinement backends.",
+          "judgments": [
+            {
+              "text_sha256": "726b4170aa2f87f415859761b63d9ac522b1256c4a843abaf69853a664d9f835",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "925470b2db2ecb626f14303e060dda4e7748329e2905b618dfbd289fcaf5c6f8",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "77187529e43e874ce4fbe6fb485c85b4ef3bdd9c2c8b2c3aabf0502ba867727c",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p9",
+          "node_type": "setup",
+          "quote": "In the paper configuration, the smaller ensemble model is sampled in parallel with base ensemble size K = 5",
+          "judgments": [
+            {
+              "text_sha256": "8bf10d48b32d37be779ad7ec3018d1bf491bf445671b5d2961175810be6f3170",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p10",
+          "node_type": "setup",
+          "quote": "Sampling stops when the entropy change between successive batches falls below 0.1, or when the hard cap of Kmax = 20 samples is reached.",
+          "judgments": [
+            {
+              "text_sha256": "8bf10d48b32d37be779ad7ec3018d1bf491bf445671b5d2961175810be6f3170",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p11",
+          "node_type": "method",
+          "quote": "candidate points are sampled from the proposed bounds, scored by ∆(x), and a small diverse subset is chosen for oracle evaluation"
+        },
+        {
+          "id": "s2.p12",
+          "node_type": "setup",
+          "quote": "Once confidence exceeds the threshold (0.9 in the paper configuration), the system switches to a refinement regime, where acquisition is driven by uncertainty sampling",
+          "judgments": [
+            {
+              "text_sha256": "bf0adefc5e0b6b93fcb6fb761682b57fb38f530b3b47a2e95cfd1f5418892dbb",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p13",
+          "node_type": "setup",
+          "quote": "ensemble sampling uses a temperature of 1.0 for structural diversity",
+          "judgments": [
+            {
+              "text_sha256": "d4bed95d14922418fd42144eb9d815872f3f23bb0f9656fcc15c21af7be11543",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "85b428699afea66425cc359c2368a8b09472d2cbb780fb83cde1555556e96f29",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "83de7c0f9afadb33a3852f2661b321562cc032980c99ab8ab4eaf26bc8e15d92",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p14",
+          "node_type": "gap",
+          "quote": "In this adapter we optimize a scalar simulator response rather than",
+          "judgments": [
+            {
+              "text_sha256": "726b4170aa2f87f415859761b63d9ac522b1256c4a843abaf69853a664d9f835",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            },
+            {
+              "text_sha256": "925470b2db2ecb626f14303e060dda4e7748329e2905b618dfbd289fcaf5c6f8",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": false,
+              "reason": "The citing text specifies \"3 types of initial concentrations\" as input, which is not stated in the passage or generally implied by the provided context of the adapter definition, though initial concentrations as input are."
+            },
+            {
+              "text_sha256": "77187529e43e874ce4fbe6fb485c85b4ef3bdd9c2c8b2c3aabf0502ba867727c",
+              "model": "gemini/gemini-2.5-flash",
+              "supported": true
+            }
+          ]
+        },
+        {
+          "id": "s2.p15",
+          "node_type": "setup",
+          "quote": "n_candidates: int = 2000,"
+        },
+        {
+          "id": "s2.p16",
+          "node_type": "setup",
+          "quote": "diversity_weight: float = 0.3,"
+        },
+        {
+          "id": "s2.p17",
+          "node_type": "setup",
+          "quote": "k: int = 5,"
+        },
+        {
+          "id": "s2.p18",
+          "node_type": "setup",
+          "quote": "temperature: float = 0.9,"
+        },
+        {
+          "id": "s2.p19",
+          "node_type": "setup",
+          "quote": "max_experiments_per_iter: int = 4"
+        },
+        {
+          "id": "s2.p20",
+          "node_type": "setup",
+          "quote": "max_tokens: int = 4096,"
+        },
+        {
+          "id": "s2.p21",
+          "node_type": "setup",
+          "quote": "max_completion_tokens: int = 8192,"
+        },
+        {
+          "id": "s2.p22",
+          "node_type": "method",
+          "quote": "Selects the most discriminating experiment points given a"
+        },
+        {
+          "id": "s2.p23",
+          "node_type": "setup",
+          "quote": "n_bootstrap: int = 3,"
+        },
+        {
+          "id": "s2.p24",
+          "node_type": "method",
+          "quote": "Confidence is computed via bootstrap sampling: PySR is run on B random subsets of"
+        },
+        {
+          "id": "s2.p25",
+          "node_type": "setup",
+          "quote": "DEFAULT_SMALL_MODEL = \"Qwen/Qwen2.5-7B-Instruct\""
+        }
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "statement": "LLM-AutoSciLab の仮説条件付き獲得（候補機構の予測が最も食い違う実験を選ぶ）は、著者らが評価したスカラー応答のオラクル（NewtonBench / ActiveSciBench）の外でも機構回復を改善する。具体的には、全種の濃度時系列が観測され SBML を提出する SciGym-small の反応回復課題で、同じ gpt-6-luna を主モデルに使ったとき、SciGym 公式の ReAct エージェント（実験を自由記述の推論で選ぶ）より低い STE と高い RMS を出し、その改善は実験選択則によるものである。",
+      "assumptions": [
+        "STE / RMS / NTS（SciGym 公式 Evaluator、airas-eval scigym_small）が機構回復の良さを表す（c1, c2, c3）",
+        "アダプタが SciGym の設定を LLM-AutoSciLab の手法に写す仕方（仮説 = 不完全モデルに足す反応の集合 + 速度則、実験 = 初期濃度の変更、食い違い = 候補 SBML の濃度時系列の対数分散）が手法の意図を保っている（c1, c2, c3）",
+        "上流コード（scientific-discovery/LLM-AutoSciLab @351aae7、h4duan/SciGym @88a7b93）はそれぞれの論文を実装している（c1, c2, c3）",
+        "knob の一覧（design の arguments）は、コードから列挙できた範囲を超えて完全である（c1, c2, c3）",
+        "Vercel AI Gateway が返すモデル（openai/gpt-6-luna、meta/llama-3.1-8b）はその名前のモデルである（c1, c2, c3）",
+        "LLM のサンプリングは非決定的であり、1 回の run の差は再現時にずれうる（c1, c2, c3）",
+        "GitHub Actions の実行記録と git 履歴は正しい（c1, c2, c3）",
+        "ReAct の max_iterations=20 と AutoSciLab のオラクル問い合わせ 20 回を同じ実験予算とみなす（ReAct の反復にはコード実行だけの反復も含まれるので、ReAct の実験回数は 20 以下になる）（c1, c3）"
+      ],
+      "quoted_passage_ids": [
+        "s2.p2",
+        "s2.p3",
+        "s2.p5",
+        "s2.p8",
+        "s2.p14",
+        "s1.p3",
+        "s1.p8"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "SciGym-small 137 件の平均 STE（trajectory_smape）は、LLM-AutoSciLab の SciGym 用ループ（autoscilab-luna）の方が SciGym 公式 ReAct エージェント（react-luna）より 0.02 以上低い。",
+          "rationale": "h1 の中心。同じ主モデル・同じ実験予算・同じ 137 件・同じ公式 Evaluator で、手法だけを替えたときの差が STE に出れば、仮説条件付きの閉ループが SBML の機構回復にも効くという h1 の主張の直接の証拠になる。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "LLM-AutoSciLab の Algorithm 1 を SciGym の反応回復課題に写したループで SciGym-small の各件を解き、提出 SBML を評価層 scigym_small（公式 Evaluator）で採点する。1 件 1 プロセス、オラクル問い合わせの予算 B=20（最初の 1 回は既定条件の観測、以後は選んだ初期濃度の実験）。各反復: (1) GenHyp — small モデル（meta/llama-3.1-8b）を公式 EnsembleClient.complete_json_k で K=5 ずつ並列サンプルし、不完全モデルに足す反応の集合（反応物・生成物・修飾子・質量作用または Michaelis–Menten の速度則と自由定数）を候補として得る。反応集合の骨格で束ね、Shannon エントロピーの変化が 0.1 未満になるか K_max=20 に達するまで追加サンプルする（Algorithm 2。公式の EnsembleAgent は Python 式の仮説しか解釈しないので、束ね方だけアダプタで同じ規則を書く）。large モデル（openai/gpt-6-luna）を公式 LLMClient.complete_json で呼び、本命 1 つと対抗案 2〜6 個、探索領域（変えてよい種と初期濃度の範囲）に整理する。(2) 候補の自由定数を、これまでの実験の濃度時系列に対して scipy で最小二乗フィットする。(3) Acquire — 公式 FalsificationSelector.select（n_candidates=2000、diversity_weight=0.3、常に n=4 点を選び、予算の残りが 4 未満なら先頭だけ使う）で実験を選ぶ。オラクル役の BaseOracle は種 id と初期濃度の範囲（既定値の 0.2〜5 倍）を返すだけ、仮説分布役は候補 SBML を SciGym の Simulator で回し、全種・全時点の log 濃度の候補間分散（の平均）を返す。(4) 選んだ初期濃度の組を SciGym の Experiment.call_simulator（正解モデル）に投げ、全種の時系列を得る。(5) RefineHyp — 候補を再フィットし、実験の再標本化（n_bootstrap=3）で再フィットした予測のばらつきから確信度 = 1 − 正規化 std を計算する（公式 learner.py と同じく log 空間の R² が 0.5 未満の候補は確信度 0）。0.9 以上なら Refine モード（ブートストラップ再フィット間で予測が最もばらつく点を選ぶ不確実性サンプリング）に切り替える。(6) 予算を使い切ったら、フィット誤差が最小の候補 SBML を提出する。候補が 1 つも妥当な SBML にならなかった件は提出なし（不完全モデルで採点）。 FalsificationSelector が見るオラクル役は BaseOracle のサブクラス（種 id と初期濃度の範囲だけ返す）、仮説分布役は compute_disagreement だけを持つ自前のクラスで、公式の HypothesisDistribution（Python 式専用）は読み込まない。",
+              "runs": [
+                {
+                  "run_id": "autoscilab-luna",
+                  "description": "LLM-AutoSciLab の SciGym 用ループ。large = openai/gpt-6-luna、small = meta/llama-3.1-8b、予算 20、実験選択は仮説の食い違い",
+                  "params": {
+                    "mode": "full",
+                    "method": "autoscilab",
+                    "split": "small",
+                    "large_model": "openai/gpt-6-luna",
+                    "small_model": "meta/llama-3.1-8b",
+                    "base_url": "https://ai-gateway.vercel.sh/v1",
+                    "budget": 20,
+                    "experiments_per_iter": 4,
+                    "acquisition": "disagreement",
+                    "ensemble_k": 5,
+                    "ensemble_k_max": 20,
+                    "ensemble_stability_threshold": 0.1,
+                    "ensemble_temperature": 1,
+                    "ensemble_max_tokens": 4096,
+                    "large_max_tokens": 8192,
+                    "n_candidates": 2000,
+                    "diversity_weight": 0.3,
+                    "confidence_threshold": 0.9,
+                    "n_bootstrap": 3,
+                    "concentration_bounds_factor": [
+                      0.2,
+                      5
+                    ],
+                    "workers": 4,
+                    "instance_timeout": 14400,
+                    "stall_timeout": 3600
+                  }
+                }
+              ],
+              "quoted_passage_ids": [
+                "s2.p6",
+                "s2.p9",
+                "s2.p10",
+                "s2.p11",
+                "s2.p12",
+                "s2.p13",
+                "s2.p15",
+                "s2.p16",
+                "s2.p19",
+                "s2.p22",
+                "s2.p23",
+                "s2.p24",
+                "s1.p4",
+                "s1.p12"
+              ],
+              "repository_integration": {
+                "repository_id": "s2.r1",
+                "extension_points": [
+                  "autoscilab.oracle.base.BaseOracle"
+                ],
+                "arguments": [
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.n_candidates",
+                    "value": 2000,
+                    "reason": "公式の既定値（s2.p15）。候補 SBML の再シミュレーションは 1 回 0.3〜2 ms なので 2000 点でも 1 件あたり数分に収まる"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.diversity_weight",
+                    "value": 0.3,
+                    "reason": "公式の既定値（s2.p16）"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.select.n",
+                    "value": 4,
+                    "reason": "1 反復あたりの実験数。予算 20 の GRN 設定の max_experiments_per_iter=4（s2.p19）に合わせ、5 反復で予算を使い切る"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.model",
+                    "params_key": "small_model",
+                    "reason": "small モデル。論文の Qwen2.5-7B-Instruct（s2.p4、s2.p25）は Vercel に無いので、同じ 7〜8B の dense な instruct モデル meta/llama-3.1-8b"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "Vercel AI Gateway の OpenAI 互換エンドポイント"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.k",
+                    "value": 5,
+                    "reason": "論文の K=5（s2.p9）、公式の既定値（s2.p17）"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.temperature",
+                    "value": 1,
+                    "reason": "論文は 1.0（s2.p13）。公式コードの既定値 0.9（s2.p18）から論文の値に合わせる"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.max_tokens",
+                    "value": 4096,
+                    "reason": "公式の既定値（s2.p20）"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.model",
+                    "params_key": "large_model",
+                    "reason": "主モデル。論文の GPT-4o-mini（s2.p4）の代わりに、比較相手の ReAct と同じ openai/gpt-6-luna"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "Vercel AI Gateway の OpenAI 互換エンドポイント"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.max_completion_tokens",
+                    "value": 8192,
+                    "reason": "公式の既定値（s2.p21）"
+                  }
+                ]
+              }
+            }
+          ],
+          "quoted_passage_ids": [
+            "s2.p1",
+            "s2.p2",
+            "s1.p5",
+            "s1.p10"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "autoscilab-luna",
+            "reference": "react-luna",
+            "op": "<=",
+            "margin": -0.02
+          },
+          "prediction": {
+            "low": -0.1,
+            "high": -0.02,
+            "basis": "同じ openai/gpt-6-luna の公式 ReAct は auto-res2/scigym-frontier-models（137 件、max_iterations=20）で STE 0.2295 だった。論文は同じ予算で 2–5 倍のサンプル効率（s2.p1）を報告しているが、SBML への翻訳とフィットはこちらのアダプタなので、改善幅は 0.02〜0.10 と控えめに見積もる。"
+          }
+        },
+        {
+          "id": "c2",
+          "statement": "同じループで実験選択だけを仮説と無関係にした autoscilab-nohyp-luna の平均 STE は、autoscilab-luna より 0.01 以上高い。",
+          "rationale": "h1 の「改善は実験選択則によるもの」の部分。論文で最も効いた部品（s2.p7）を外した run との差が出れば、c1 の差が仮説生成やフィットではなく仮説条件付き獲得に帰せられる。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d2",
+              "summary": "d1 と同じループ・同じモデル・同じ予算で、FalsificationSelector.select に渡す食い違いスコアを全候補点で 0 にする。select の貪欲選択は多様性項だけで点を選ぶので、実験は仮説と無関係に濃度空間を埋める配置になる（論文の「仮説条件付き獲得を外す」アブレーション）。それ以外（GenHyp、フィット、確信度ゲート、提出）は d1 と同一。",
+              "runs": [
+                {
+                  "run_id": "autoscilab-nohyp-luna",
+                  "description": "d1 のループで、実験選択だけ仮説と無関係（食い違いスコア 0、多様性のみ）にしたアブレーション",
+                  "params": {
+                    "mode": "full",
+                    "method": "autoscilab",
+                    "split": "small",
+                    "large_model": "openai/gpt-6-luna",
+                    "small_model": "meta/llama-3.1-8b",
+                    "base_url": "https://ai-gateway.vercel.sh/v1",
+                    "budget": 20,
+                    "experiments_per_iter": 4,
+                    "acquisition": "none",
+                    "ensemble_k": 5,
+                    "ensemble_k_max": 20,
+                    "ensemble_stability_threshold": 0.1,
+                    "ensemble_temperature": 1,
+                    "ensemble_max_tokens": 4096,
+                    "large_max_tokens": 8192,
+                    "n_candidates": 2000,
+                    "diversity_weight": 0.3,
+                    "confidence_threshold": 0.9,
+                    "n_bootstrap": 3,
+                    "concentration_bounds_factor": [
+                      0.2,
+                      5
+                    ],
+                    "workers": 4,
+                    "instance_timeout": 14400,
+                    "stall_timeout": 3600
+                  }
+                }
+              ],
+              "quoted_passage_ids": [
+                "s2.p7",
+                "s2.p22"
+              ],
+              "repository_integration": {
+                "repository_id": "s2.r1",
+                "extension_points": [
+                  "autoscilab.oracle.base.BaseOracle"
+                ],
+                "arguments": [
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.n_candidates",
+                    "value": 2000,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.diversity_weight",
+                    "value": 0.3,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.select.n",
+                    "value": 4,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.model",
+                    "params_key": "small_model",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.k",
+                    "value": 5,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.temperature",
+                    "value": 1,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.max_tokens",
+                    "value": 4096,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.model",
+                    "params_key": "large_model",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.max_completion_tokens",
+                    "value": 8192,
+                    "reason": "d1 と同じ"
+                  }
+                ]
+              }
+            }
+          ],
+          "quoted_passage_ids": [
+            "s2.p7",
+            "s2.p11"
+          ],
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "autoscilab-nohyp-luna",
+            "reference": "autoscilab-luna",
+            "op": ">=",
+            "margin": 0.01
+          },
+          "prediction": {
+            "low": 0.01,
+            "high": 0.08,
+            "basis": "論文の Figure 4 では仮説条件付き獲得を外すと全ベンチマークで大きく落ちる（s2.p7）。SciGym では実験 20 回のうち情報の薄い点が増える分の差として 0.01〜0.08 と見積もる。"
+          }
+        },
+        {
+          "id": "c3",
+          "statement": "SciGym 公式 ReAct エージェント（react-luna）の RMS（修飾子なしの reaction_f1）は、autoscilab-luna より 0.02 以上低い。",
+          "rationale": "h1 の RMS の部分。STE は軌道の近さしか見ないので、反応の構造が実際に回復されているかは RMS で確かめる。react-luna はこの claim の run であると同時に c1 の比較対象でもある。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d3",
+              "summary": "SciGym 公式 Controller（max_iterations=20、eval_debug_rounds=3、temperature=1.0、max_tokens=32768）で SciGym-small の 137 件を 1 件 1 プロセスで解かせ、提出モデルを評価層 scigym_small で採点する。LLM は openai/gpt-6-luna を Vercel AI Gateway 経由で呼ぶ OpenAI 互換アダプタ（scigym.api.api.LLM のサブクラス。auto-res2/scigym-integration-check-2 の src/train.py と同じ）。Controller 本体は無改変。",
+              "runs": [
+                {
+                  "run_id": "react-luna",
+                  "description": "SciGym 公式 ReAct エージェント、openai/gpt-6-luna、max_iterations=20",
+                  "params": {
+                    "mode": "full",
+                    "method": "react",
+                    "split": "small",
+                    "model": "openai/gpt-6-luna",
+                    "base_url": "https://ai-gateway.vercel.sh/v1",
+                    "max_iterations": 20,
+                    "eval_debug_rounds": 3,
+                    "temperature": 1,
+                    "max_tokens": 32768,
+                    "workers": 16,
+                    "instance_timeout": 14400,
+                    "stall_timeout": 3600
+                  },
+                  "results": [
+                    {
+                      "id": "37651413177",
+                      "commit": "ef51f93253ba25eb990fc97da2bfa9f1e6966595",
+                      "eval_inputs": {
+                        "path": ".research/results/react-luna/eval_inputs/scigym_small.json.gz",
+                        "sha256": "635b0c4bf86b2cc25f63c6ddf70b3d6f649fb44138562959aa151e2c58291313"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_small",
+                        "task_signature": "scigym_small/v1@139c6084495c",
+                        "inputs_sha256": "7949c4effd6a440ae8c6df8b8ee0c999e7f2626bcba98099328f14a8d5ca9a66",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.3970667420482113,
+                          "reaction_f1_vs_best_published": 0.05876674204821131,
+                          "reaction_f1_with_modifiers": 0.23899495942524826,
+                          "reaction_precision": 0.4168346657397752,
+                          "reaction_precision_with_modifiers": 0.25965597617159997,
+                          "reaction_recall": 0.3974858069748581,
+                          "reaction_recall_with_modifiers": 0.23407484648360558,
+                          "topology_f1": 0.5075243145729366,
+                          "topology_f1_modifier_product": 0.07455738705738707,
+                          "topology_f1_reactant_modifier": 0.053902116402116396,
+                          "topology_f1_reactant_product": 0.4123581611513407,
+                          "topology_precision": 0.6205418963034609,
+                          "topology_recall": 0.474208329381707,
+                          "trajectory_smape": 0.21507884881459527,
+                          "trajectory_smape_vs_best_published": -0.10612115118540472
+                        },
+                        "inputs_summary": {
+                          "n_instances": 137.0,
+                          "n_valid_submissions": 137.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.3970667420482113,
+                        "reaction_f1_vs_best_published": 0.05876674204821131,
+                        "reaction_f1_with_modifiers": 0.23899495942524826,
+                        "reaction_precision": 0.4168346657397752,
+                        "reaction_precision_with_modifiers": 0.25965597617159997,
+                        "reaction_recall": 0.3974858069748581,
+                        "reaction_recall_with_modifiers": 0.23407484648360558,
+                        "topology_f1": 0.5075243145729366,
+                        "topology_f1_modifier_product": 0.07455738705738707,
+                        "topology_f1_reactant_modifier": 0.053902116402116396,
+                        "topology_f1_reactant_product": 0.4123581611513407,
+                        "topology_precision": 0.6205418963034609,
+                        "topology_recall": 0.474208329381707,
+                        "trajectory_smape": 0.21507884881459527,
+                        "trajectory_smape_vs_best_published": -0.10612115118540472,
+                        "n_instances": 137.0,
+                        "n_valid_submissions": 137.0,
+                        "input_tokens": 44381477,
+                        "output_tokens": 2411615,
+                        "mean_experiments": 12.014598540145986,
+                        "n_with_submission": 137,
+                        "n_context_overflow": 0,
+                        "n_not_finished": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "quoted_passage_ids": [
+                "s1.p1",
+                "s1.p2",
+                "s1.p3",
+                "s1.p4",
+                "s1.p11"
+              ],
+              "repository_integration": {
+                "repository_id": "s1.r1",
+                "extension_points": [
+                  "scigym.api.api.LLM"
+                ],
+                "arguments": [
+                  {
+                    "argument": "scigym.controller.Controller.__init__.max_iterations",
+                    "value": 20,
+                    "reason": "論文と同じ 20（s1.p1）。autoscilab-luna のオラクル予算 20 と揃える"
+                  },
+                  {
+                    "argument": "scigym.controller.Controller.__init__.eval_debug_rounds",
+                    "value": 3,
+                    "reason": "論文と同じ 3 回（s1.p2）"
+                  },
+                  {
+                    "argument": "scigym.controller.Controller.__init__.temperature",
+                    "value": 1,
+                    "reason": "SciGym 公式の既定値"
+                  },
+                  {
+                    "argument": "openai.resources.chat.completions.completions.Completions.create.model",
+                    "params_key": "model",
+                    "reason": "run の yaml で指定するモデル"
+                  }
+                ]
+              }
+            }
+          ],
+          "quoted_passage_ids": [
+            "s1.p6",
+            "s1.p10",
+            "s1.p1",
+            "s1.p2"
+          ],
+          "verified": true,
+          "verdict": "supported",
+          "criterion": {
+            "metric": "reaction_f1",
+            "subject": "react-luna",
+            "reference": "autoscilab-luna",
+            "op": "<=",
+            "margin": -0.02
+          },
+          "prediction": {
+            "low": -0.15,
+            "high": -0.02,
+            "basis": "同じ openai/gpt-6-luna の公式 ReAct は auto-res2/scigym-frontier-models で reaction_f1 0.3594 だった。SciGym 論文 Table 1 の RMS F1（修飾子なし）はモデル間で 0.10〜0.34 の幅（s1.p10）なので、手法の差として 0.02〜0.15 を見積もる。"
+          }
+        },
+        {
+          "id": "c1",
+          "statement": "SciGym-small 137 件の平均 STE（trajectory_smape）は、LLM-AutoSciLab の SciGym 用ループ（autoscilab-luna）の方が SciGym 公式 ReAct エージェント（react-luna）より 0.02 以上低い。",
+          "rationale": "h1 の中心。同じ主モデル・同じ実験予算・同じ 137 件・同じ公式 Evaluator で、手法だけを替えたときの差が STE に出れば、仮説条件付きの閉ループが SBML の機構回復にも効くという h1 の主張の直接の証拠になる。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "LLM-AutoSciLab の Algorithm 1 を SciGym の反応回復課題に写したループで SciGym-small の各件を解き、提出 SBML を評価層 scigym_small（公式 Evaluator）で採点する。1 件 1 プロセス、オラクル問い合わせの予算 B=20（最初の 1 回は既定条件の観測、以後は選んだ初期濃度の実験）。各反復: (1) GenHyp — small モデル（meta/llama-3.1-8b）を公式 EnsembleClient.complete_json_k で K=5 ずつ並列サンプルし、不完全モデルに足す反応の集合（反応物・生成物・修飾子・質量作用または Michaelis–Menten の速度則と自由定数）を候補として得る。反応集合の骨格で束ね、Shannon エントロピーの変化が 0.1 未満になるか K_max=20 に達するまで追加サンプルする（Algorithm 2。公式の EnsembleAgent は Python 式の仮説しか解釈しないので、束ね方だけアダプタで同じ規則を書く）。large モデル（openai/gpt-6-luna）を公式 LLMClient.complete_json で呼び、本命 1 つと対抗案 2〜6 個、探索領域（変えてよい種と初期濃度の範囲）に整理する。(2) 候補の自由定数を、これまでの実験の濃度時系列に対して scipy で最小二乗フィットする。(3) Acquire — 公式 FalsificationSelector.select（n_candidates=2000、diversity_weight=0.3、常に n=4 点を選び、予算の残りが 4 未満なら先頭だけ使う）で実験を選ぶ。オラクル役の BaseOracle は種 id と初期濃度の範囲（既定値の 0.2〜5 倍）を返すだけ、仮説分布役は候補 SBML を SciGym の Simulator で回し、全種・全時点の log 濃度の候補間分散（の平均）を返す。(4) 選んだ初期濃度の組を SciGym の Experiment.call_simulator（正解モデル）に投げ、全種の時系列を得る。(5) RefineHyp — 候補を再フィットし、実験の再標本化（n_bootstrap=3）で再フィットした予測のばらつきから確信度 = 1 − 正規化 std を計算する（公式 learner.py と同じく log 空間の R² が 0.5 未満の候補は確信度 0）。0.9 以上なら Refine モード（ブートストラップ再フィット間で予測が最もばらつく点を選ぶ不確実性サンプリング）に切り替える。(6) 予算を使い切ったら、フィット誤差が最小の候補 SBML を提出する。候補が 1 つも妥当な SBML にならなかった件は提出なし（不完全モデルで採点）。 FalsificationSelector が見るオラクル役は BaseOracle のサブクラス（種 id と初期濃度の範囲だけ返す）、仮説分布役は compute_disagreement だけを持つ自前のクラスで、公式の HypothesisDistribution（Python 式専用）は読み込まない。 候補 SBML のシミュレーションは件ごとに 1 つ立てる子プロセス（SimWorker）で行う: LLM が出した候補は硬い ODE になりやすく、roadrunner の C ライブラリ内で止まると Python のシグナルでは戻せないので、親がバッチごとの時間切れ（15 秒 + 0.02 秒 × 件数）を検知して子を kill し、そのバッチの結果を失敗（残差 10、食い違いスコア 0）として続行する。子を作り直した回数は tokens.json に sim_worker_restarts として残す。",
+              "runs": [
+                {
+                  "run_id": "autoscilab-luna",
+                  "description": "LLM-AutoSciLab の SciGym 用ループ。large = openai/gpt-6-luna、small = meta/llama-3.1-8b、予算 20、実験選択は仮説の食い違い",
+                  "params": {
+                    "mode": "full",
+                    "method": "autoscilab",
+                    "split": "small",
+                    "large_model": "openai/gpt-6-luna",
+                    "small_model": "meta/llama-3.1-8b",
+                    "base_url": "https://ai-gateway.vercel.sh/v1",
+                    "budget": 20,
+                    "experiments_per_iter": 4,
+                    "acquisition": "disagreement",
+                    "ensemble_k": 5,
+                    "ensemble_k_max": 20,
+                    "ensemble_stability_threshold": 0.1,
+                    "ensemble_temperature": 1,
+                    "ensemble_max_tokens": 4096,
+                    "large_max_tokens": 8192,
+                    "n_candidates": 2000,
+                    "diversity_weight": 0.3,
+                    "confidence_threshold": 0.9,
+                    "n_bootstrap": 3,
+                    "concentration_bounds_factor": [
+                      0.2,
+                      5
+                    ],
+                    "workers": 16,
+                    "instance_timeout": 14400,
+                    "stall_timeout": 900
+                  },
+                  "results": [
+                    {
+                      "id": "37651406730",
+                      "commit": "ef51f93253ba25eb990fc97da2bfa9f1e6966595",
+                      "eval_inputs": {
+                        "path": ".research/results/autoscilab-luna/eval_inputs/scigym_small.json.gz",
+                        "sha256": "1a420af1c5f45b7e8b88a48462a01b2a0df55fc6977f29a34b32de507719adb7"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_small",
+                        "task_signature": "scigym_small/v1@139c6084495c",
+                        "inputs_sha256": "69c525edce70d92990e57735a333eba6466276828b024961eb90080c3d1c68c8",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.45798840815789565,
+                          "reaction_f1_vs_best_published": 0.11968840815789566,
+                          "reaction_f1_with_modifiers": 0.21850316445636322,
+                          "reaction_precision": 0.45549288505492885,
+                          "reaction_precision_with_modifiers": 0.22681928776819282,
+                          "reaction_recall": 0.4794664581160931,
+                          "reaction_recall_with_modifiers": 0.2220165681844514,
+                          "topology_f1": 0.6548061533145044,
+                          "topology_f1_modifier_product": 0.20342352092352095,
+                          "topology_f1_reactant_modifier": 0.1338376322751323,
+                          "topology_f1_reactant_product": 0.3121131517185781,
+                          "topology_precision": 0.754372594153616,
+                          "topology_recall": 0.6267406353228032,
+                          "trajectory_smape": 0.31334489302735635,
+                          "trajectory_smape_vs_best_published": -0.007855106972643633
+                        },
+                        "inputs_summary": {
+                          "n_instances": 137.0,
+                          "n_valid_submissions": 134.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.45798840815789565,
+                        "reaction_f1_vs_best_published": 0.11968840815789566,
+                        "reaction_f1_with_modifiers": 0.21850316445636322,
+                        "reaction_precision": 0.45549288505492885,
+                        "reaction_precision_with_modifiers": 0.22681928776819282,
+                        "reaction_recall": 0.4794664581160931,
+                        "reaction_recall_with_modifiers": 0.2220165681844514,
+                        "topology_f1": 0.6548061533145044,
+                        "topology_f1_modifier_product": 0.20342352092352095,
+                        "topology_f1_reactant_modifier": 0.1338376322751323,
+                        "topology_f1_reactant_product": 0.3121131517185781,
+                        "topology_precision": 0.754372594153616,
+                        "topology_recall": 0.6267406353228032,
+                        "trajectory_smape": 0.31334489302735635,
+                        "trajectory_smape_vs_best_published": -0.007855106972643633,
+                        "n_instances": 137.0,
+                        "n_valid_submissions": 134.0,
+                        "input_tokens": 3368086,
+                        "output_tokens": 2047931,
+                        "mean_experiments": 20.0,
+                        "n_with_submission": 134,
+                        "n_context_overflow": 0,
+                        "n_not_finished": 3
+                      }
+                    }
+                  ]
+                }
+              ],
+              "quoted_passage_ids": [
+                "s2.p6",
+                "s2.p9",
+                "s2.p10",
+                "s2.p11",
+                "s2.p12",
+                "s2.p13",
+                "s2.p15",
+                "s2.p16",
+                "s2.p19",
+                "s2.p22",
+                "s2.p23",
+                "s2.p24",
+                "s1.p4",
+                "s1.p12"
+              ],
+              "repository_integration": {
+                "repository_id": "s2.r1",
+                "extension_points": [
+                  "autoscilab.oracle.base.BaseOracle"
+                ],
+                "arguments": [
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.n_candidates",
+                    "value": 2000,
+                    "reason": "公式の既定値（s2.p15）。候補 SBML の再シミュレーションは 1 回 0.3〜2 ms なので 2000 点でも 1 件あたり数分に収まる"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.diversity_weight",
+                    "value": 0.3,
+                    "reason": "公式の既定値（s2.p16）"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.select.n",
+                    "value": 4,
+                    "reason": "1 反復あたりの実験数。予算 20 の GRN 設定の max_experiments_per_iter=4（s2.p19）に合わせ、5 反復で予算を使い切る"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.model",
+                    "params_key": "small_model",
+                    "reason": "small モデル。論文の Qwen2.5-7B-Instruct（s2.p4、s2.p25）は Vercel に無いので、同じ 7〜8B の dense な instruct モデル meta/llama-3.1-8b"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "Vercel AI Gateway の OpenAI 互換エンドポイント"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.k",
+                    "value": 5,
+                    "reason": "論文の K=5（s2.p9）、公式の既定値（s2.p17）"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.temperature",
+                    "value": 1,
+                    "reason": "論文は 1.0（s2.p13）。公式コードの既定値 0.9（s2.p18）から論文の値に合わせる"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.max_tokens",
+                    "value": 4096,
+                    "reason": "公式の既定値（s2.p20）"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.model",
+                    "params_key": "large_model",
+                    "reason": "主モデル。論文の GPT-4o-mini（s2.p4）の代わりに、比較相手の ReAct と同じ openai/gpt-6-luna"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "Vercel AI Gateway の OpenAI 互換エンドポイント"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.max_completion_tokens",
+                    "value": 8192,
+                    "reason": "公式の既定値（s2.p21）"
+                  }
+                ]
+              }
+            }
+          ],
+          "quoted_passage_ids": [
+            "s2.p1",
+            "s2.p2",
+            "s1.p5",
+            "s1.p10"
+          ],
+          "verified": true,
+          "verdict": "refuted",
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "autoscilab-luna",
+            "reference": "react-luna",
+            "op": "<=",
+            "margin": -0.02
+          },
+          "prediction": {
+            "low": -0.1,
+            "high": -0.02,
+            "basis": "同じ openai/gpt-6-luna の公式 ReAct は auto-res2/scigym-frontier-models（137 件、max_iterations=20）で STE 0.2295 だった。論文は同じ予算で 2–5 倍のサンプル効率（s2.p1）を報告しているが、SBML への翻訳とフィットはこちらのアダプタなので、改善幅は 0.02〜0.10 と控えめに見積もる。"
+          }
+        },
+        {
+          "id": "c2",
+          "statement": "同じループで実験選択だけを仮説と無関係にした autoscilab-nohyp-luna の平均 STE は、autoscilab-luna より 0.01 以上高い。",
+          "rationale": "h1 の「改善は実験選択則によるもの」の部分。論文で最も効いた部品（s2.p7）を外した run との差が出れば、c1 の差が仮説生成やフィットではなく仮説条件付き獲得に帰せられる。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d2",
+              "summary": "d1 と同じループ・同じモデル・同じ予算で、FalsificationSelector.select に渡す食い違いスコアを全候補点で 0 にする。select の貪欲選択は多様性項だけで点を選ぶので、実験は仮説と無関係に濃度空間を埋める配置になる（論文の「仮説条件付き獲得を外す」アブレーション）。それ以外（GenHyp、フィット、確信度ゲート、提出）は d1 と同一。 候補 SBML のシミュレーションは件ごとに 1 つ立てる子プロセス（SimWorker）で行う: LLM が出した候補は硬い ODE になりやすく、roadrunner の C ライブラリ内で止まると Python のシグナルでは戻せないので、親がバッチごとの時間切れ（15 秒 + 0.02 秒 × 件数）を検知して子を kill し、そのバッチの結果を失敗（残差 10、食い違いスコア 0）として続行する。子を作り直した回数は tokens.json に sim_worker_restarts として残す。",
+              "runs": [
+                {
+                  "run_id": "autoscilab-nohyp-luna",
+                  "description": "d1 のループで、実験選択だけ仮説と無関係（食い違いスコア 0、多様性のみ）にしたアブレーション",
+                  "params": {
+                    "mode": "full",
+                    "method": "autoscilab",
+                    "split": "small",
+                    "large_model": "openai/gpt-6-luna",
+                    "small_model": "meta/llama-3.1-8b",
+                    "base_url": "https://ai-gateway.vercel.sh/v1",
+                    "budget": 20,
+                    "experiments_per_iter": 4,
+                    "acquisition": "none",
+                    "ensemble_k": 5,
+                    "ensemble_k_max": 20,
+                    "ensemble_stability_threshold": 0.1,
+                    "ensemble_temperature": 1,
+                    "ensemble_max_tokens": 4096,
+                    "large_max_tokens": 8192,
+                    "n_candidates": 2000,
+                    "diversity_weight": 0.3,
+                    "confidence_threshold": 0.9,
+                    "n_bootstrap": 3,
+                    "concentration_bounds_factor": [
+                      0.2,
+                      5
+                    ],
+                    "workers": 16,
+                    "instance_timeout": 14400,
+                    "stall_timeout": 900
+                  },
+                  "results": [
+                    {
+                      "id": "37651409648",
+                      "commit": "ef51f93253ba25eb990fc97da2bfa9f1e6966595",
+                      "eval_inputs": {
+                        "path": ".research/results/autoscilab-nohyp-luna/eval_inputs/scigym_small.json.gz",
+                        "sha256": "e45482f98f866f97c8e9c4b458d9dcefb2b7e5099fc8333d3c44825bb6d4caf4"
+                      },
+                      "eval_report": {
+                        "task_type": "scigym_small",
+                        "task_signature": "scigym_small/v1@139c6084495c",
+                        "inputs_sha256": "22c2ea181cc43cc6e14e844b7e7eca3fe651e2e094e4700bb05015904a144ba5",
+                        "versions": {
+                          "airas-eval": "0.13.1",
+                          "libroadrunner": "2.7.0",
+                          "python-libsbml": "5.20.4",
+                          "scigym": "0.0.1"
+                        },
+                        "metrics": {
+                          "reaction_f1": 0.42526962208155833,
+                          "reaction_f1_vs_best_published": 0.08696962208155834,
+                          "reaction_f1_with_modifiers": 0.19391964602355324,
+                          "reaction_precision": 0.42005956330773847,
+                          "reaction_precision_with_modifiers": 0.19990520428476627,
+                          "reaction_recall": 0.445939056887962,
+                          "reaction_recall_with_modifiers": 0.19667767350249096,
+                          "topology_f1": 0.6588887438644191,
+                          "topology_f1_modifier_product": 0.21240786341120793,
+                          "topology_f1_reactant_modifier": 0.11851851851851851,
+                          "topology_f1_reactant_product": 0.3395546533347917,
+                          "topology_precision": 0.7658965932688564,
+                          "topology_recall": 0.6362381882910699,
+                          "trajectory_smape": 0.3181436913257628,
+                          "trajectory_smape_vs_best_published": -0.0030563086742371737
+                        },
+                        "inputs_summary": {
+                          "n_instances": 137.0,
+                          "n_valid_submissions": 129.0
+                        },
+                        "skipped": {
+                          "missing_dependency": {},
+                          "missing_optional_input": [],
+                          "not_applicable": {},
+                          "undefined_on_data": {}
+                        }
+                      },
+                      "metrics": {
+                        "reaction_f1": 0.42526962208155833,
+                        "reaction_f1_vs_best_published": 0.08696962208155834,
+                        "reaction_f1_with_modifiers": 0.19391964602355324,
+                        "reaction_precision": 0.42005956330773847,
+                        "reaction_precision_with_modifiers": 0.19990520428476627,
+                        "reaction_recall": 0.445939056887962,
+                        "reaction_recall_with_modifiers": 0.19667767350249096,
+                        "topology_f1": 0.6588887438644191,
+                        "topology_f1_modifier_product": 0.21240786341120793,
+                        "topology_f1_reactant_modifier": 0.11851851851851851,
+                        "topology_f1_reactant_product": 0.3395546533347917,
+                        "topology_precision": 0.7658965932688564,
+                        "topology_recall": 0.6362381882910699,
+                        "trajectory_smape": 0.3181436913257628,
+                        "trajectory_smape_vs_best_published": -0.0030563086742371737,
+                        "n_instances": 137.0,
+                        "n_valid_submissions": 129.0,
+                        "input_tokens": 3202975,
+                        "output_tokens": 1977414,
+                        "mean_experiments": 20.0,
+                        "n_with_submission": 129,
+                        "n_context_overflow": 0,
+                        "n_not_finished": 8
+                      }
+                    }
+                  ]
+                }
+              ],
+              "quoted_passage_ids": [
+                "s2.p7",
+                "s2.p22"
+              ],
+              "repository_integration": {
+                "repository_id": "s2.r1",
+                "extension_points": [
+                  "autoscilab.oracle.base.BaseOracle"
+                ],
+                "arguments": [
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.n_candidates",
+                    "value": 2000,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.__init__.diversity_weight",
+                    "value": 0.3,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.al.falsification.FalsificationSelector.select.n",
+                    "value": 4,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.model",
+                    "params_key": "small_model",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.k",
+                    "value": 5,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.temperature",
+                    "value": 1,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.ensemble_client.EnsembleClient.__init__.max_tokens",
+                    "value": 4096,
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.model",
+                    "params_key": "large_model",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.base_url",
+                    "params_key": "base_url",
+                    "reason": "d1 と同じ"
+                  },
+                  {
+                    "argument": "autoscilab.llm.client.LLMClient.__init__.max_completion_tokens",
+                    "value": 8192,
+                    "reason": "d1 と同じ"
+                  }
+                ]
+              }
+            }
+          ],
+          "quoted_passage_ids": [
+            "s2.p7",
+            "s2.p11"
+          ],
+          "verified": true,
+          "verdict": "refuted",
+          "criterion": {
+            "metric": "trajectory_smape",
+            "subject": "autoscilab-nohyp-luna",
+            "reference": "autoscilab-luna",
+            "op": ">=",
+            "margin": 0.01
+          },
+          "prediction": {
+            "low": 0.01,
+            "high": 0.08,
+            "basis": "論文の Figure 4 では仮説条件付き獲得を外すと全ベンチマークで大きく落ちる（s2.p7）。SciGym では実験 20 回のうち情報の薄い点が増える分の差として 0.01〜0.08 と見積もる。"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "key": "main",
+          "caption": "SciGym-small（137 件）での比較。STE は低いほど、RMS / NTS は高いほどよい。mean\\_experiments は 1 件あたりの正解モデルへの問い合わせ回数。",
+          "columns": [
+            {
+              "header": "STE $\\downarrow$",
+              "ref_path": "trajectory_smape",
+              "round": 4
+            },
+            {
+              "header": "RMS F1",
+              "ref_path": "reaction_f1",
+              "round": 4
+            },
+            {
+              "header": "RMS F1 (w/ mod.)",
+              "ref_path": "reaction_f1_with_modifiers",
+              "round": 4
+            },
+            {
+              "header": "NTS F1",
+              "ref_path": "topology_f1",
+              "round": 4
+            },
+            {
+              "header": "valid subm.",
+              "ref_path": "n_valid_submissions",
+              "round": 0
+            },
+            {
+              "header": "mean exp.",
+              "ref_path": "mean_experiments",
+              "round": 1
+            },
+            {
+              "header": "input tok.",
+              "ref_path": "input_tokens",
+              "round": 0
+            },
+            {
+              "header": "output tok.",
+              "ref_path": "output_tokens",
+              "round": 0
+            }
+          ],
+          "rows": [
+            {
+              "run_id": "react-luna",
+              "label": "SciGym ReAct (gpt-6-luna)"
+            },
+            {
+              "run_id": "autoscilab-luna",
+              "label": "LLM-AutoSciLab loop (gpt-6-luna + llama-3.1-8b)"
+            },
+            {
+              "run_id": "autoscilab-nohyp-luna",
+              "label": "same loop, acquisition without hypotheses"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "ギャップ: LLM-AutoSciLab は NewtonBench / ActiveSciBench というスカラー応答のオラクル（s2.p5）でしか評価されておらず、公式リポジトリの SciGym アダプタも 3 種の初期濃度 → 1 種の最終値というスカラー回帰に落としている（s2.p14）。全種の時系列が返り、SBML を提出して STE / RMS / NTS で採点される SciGym（s1.p5–p7）で仮説条件付き獲得が効くかは未検証。SciGym 側では、公式 ReAct は実験を自由記述の推論で選ぶだけで（s1.p3）、戦略的に設計された摂動が多くの情報を持つと述べながら（s1.p8）選び方の原理は与えていない。",
+        "何が上流で何がこちらか: 公式 LLM-AutoSciLab から無改変で呼ぶのは EnsembleClient（small モデルの K 並列サンプル）、LLMClient（large モデルの構造化出力）、FalsificationSelector.select（食い違い最大の点の貪欲多様選択）。SBML 固有の部分 — 仮説を反応集合として表す Pydantic スキーマとプロンプト、反応集合の骨格による束ねと Algorithm 2 のエントロピー停止、候補 SBML の自由定数の scipy フィット、候補間の log 濃度分散（compute_disagreement）、ブートストラップ確信度（公式 learner.py の定義 1 − 正規化 std に従う。PySR は使わない）、提出 — はこちらのアダプタ（src/）。公式の EnsembleAgent / DiscoveryLoop / GRNMEIGraphLoop は Python 式または 5 ノード固定のグラフにしか対応しないので呼ばない。",
+        "予算の揃え方: autoscilab 系は正解モデルへの問い合わせ（Experiment.call_simulator）を 20 回で打ち切る。ReAct は max_iterations=20 で、反復にはコード実行だけの反復も含まれるので実験回数は 20 以下になる。両方の run で 1 件あたりの実験回数を mean_experiments として記録し、表に出す。LLM の呼び出し回数とトークン数は autoscilab 系の方が多い（small モデル K 回 × 反復）。トークン数も表に出す。",
+        "計算環境: GitHub Actions、ランナー ubicloud-standard-2（x86_64、2 vCPU、8 GB、GPU なし）。1 run = 1 job。候補 SBML の再シミュレーションはローカル計測で 1 回 0.3〜2.2 ms（small の先頭 3 件、roadrunner 2.8）なので、2000 候補 × 5 仮説 × 5 反復でも 1 件あたり数分。LLM 呼び出しは Vercel AI Gateway（openai/gpt-6-luna: $0.10 / $0.50 per M tokens、meta/llama-3.1-8b: $0.22 / $0.22）。参考: 同じ gpt-6-luna の ReAct run は入力 45.7M・出力 2.5M トークンだった（約 6 USD）。",
+        "マージンと予測区間: c1 のマージン 0.02 は、ReAct の STE 0.23 に対して約 10% の改善で、同じモデルを 2 回走らせたときのばらつき（LLM サンプリングの非決定性）を超える差として置いた。c2 の 0.01 はアブレーションの差が小さくなりうることを見込んで半分にした。c3 の 0.02 は reaction_f1 0.36 に対して約 5%。予測区間は論文の効果量（s2.p1、s2.p7）をそのまま信じず、SBML への翻訳とフィットがこちらの実装である分を割り引いた。",
+        "run と claim の対応: c1 ← autoscilab-luna（比較対象は c3 の react-luna）、c2 ← autoscilab-nohyp-luna（比較対象は autoscilab-luna）、c3 ← react-luna（比較対象は autoscilab-luna）。run はそれぞれ 1 つの claim に属する。",
+        "モデルの選定: large は比較相手と同じ openai/gpt-6-luna。small は論文の Qwen2.5-7B-Instruct が Vercel に無いため、同じ 7〜8B の dense な instruct モデルで thinking を持たない meta/llama-3.1-8b（出力上限 8192 が公式既定の max_tokens=4096 を満たす）。",
+        "設計 ⇄ sanity の往復: 1 回目（2026-10-07、ローカル、hook 込み）。autoscilab-luna を予算 9 で 1 件（BIOMD0000000184）: 2 反復で提出、STE 0.149、RMS F1 0.73、LLM 呼び出し約 60 回、5.4k / 5.2k トークン。observed.json には FalsificationSelector.__init__(n_candidates=2000, diversity_weight=0.3)、select(n=4) ×2、EnsembleClient.__init__(model, base_url, k=5, temperature=1.0, max_tokens=4096)、LLMClient.__init__(model, base_url, max_completion_tokens=8192) と、upstream_extensions に SpeciesOracle(BaseOracle) が記録され、arguments と extension_points の宣言どおりだった。react-luna を 2 反復で 1 件: STE 0.137、Controller.__init__ / run_benchmark / Completions.create(model) が記録された。sanity で直した点: (a) 当てはまりの悪い候補でも再フィットが安定しているだけで確信度 0.98 になり Refine に進んだので、公式 learner.py と同じ R² ゲート（0.5 未満は確信度 0）を加えた; (b) 最後の反復で select(n=残り) と呼ぶと宣言値 4 と食い違うので、常に n=4 で呼んで先頭だけ使う; (c) 候補のフィッタは合成データで既知の定数を誤差 0 で取り戻すことを確認した。 2 回目（2026-10-07、GitHub Actions、ubicloud-standard-2、commit 9580b81、verify ref）: autoscilab-luna（run 37632258269）と react-luna（run 37632262792）の sanity がともに success。Docker イメージ（SciGym は airas-eval[scigym] の extra、LLM-AutoSciLab は Dockerfile で clone）でビルドから評価まで通り、評価層は STE 0.025（autoscilab-luna、1 件、予算 9）/ 0.083（react-luna、1 件、2 反復）を返した。sanity の出力は取り込まず、証拠にしない。設計の変更なし。",
+        "凍結後の追記（2026-10-07、pilot の後、full の前）: autoscilab-luna / autoscilab-nohyp-luna の run を同じ id で再宣言し、params の workers を 4 → 16、stall_timeout を 3600 → 900 に変えた。理由: pilot（10 件、ubicloud-standard-2、2 vCPU、workers 4）で autoscilab-nohyp-luna は 117 分かかり（件ごとに 5 分〜103 分、kill なし、LLM エラーなし、10/10 件提出）、137 件を同じ計算機で回すと 16〜20 時間になるため。full の autoscilab 2 run は ubicloud-standard-16（16 vCPU、64 GB）で回す。ランナーの種別は params ではなく dispatch の指定であり、ここに記す。react-luna は変更なし（pilot 22 分、10/10 件提出、実験回数 12.2 回/件）。stall_timeout を短くしたのは、ループが 2〜3 分ごとに出力するので 15 分の無出力は ODE ソルバー内の停止とみなせるため。手法の中身（予算、モデル、K、n_candidates、確信度の閾値など）は変えていない。",
+        "コードの変更（同じ時点）: 候補 SBML のシミュレーションを件ごとの子プロセス（SimWorker）に出した。LLM が出す候補は硬い ODE になりやすく、roadrunner の C ライブラリ内で止まると Python のシグナルでは戻せないため、親がバッチごとの時間切れ（15 秒 + 0.02 秒 × 件数）で子を kill して失敗扱いにし、ループを続ける。pilot の autoscilab 2 本は子プロセス無しの版で走った（結果は取り込まない）。ローカル確認: 2000 回のシミュレーションを子プロセス経由で 1.1 秒、強制タイムアウト → 作り直し → 続行、壊れた SBML の拒否、合成データからの定数の再現を確認した。pilot の数値（証拠にはしない）: react-luna STE 0.1316 / RMS F1 0.33、autoscilab-nohyp-luna STE 0.1852 / RMS F1 0.4756（同じ 10 件）。"
+      ]
+    }
+  ]
+}
