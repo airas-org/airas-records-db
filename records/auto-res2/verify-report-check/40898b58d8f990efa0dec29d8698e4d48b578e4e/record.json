@@ -1,0 +1,58 @@
+{
+  "hypotheses": [
+    {
+      "id": "h1",
+      "statement": "検証用: gate が .research/verification.md を default branch に commit する。",
+      "assumptions": [
+        "report の commit は CI が行う (c1)"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "statement": "proposed は baseline を accuracy で 1 pt 以上上回る。",
+          "rationale": "唯一の比較。この repository は gate の動作確認用。",
+          "verifier": {
+            "kind": "seyval"
+          },
+          "designs": [
+            {
+              "id": "d1",
+              "summary": "同一データ・同一予算の直接比較（走らせない）。",
+              "runs": [
+                {
+                  "run_id": "proposed",
+                  "description": "proposed",
+                  "params": {
+                    "mode": "full"
+                  }
+                },
+                {
+                  "run_id": "baseline",
+                  "description": "baseline",
+                  "params": {
+                    "mode": "full"
+                  }
+                }
+              ]
+            }
+          ],
+          "criterion": {
+            "metric": "accuracy",
+            "subject": "proposed",
+            "reference": "baseline",
+            "op": ">=",
+            "margin": 0.01
+          },
+          "prediction": {
+            "low": 0.01,
+            "high": 0.05,
+            "basis": "根拠なし。動作確認用"
+          }
+        }
+      ],
+      "notes": [
+        "auto-res2/verify-report-check: airas #1116 と template #70 の動作確認"
+      ]
+    }
+  ]
+}

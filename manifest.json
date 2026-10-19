@@ -1,10 +1,31 @@
 [
   {
+    "id": "auto-res2/scigym-autoscilab-10@efb1757dc0a011cc36c5d7112ed3621a6f1d5a8f",
+    "url": "https://github.com/auto-res2/scigym-autoscilab-10",
+    "commit": "efb1757dc0a011cc36c5d7112ed3621a6f1d5a8f",
+    "stage": "results",
+    "collected_at": "2026-10-19T08:49:19+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-autoscilab-11@f400374c69270625c69287cee9480e01582cabaa",
+    "url": "https://github.com/auto-res2/scigym-autoscilab-11",
+    "commit": "f400374c69270625c69287cee9480e01582cabaa",
+    "stage": "results",
+    "collected_at": "2026-10-19T08:49:19+00:00"
+  },
+  {
     "id": "auto-res2/scigym-autoscilab@a9967dda0437d8acc8c8ca74da08fb7b6e696269",
     "url": "https://github.com/auto-res2/scigym-autoscilab",
     "commit": "a9967dda0437d8acc8c8ca74da08fb7b6e696269",
     "stage": "results",
     "collected_at": "2026-10-12T10:40:17+00:00"
+  },
+  {
+    "id": "auto-res2/scigym-code-as-declaration-3@fe3ab4052330489f3675b52ada0b555ff1b304bd",
+    "url": "https://github.com/auto-res2/scigym-code-as-declaration-3",
+    "commit": "fe3ab4052330489f3675b52ada0b555ff1b304bd",
+    "stage": "results",
+    "collected_at": "2026-10-19T08:49:19+00:00"
   },
   {
     "id": "auto-res2/scigym-frontier-models@8ac1dcaee9004287a8a854a1c76dbd75358d8da1",
@@ -54,5 +75,19 @@
     "commit": "4e9a531369741dd40e96224216012b4d29a91cb0",
     "stage": "results",
     "collected_at": "2026-09-28T04:44:30+00:00"
+  },
+  {
+    "id": "auto-res2/verify-report-check-2@b0840794425d9fbfc43f704db707bc7e8d29483e",
+    "url": "https://github.com/auto-res2/verify-report-check-2",
+    "commit": "b0840794425d9fbfc43f704db707bc7e8d29483e",
+    "stage": "prereg",
+    "collected_at": "2026-10-19T08:49:19+00:00"
+  },
+  {
+    "id": "auto-res2/verify-report-check@40898b58d8f990efa0dec29d8698e4d48b578e4e",
+    "url": "https://github.com/auto-res2/verify-report-check",
+    "commit": "40898b58d8f990efa0dec29d8698e4d48b578e4e",
+    "stage": "prereg",
+    "collected_at": "2026-10-19T08:49:19+00:00"
   }
 ]
